@@ -1,0 +1,36 @@
+// Gradle build file
+// CSCI 205 - Software Engineering and Design
+// Bucknell University
+// Author - B. King
+
+plugins{
+    id 'application'
+    id 'java'
+    id 'idea'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
+}
+
+group 'org.team01'
+version '0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// Needs to be either 11.0.2 or 14.0.2
+javafx {
+    version = "14.0.2"
+    modules = [ 'javafx.controls' ]
+}
+
+dependencies {
+    testImplementation('org.junit.jupiter:junit-jupiter:5.6.2')
+}
+
+application {
+    mainClassName = project.hasProperty("mainClass") ? project.getProperty("mainClass") : "lab01.PrimitivePerf"
+}

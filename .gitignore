@@ -1,0 +1,81 @@
+#
+# .gitignore file
+#
+# This file is set to ignore standard configuration files, backup files,
+# build files, and other local, OS-specific files that do not belong in a
+# shared repository
+#
+# Last updated:
+# CLD - 2018-fall
+# BRK - 2020-fall - added support to ignore Gradle folder
+#
+
+# Editor backup files
+*~
+*.bak
+
+# Class Files #
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# IntelliJ IDEA Files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Gradle config and cache, and output directory
+.gradle/
+build/
+
+# IntelliJ default output directory
+out/
+
+# NetBeans specific, updated for 8.2
+nbproject/private
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+.nb-gradle/
+
+# Eclipse configuration files
+# NOTE: If you want to use the Git plugin for Eclipse, then
+# do NOT exclude .classpath and .project!
+.settings/
+.metadata
+.classpath
+.project
+.loadpath
+local.properties
+
+# Default Eclipse output directory
+bin/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Trashes
+.Icon?
+ehthumbs.db
+Thumbs.db
+
+# Misc
+*.swp
+*.tmp
+tmp/
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+
+# Tablesaw default plotting output directory
+testoutput/
