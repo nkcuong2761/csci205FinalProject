@@ -34,7 +34,7 @@ public class Code {
     /**
      * Code is represented as an arrayList of pegs
      */
-    private ArrayList<Peg> code = new ArrayList<>(4);
+    private ArrayList<Peg> code = new ArrayList<>(CODE_LENGTH);
 
     /**
      * Constructor to create a new code
@@ -45,7 +45,7 @@ public class Code {
     }
 
     /**
-     * Method that converts a string code to code made from Pegs and stored in an arrayList
+     * Method that converts four colors into a code
      * @param c1, c2, c3, c4 - Colors representing the code
      */
     public void createCodeFromString(Color c1, Color c2, Color c3, Color c4) {
