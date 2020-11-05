@@ -128,4 +128,12 @@ public class CodeMaker {
     public void setSecretCode(Code code) {
         secretCode = code;
     }
+
+    /**
+     * getter that is only used for JUnitTest
+     * @return secretCode - our secret code
+     */
+    public Code getSecretCode() {
+        return secretCode;
+    }
 }

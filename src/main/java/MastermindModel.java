@@ -72,7 +72,7 @@ public class MastermindModel {
     /**
      * Method to restart the game and
      */
-    private void restartGame(){
+    public void restartGame(){
         currGuess = 0;
         codeMaker.generateCode();
         userGuess = null;
@@ -93,4 +93,19 @@ public class MastermindModel {
 
     }
 
+    /**
+     * Getter for userGuess
+     * @return userGuess
+     */
+    public static Code getUserGuess() {
+        return userGuess;
+    }
+
+    /**
+     * Getter for current Guess
+     * @return currGuess
+     */
+    public static int getCurrGuess() {
+        return currGuess;
+    }
 }
