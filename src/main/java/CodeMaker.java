@@ -9,7 +9,7 @@
             Lily Parker
             Minh Anh Phan
             Anurag Vadiya
-            
+
 * Date: 11/4/2020 - GMT +7
 * Time: 9:10 PM - GMT +7
 *
@@ -85,7 +85,7 @@ public class CodeMaker {
      * * -> correct both location and number
      * + -> correct number, but not location
      */
-    protected static Code compare(Code userCode) {
+    protected Code compare(Code userCode) {
         // Create new StringBuffer for the output
         responseCodeString = new StringBuilder("----");
         secreteCodeString = new StringBuilder(secretCode.codeToString());
@@ -123,7 +123,7 @@ public class CodeMaker {
 
     /**
      * setter that is only used for JUnitTest
-     * @param secretCode - our predefined secret code
+     * @param code - our predefined secret code
      */
     public void setSecretCode(Code code) {
         secretCode = code;
