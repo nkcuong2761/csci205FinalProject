@@ -11,16 +11,39 @@ public enum Peg {
 
     // colors to represent the responses
     THE_BLACK_PEG(Color.BLACK, "*"),
-    THE_BLANK_PEG(Color.BEIGE, "+"),
+    THE_BLANK_PEG(Color.BEIGE, "-"),
     THE_WHITE_PEG(Color.WHITE, "+");
 
     private Color color;
     private String value;
 
-
     Peg(Color color, String value) {
         this.color = color;
         this.value = value;
+    }
+
+    /**
+     * Return the corresponding EnumPeg from String
+     * @param string - the value of the Peg
+     * @return peg - Corresponding peg from string
+     */
+    public static Peg getPegfromString(String string) {
+        // Return the corresponding peg
+        for (Peg peg : Peg.values()){
+            if (peg.value.equals(string)){
+                return peg;
+            }
+        }
+        // Return null if cannot find the peg
+        return null;
+    }
+
+    /**
+     * Return the value string of the peg
+     * @return value - String to represent the value of the Peg
+     */
+    protected String getValueofPeg(){
+        return this.value;
     }
 
     @Override
