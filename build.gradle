@@ -32,5 +32,5 @@ dependencies {
 }
 
 application {
-    mainClassName = project.hasProperty("mainClass") ? project.getProperty("mainClass") : "Main"
+    mainClassName = project.hasProperty("mainClass") ? project.getProperty("mainClass") : "MastermindMain"
 }

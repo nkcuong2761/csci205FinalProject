@@ -11,7 +11,7 @@ public enum Peg {
 
     // colors to represent the responses
     THE_BLACK_PEG(Color.web("000000", 0.85), "*"),
-    THE_BLANK_PEG(Color.BEIGE, "-"),
+    THE_BLANK_PEG(Color.WHITE, "-"),
     THE_WHITE_PEG(Color.web("D9D9D9"), "+");
 
     private Color color;

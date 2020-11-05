@@ -52,7 +52,7 @@ public class MastermindModel {
     /**
      * Number representing the max number of guesses guess;
      */
-    private static final int MAX_GUESS = 12;
+    protected static final int MAX_GUESS = 12;
 
     /**
      * Constructor for the model to initialize the variable player and the codeMaker
