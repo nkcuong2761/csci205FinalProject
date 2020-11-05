@@ -60,9 +60,9 @@ public class Response {
      * @return - peg with the correct color
      */
     public Peg getPegCorrespondingToColor(Color c) {
-        if (c.equals(Color.BLACK)) return Peg.THE_BLACK_PEG;
-        else if (c.equals(Color.WHITE)) return Peg.THE_WHITE_PEG;
-        else return Peg.THE_BLACK_PEG;
+        if (c.equals(Color.web("000000", 0.85))) return Peg.THE_BLACK_PEG;
+        else if (c.equals(Color.web("D9D9D9"))) return Peg.THE_WHITE_PEG;
+        else return Peg.THE_BLANK_PEG;
     }
 
     @Override
