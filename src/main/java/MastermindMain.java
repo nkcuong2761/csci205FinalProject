@@ -29,6 +29,9 @@ public class MastermindMain extends Application {
     private MastermindView theView;
     private MastermindIntroView introView;
     private MastermindModeView modeView;
+    private Scene introScene;
+    private Scene modeScene;
+    private Scene gameScene;
 
     @Override
     public void init() throws Exception {
@@ -42,9 +45,13 @@ public class MastermindMain extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Mastermind");
-        Scene scene = new Scene(introView.getRoot());
-        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-        primaryStage.setScene(scene);
+        introScene = new Scene(introView.getRoot());
+        modeScene = new Scene(modeView.getRoot());
+        gameScene = new Scene(theView.getRoot());
+        introScene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        modeScene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        gameScene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        primaryStage.setScene(introScene);
         primaryStage.sizeToScene();
 
         // this method will change to the mode choice scene when the user enter their name
@@ -61,7 +68,7 @@ public class MastermindMain extends Application {
             String mode = "Single";
             // @CUONG: This is where the scene is switching to your scene!! (After one of the single player
             // or multiplayer buttons are clicked) - Lily
-            primaryStage.setScene(new Scene (theView.getRoot()));
+            primaryStage.setScene(gameScene);
             primaryStage.sizeToScene();
         });
 
@@ -74,7 +81,7 @@ public class MastermindMain extends Application {
                 String strName = introView.getNameInput().getText();
                 if (strName.length() > 0) {
                     String playerName = strName;
-                    primaryStage.setScene(new Scene(modeView.getRoot()));
+                    primaryStage.setScene(modeScene);
                     primaryStage.sizeToScene();
                 }
             }

@@ -27,7 +27,6 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 public class MastermindIntroView {
     private MastermindModel theModel;
@@ -56,7 +55,7 @@ public class MastermindIntroView {
         root.setBackground(background);
 
         Label gameTitle = new Label("MASTERMIND");
-        gameTitle.setFont(new Font("Arial", 50));
+        gameTitle.setId("title");
         root.getChildren().add(gameTitle);
         root.setAlignment(Pos.CENTER);
         Label nameLabel = new Label("Enter Your Name:");

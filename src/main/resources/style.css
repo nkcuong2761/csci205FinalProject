@@ -1,8 +1,41 @@
-.butt {
-    /*box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05);*/
-    /*min-height: 70px;*/
-    /*-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 6, -4, 0, 3);*/
-    -fx-text-fill: red;
-    -fx-background-color: yellow;
-    -fx-font-family: "iCiel Brandon Text Bold";
+.label, .text-area, .text-field, .button {
+    -fx-font-family: Roboto;
+    -fx-font-weight: normal;
+    -fx-font-size: 14px;
+}
+
+#text-bold {
+    -fx-font-weight: bolder;
+    -fx-font-size: 14px;
+}
+
+#title {
+    -fx-font-weight: bolder;
+    -fx-font-size: 50px;
+}
+
+#pane-with-shadow, .button {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.24), 3, -4, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 8, -6, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 14, -8, 2, 5);
+}
+
+.button {
+    -fx-text-fill: black;
+    -fx-min-height: 40px;
+    -fx-min-width: 340px;
+}
+
+.circle {
+    -fx-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.24), 3, -4, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 8, -6, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 14, -8, 2, 5);
+}
+
+#blank-circle {
+    -fx-fill: white;
+    -fx-effect: innershadow(gaussian, rgba(6, 38, 68, 0.06), 6, -8, -3, 2);
 }
