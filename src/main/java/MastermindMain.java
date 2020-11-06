@@ -18,30 +18,76 @@
  */
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 public class MastermindMain extends Application {
 
     private MastermindModel theModel;
     private MastermindView theView;
+    private MastermindIntroView introView;
+    private MastermindModeView modeView;
 
     @Override
     public void init() throws Exception {
         super.init();
-        this.theModel = new MastermindModel();
-        this.theView = new MastermindView(theModel);
+        //this.theModel = new MastermindModel();
+        //this.theView = new MastermindView(theModel);
+        this.introView = new MastermindIntroView();
+        this.modeView = new MastermindModeView();
     }
 
     @Override
     public void start(Stage primaryStage) {
-        // Add the scene to the stage
-        primaryStage.setScene(new Scene(theView.getRoot()));
-        primaryStage.sizeToScene();
-        // Set the title for the main window
         primaryStage.setTitle("Mastermind");
-        // Display the scene
+        primaryStage.setScene(new Scene(introView.getRoot()));
+        primaryStage.sizeToScene();
+
+        // this method will change to the mode choice scene when the user enter their name
+        handleChangeToModeScene(primaryStage);
+
+        // this method will change to the main game scene when the user chooses the mode of the game
+        handleChangeToMainGameScene(primaryStage);
+
         primaryStage.show();
+    }
+
+    private void handleChangeToMainGameScene(Stage primaryStage) {
+        modeView.getSinglePlayerBtn().setOnAction((ActionEvent event) -> {
+            String mode = "Single";
+            // @CUONG: This is where the scene is switching to your scene!! (After one of the single player
+            // or multiplayer buttons are clicked) - Lily
+            primaryStage.setScene(new Scene (theView.getRoot()));
+            primaryStage.sizeToScene();
+        });
+
+        modeView.getMultiplayerBtn().setOnAction(modeView.getSinglePlayerBtn().getOnAction());
+    }
+
+    private void handleChangeToModeScene(Stage primaryStage) {
+        introView.getPlayBtn().setOnAction((ActionEvent event) -> {
+            try {
+                String strName = introView.getNameInput().getText();
+                if (strName.length() > 0) {
+                    String playerName = strName;
+                    primaryStage.setScene(new Scene(modeView.getRoot()));
+                    primaryStage.sizeToScene();
+                }
+            }
+            catch (NumberFormatException numberFormatException) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Incorrect input!");
+                alert.setHeaderText("Incorrect input specified!");
+                alert.setContentText(String.format("Invalid name: \"%s\"",
+                        introView.getNameInput().getText()));
+
+                alert.show();
+            }
+        });
+
+        introView.getNameInput().setOnAction(introView.getPlayBtn().getOnAction());
     }
 
     public static void main(String[] args) {
