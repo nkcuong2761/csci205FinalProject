@@ -35,4 +35,12 @@ public class Player {
     private void setplayerName(String name){
         playerName = name;
     }
+
+    /**
+     * Getter for player's name
+     * @return
+     */
+    public static String getPlayerName() {
+        return playerName;
+    }
 }

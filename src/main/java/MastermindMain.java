@@ -33,16 +33,20 @@ public class MastermindMain extends Application {
     @Override
     public void init() throws Exception {
         super.init();
-        //this.theModel = new MastermindModel();
-        //this.theView = new MastermindView(theModel);
+        this.theModel = new MastermindModel();
         this.introView = new MastermindIntroView();
         this.modeView = new MastermindModeView();
+        this.theView = new MastermindView(theModel);
     }
 
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Mastermind");
-        primaryStage.setScene(new Scene(introView.getRoot()));
+        Scene scene = new Scene(introView.getRoot());
+        // I dont know how to implement css:(
+//        scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+//        scene.getStylesheets().add("/style.css");
+        primaryStage.setScene(scene);
         primaryStage.sizeToScene();
 
         // this method will change to the mode choice scene when the user enter their name

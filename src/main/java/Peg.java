@@ -47,6 +47,14 @@ public enum Peg {
         return this.value;
     }
 
+    public Color getColor() {
+        return color;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
     @Override
     public String toString() {
         return "Peg{" +

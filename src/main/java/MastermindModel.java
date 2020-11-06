@@ -63,6 +63,14 @@ public class MastermindModel {
     }
 
     /**
+     * Getter for player
+     * @return player
+     */
+    public static Player getPlayer() {
+        return player;
+    }
+
+    /**
      * Method to start the game and reset the code
      */
     private void gameStart(){
