@@ -291,4 +291,28 @@ public class MastermindView {
 	public ArrayList<ArrayList<Circle>> getFeedbacks() {
 		return feedbacks;
 	}
+
+	public Button getDeleteBtn() {
+		return deleteBtn;
+	}
+
+	public Button getCheckBtn() {
+		return checkBtn;
+	}
+
+	public Button getHintBtn() {
+		return hintBtn;
+	}
+
+	public Button getRulesBtn() {
+		return rulesBtn;
+	}
+
+	public Button getResetBtn() {
+		return resetBtn;
+	}
+
+	public Button getQuitBtn() {
+		return quitBtn;
+	}
 }

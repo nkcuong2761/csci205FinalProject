@@ -43,9 +43,7 @@ public class MastermindMain extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Mastermind");
         Scene scene = new Scene(introView.getRoot());
-        // I dont know how to implement css:(
-//        scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
-//        scene.getStylesheets().add("/style.css");
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
 
