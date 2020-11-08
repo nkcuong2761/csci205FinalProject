@@ -90,8 +90,8 @@ public class Code {
     public Peg getPegCorrespondingToColor(Color c) {
         if (c.equals(Color.web("023E8A"))) return Peg.THE_BLUE_PEG;
         else if (c.equals(Color.web("06D6A0"))) return Peg.THE_GREEN_PEG;
-        else if (c.equals(Color.BROWN)) return Peg.THE_BROWN_PEG;
-        else if (c.equals(Color.PURPLE)) return Peg.THE_PURPLE_PEG;
+        //else if (c.equals(Color.BROWN)) return Peg.THE_BROWN_PEG;
+        //else if (c.equals(Color.PURPLE)) return Peg.THE_PURPLE_PEG;
         else if (c.equals(Color.web("EF476F"))) return Peg.THE_RED_PEG;
         else return Peg.THE_YELLOW_PEG;
     }

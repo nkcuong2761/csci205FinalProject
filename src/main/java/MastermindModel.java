@@ -66,7 +66,7 @@ public class MastermindModel {
      * Getter for player
      * @return player
      */
-    public static Player getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 

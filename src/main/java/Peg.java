@@ -6,8 +6,8 @@ public enum Peg {
     THE_YELLOW_PEG(Color.web("FFD166"), "2"),
     THE_GREEN_PEG(Color.web("06D6A0"), "3"),
     THE_BLUE_PEG(Color.web("023E8A"), "4"),
-    THE_BROWN_PEG(Color.BROWN, "5"),
-    THE_PURPLE_PEG(Color.PURPLE, "6"),
+    //THE_BROWN_PEG(Color.BROWN, "5"),
+    //THE_PURPLE_PEG(Color.PURPLE, "6"),
 
     // colors to represent the responses
     THE_BLACK_PEG(Color.web("000000", 0.85), "*"),
@@ -49,10 +49,6 @@ public enum Peg {
 
     public Color getColor() {
         return color;
-    }
-
-    public String getValue() {
-        return value;
     }
 
     @Override

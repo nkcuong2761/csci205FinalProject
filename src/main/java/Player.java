@@ -32,7 +32,7 @@ public class Player {
     /**
      * Method to set the string name
      */
-    private void setplayerName(String name){
+    public void setPlayerName(String name){
         playerName = name;
     }
 
