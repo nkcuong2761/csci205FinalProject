@@ -37,12 +37,12 @@ public class MastermindModel {
     /**
      * Variable to represent user guess
      */
-    private static Code userGuess;
+    private static PegSequence userGuess;
 
     /**
      * Variable to represent the feedback for the user response
      */
-    private static Response response;
+    private static PegSequence response;
 
     /**
      * Number representing the current guess;
@@ -90,7 +90,7 @@ public class MastermindModel {
     /**
      * Set user code to be the one the user entered to receive the feedback
      */
-    private Code setUserCode(Code userInputCode){
+    private PegSequence setUserCode(PegSequence userInputCode){
         return codeMaker.compare(userInputCode);
     }
 
@@ -105,7 +105,7 @@ public class MastermindModel {
      * Getter for userGuess
      * @return userGuess
      */
-    public static Code getUserGuess() {
+    public static PegSequence getUserGuess() {
         return userGuess;
     }
 

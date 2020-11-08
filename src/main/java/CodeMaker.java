@@ -28,7 +28,7 @@ public class CodeMaker {
     /**
      * Variable to represent the secret code
      */
-    private static Code secretCode;
+    private static PegSequence secretCode;
 
     /**
      * Variable to do the comparison: resulting code in string
@@ -72,7 +72,7 @@ public class CodeMaker {
             code += String.valueOf(rand.nextInt(length));
         }
         // Create the secretCode
-        secretCode = new Code(code);
+        secretCode = new PegSequence(code);
 
         // Debug System.out.println(secretCode);
     }
@@ -85,16 +85,16 @@ public class CodeMaker {
      * * -> correct both location and number
      * + -> correct number, but not location
      */
-    protected Code compare(Code userCode) {
+    protected PegSequence compare(PegSequence userCode) {
         // Create new StringBuffer for the output
         responseCodeString = new StringBuilder("----");
-        secreteCodeString = new StringBuilder(secretCode.codeToString());
-        userInputCodeString = new StringBuilder(userCode.codeToString());
-        userInputChar = userCode.codeToString().toCharArray();
+        secreteCodeString = new StringBuilder(secretCode.toString());
+        userInputCodeString = new StringBuilder(userCode.toString());
+        userInputChar = userCode.toString().toCharArray();
         int n = 0;
 
         // Check for correct number and correct order
-        for (int i = 0; i < secretCode.getCODE_LENGTH(); i++) {
+        for (int i = 0; i < secretCode.getSEQUENCE_LENGTH(); i++) {
             // Compare the secret code to the input
             if (secreteCodeString.charAt(i) == userInputCodeString.charAt(i)) {
                 responseCodeString = responseCodeString.replace(n, n + 1, "*");
@@ -105,7 +105,7 @@ public class CodeMaker {
         }
 
         // Check for correct number but wrong order
-        for (int i = 0; i < secretCode.getCODE_LENGTH(); i++) {
+        for (int i = 0; i < secretCode.getSEQUENCE_LENGTH(); i++) {
             // Skip the one that pass the * test
             if (userInputCodeString.charAt(i) == '0') {
                 continue;
@@ -118,14 +118,14 @@ public class CodeMaker {
             }
         }
         // Return the Code
-        return new Code(responseCodeString.toString());
+        return new PegSequence(responseCodeString.toString());
     }
 
     /**
      * setter that is only used for JUnitTest
      * @param code - our predefined secret code
      */
-    public void setSecretCode(Code code) {
+    public void setSecretCode(PegSequence code) {
         secretCode = code;
     }
 
@@ -133,7 +133,7 @@ public class CodeMaker {
      * getter that is only used for JUnitTest
      * @return secretCode - our secret code
      */
-    public Code getSecretCode() {
+    public PegSequence getSecretCode() {
         return secretCode;
     }
 }
