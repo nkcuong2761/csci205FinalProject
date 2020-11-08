@@ -1,8 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CodeMakerTest {
     CodeMaker test;
@@ -16,31 +15,31 @@ class CodeMakerTest {
      */
     @Test
     public void compareGuessTest() {
-        test.setSecretCode(new Code("4662"));
+        test.setSecretCode(new PegSequence("4662"));
         // 4 right number
-        assertEquals(new Code("++++"), test.compare(new Code("6426")));
+        assertEquals(new PegSequence("++++"), test.compare(new PegSequence("6426")));
         // 3 right number
-        assertEquals(new Code("+++-"), test.compare(new Code("6241")));
+        assertEquals(new PegSequence("+++-"), test.compare(new PegSequence("6241")));
         // 2 right number
-        assertEquals(new Code("++--"), test.compare(new Code("1234")));
+        assertEquals(new PegSequence("++--"), test.compare(new PegSequence("1234")));
         // Nothing right
-        assertEquals(new Code("----"), test.compare(new Code("1135")));
+        assertEquals(new PegSequence("----"), test.compare(new PegSequence("1135")));
         // 4 right number and position
-        assertEquals(new Code("****"), test.compare(new Code("4662")));
+        assertEquals(new PegSequence("****"), test.compare(new PegSequence("4662")));
         // 3 right number and position
-        assertEquals(new Code("***-"), test.compare(new Code("4162")));
+        assertEquals(new PegSequence("***-"), test.compare(new PegSequence("4162")));
         // 2 right number and position and 2 right number only
-        assertEquals(new Code("**++"), test.compare(new Code("2664")));
+        assertEquals(new PegSequence("**++"), test.compare(new PegSequence("2664")));
         // 2 right number and position only
-        assertEquals(new Code("**--"), test.compare(new Code("1652")));
+        assertEquals(new PegSequence("**--"), test.compare(new PegSequence("1652")));
         // 2 right number and position with 1 right number only
-        assertEquals(new Code("**+-"), test.compare(new Code("4625")));
+        assertEquals(new PegSequence("**+-"), test.compare(new PegSequence("4625")));
         // 1 right number and position with 3 right number only
-        assertEquals(new Code("*+++"), test.compare(new Code("6624")));
+        assertEquals(new PegSequence("*+++"), test.compare(new PegSequence("6624")));
         // 1 right number and position with 2 right number only
-        assertEquals(new Code("*++-"), test.compare(new Code("2641")));
+        assertEquals(new PegSequence("*++-"), test.compare(new PegSequence("2641")));
         // 1 right number and position with 1 right number only
-        assertEquals(new Code("*+--"), test.compare(new Code("1142")));
+        assertEquals(new PegSequence("*+--"), test.compare(new PegSequence("1142")));
     }
 
     /**
@@ -52,7 +51,7 @@ class CodeMakerTest {
         assertNotEquals(null, test.getSecretCode());
         // Check the code is correct representation
         String regex = "^[1-6][1-6][1-6][1-6]$";
-        assertEquals(true, test.getSecretCode().codeToString().matches(regex));
+        assertTrue(test.getSecretCode().toString().matches(regex));
 
     }
 }
