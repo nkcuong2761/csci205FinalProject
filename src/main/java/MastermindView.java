@@ -1,6 +1,8 @@
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -182,6 +184,10 @@ public class MastermindView {
 		leftPane.getChildren().addAll(rows);
 	}
 
+	public ArrayList<Circle> getPegsTray() {
+		return pegsTray;
+	}
+
 	/**
 	 * Getter for the root
 	 * @return HBox object
@@ -229,4 +235,21 @@ public class MastermindView {
 	public void updateName(String playerName) {
 		nameText.setText(playerName);
 	}
+
+	public TilePane getRow(int rowNumber) { return rows.get(rowNumber);}
+
+	public void updateGuess(int rowNumber, int pegNumber, Color newColor) {
+		TilePane currentRow = rows.get(rowNumber);
+		ObservableList<Node> guesses = currentRow.getChildren();
+		Circle circleToChange = (Circle) guesses.get(pegNumber);
+		if (newColor.equals(Color.WHITE)) {
+			circleToChange.setId("blank-circle");
+		} else {
+			circleToChange.setId("");
+			circleToChange.setFill(newColor);
+		}
+	}
+
+
+
 }

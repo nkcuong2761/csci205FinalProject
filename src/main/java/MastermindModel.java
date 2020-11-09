@@ -70,6 +70,10 @@ public class MastermindModel {
         return player;
     }
 
+    public static int getMaxGuess() {
+        return MAX_GUESS;
+    }
+
     public void setPlayerName(String pName) {
         player.setPlayerName(pName);
     }
@@ -94,7 +98,7 @@ public class MastermindModel {
     /**
      * Set user code to be the one the user entered to receive the feedback
      */
-    private PegSequence setUserCode(PegSequence userInputCode){
+    public PegSequence setUserCode(PegSequence userInputCode){
         return codeMaker.compare(userInputCode);
     }
 
