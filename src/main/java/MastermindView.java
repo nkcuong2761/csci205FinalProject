@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class MastermindView {
 
 	private MastermindModel theModel;
-	private final HBox root;
+	private HBox root;
 	private VBox leftPane;
 	private BorderPane rightPane;
 
@@ -68,7 +68,7 @@ public class MastermindView {
 		rightPane = new BorderPane();
 		rightPane.setMinHeight(620);
 		rightPane.setPadding(new Insets(10, 0, 0, 0));
-		// TODO: Explain all of this shit
+		// The topPane that hold the name label, turns left label, trayBox, deleteBtn, checkBtn and hintBtn
 		FlowPane topPane = new FlowPane(Orientation.VERTICAL);
 		topPane.setVgap(10);
 
@@ -149,8 +149,7 @@ public class MastermindView {
 		// rows in the guesses(left) pane
 		rows = new ArrayList<>();
 		for (int i = 0; i< theModel.MAX_GUESS; i++) {
-			// TODO: find a way to replace g with theModel.getUserGuess.getCODE_LENGTH (was not be able to do that because of a bs error)
-			for (int g=0; g<4; g++) {
+			for (int g = 0; g<PegSequence.getSEQUENCE_LENGTH(); g++) {
 				guesses.add(new ArrayList<>());
 				feedbacks.add(new ArrayList<>());
 				// Input pegs

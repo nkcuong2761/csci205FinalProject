@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class PegSequence {
-    private final int SEQUENCE_LENGTH = 4;
+    private static final int SEQUENCE_LENGTH = 4;
 
     private ArrayList<Peg> sequence = new ArrayList<>(SEQUENCE_LENGTH);
 
@@ -52,7 +52,7 @@ public class PegSequence {
         return sSequence;
     }
 
-    public int getSEQUENCE_LENGTH() {
+    public static int getSEQUENCE_LENGTH() {
         return SEQUENCE_LENGTH;
     }
 }
