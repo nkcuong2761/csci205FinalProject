@@ -70,6 +70,10 @@ public class MastermindModel {
         return player;
     }
 
+    public void setPlayerName(String pName) {
+        player.setPlayerName(pName);
+    }
+
     /**
      * Method to start the game and reset the code
      */

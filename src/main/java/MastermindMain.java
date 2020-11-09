@@ -80,7 +80,8 @@ public class MastermindMain extends Application {
             try {
                 String strName = introView.getNameInput().getText();
                 if (strName.length() > 0) {
-                    String playerName = strName;
+                    theModel.setPlayerName(strName);
+                    theView.updateName(strName);
                     primaryStage.setScene(modeScene);
                     primaryStage.sizeToScene();
                 }

@@ -12,7 +12,7 @@
  * Package: PACKAGE_NAME
  * Class: MastermindIntroView
  *
- * Description:
+ * Description: View for the introductory scene
  *
  * *****************************************
  */
@@ -28,23 +28,74 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+/**
+ * Class for the introductory view of the game
+ */
 public class MastermindIntroView {
-    private MastermindModel theModel;
+
+    /** Root object */
     private VBox root;
 
-    public TextField getNameInput() {
-        return nameInput;
-    }
-
+    /** TextField for the user's input of their name */
     private TextField nameInput;
 
-    public Button getPlayBtn() {
-        return playBtn;
-    }
-
+    /** Button to play the game */
     private Button playBtn;
 
+    /**
+     * Constructor for the class
+     */
     public MastermindIntroView() {
+        // Set up the root
+        setUpRoot();
+
+        // Set up labels
+        setUpLabels();
+
+        // Set up the text input
+        setUpTextInput();
+
+        // Set up the start button
+        setUpBtn();
+
+    }
+
+    /**
+     * Method to set up the labels
+     */
+    private void setUpLabels() {
+        Label gameTitle = new Label("MASTERMIND");
+        gameTitle.setId("title");
+        root.getChildren().add(gameTitle);
+        root.setAlignment(Pos.CENTER);
+        Label nameLabel = new Label("Enter Your Name:");
+        root.getChildren().add(nameLabel);
+    }
+
+    /**
+     * Method to set up the button
+     */
+    private void setUpBtn() {
+        playBtn = new Button("START");
+        playBtn.setStyle("-fx-background-color: #00B4D8; -fx-font-size: 18");
+        playBtn.setPrefSize(100,50);
+        root.getChildren().add(playBtn);
+    }
+
+    /**
+     * Method to set up the text input of the user's name
+     */
+    private void setUpTextInput() {
+        nameInput = new TextField();
+        nameInput.setPrefSize(100,30);
+        nameInput.setAlignment(Pos.CENTER);
+        root.getChildren().add(nameInput);
+    }
+
+    /**
+     * Method to set up the root of the scene
+     */
+    private void setUpRoot() {
         root = new VBox(10);
         root.setPrefSize(500,500);
         root.setPadding(new Insets(5));
@@ -53,28 +104,31 @@ public class MastermindIntroView {
         BackgroundFill backgroundFill = new BackgroundFill(Color.rgb(202,240,248), CornerRadii.EMPTY,Insets.EMPTY);
         Background background = new Background(backgroundFill);
         root.setBackground(background);
-
-        Label gameTitle = new Label("MASTERMIND");
-        gameTitle.setId("title");
-        root.getChildren().add(gameTitle);
-        root.setAlignment(Pos.CENTER);
-        Label nameLabel = new Label("Enter Your Name:");
-        root.getChildren().add(nameLabel);
-
-        nameInput = new TextField();
-        nameInput.setPrefSize(100,30);
-        nameInput.setAlignment(Pos.CENTER);
-        root.getChildren().add(nameInput);
-
-        playBtn = new Button("START");
-        playBtn.setStyle("-fx-background-color: #00B4D8; -fx-font-size: 18");
-        playBtn.setPrefSize(100,50);
-        root.getChildren().add(playBtn);
-
-
     }
 
+    /**
+     * Getter for the name input text field
+     *
+     * @return - TextField object of the name input
+     */
+    public TextField getNameInput() {
+        return nameInput;
+    }
+
+    /**
+     * Getter for the root
+     *
+     * @return - the VBox of the root
+     */
     public VBox getRoot() {
         return root;
+    }
+
+    /** Getter for the play button
+     *
+     * @return - the play button
+     */
+    public Button getPlayBtn() {
+        return playBtn;
     }
 }

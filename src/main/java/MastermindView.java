@@ -40,6 +40,8 @@ public class MastermindView {
 	/** Array for storing the feedbacks of each guess */
 	private ArrayList<ArrayList<Circle> > feedbacks;
 
+	private Text nameText;
+
 	public MastermindView(MastermindModel theModel) {
 		this.theModel = theModel;
 		// Create a new HBox instance that displays the overall layout
@@ -73,7 +75,7 @@ public class MastermindView {
 		// Player Label
 		HBox title1 = new HBox();
 		Label nameLabel = new Label("Player: ");
-		Text nameText = new Text(theModel.getPlayer().getPlayerName());
+		nameText = new Text(theModel.getPlayer().getPlayerName());
 		nameText.setId("text-bold");
 		title1.getChildren().addAll(nameLabel, nameText);
 		title1.setAlignment(Pos.CENTER);
@@ -223,5 +225,9 @@ public class MastermindView {
 
 	public Button getQuitBtn() {
 		return quitBtn;
+	}
+
+	public void updateName(String playerName) {
+		nameText.setText(playerName);
 	}
 }
