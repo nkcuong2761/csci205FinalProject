@@ -17,250 +17,323 @@ import java.util.ArrayList;
  */
 public class MastermindView {
 
-	private MastermindModel theModel;
-	private HBox root;
-	private VBox leftPane;
-	private BorderPane rightPane;
+    private MastermindModel theModel;
+    private HBox root;
+    private VBox leftPane;
+    private BorderPane rightPane;
 
-	/** a bunch of buttons */
-	private Button deleteBtn;
-	private Button checkBtn;
-	private Button hintBtn;
-	private Button rulesBtn;
-	private Button resetBtn;
-	private Button quitBtn;
+    /**
+     * a bunch of buttons
+     */
+    private Button deleteBtn;
+    private Button checkBtn;
+    private Button hintBtn;
+    private Button rulesBtn;
+    private Button resetBtn;
+    private Button quitBtn;
 
-	/** Pegs on the right tray */
-	private ArrayList<Circle> pegsTray;
+    /**
+     * Pegs on the right tray
+     */
+    private ArrayList<Circle> pegsTray;
 
-	/** Array for storing a list of input rows */
-	private ArrayList<TilePane> rows;
+    /**
+     * Array for storing a list of input rows
+     */
+    private ArrayList<TilePane> rows;
 
-	/** Array for storing the guesses */
-	private ArrayList<ArrayList<Circle> > guesses;
+    /**
+     * Array for storing the guesses
+     */
+    private ArrayList<ArrayList<Circle>> guesses;
 
-	/** Array for storing the feedbacks of each guess */
-	private ArrayList<ArrayList<Circle> > feedbacks;
+    /**
+     * Array for storing the feedbacks of each guess
+     */
+    private ArrayList<ArrayList<Circle>> feedbacks;
 
-	private Text nameText;
+    private Text nameText;
+    private Text outputString;
+    private Text turnText;
 
-	public MastermindView(MastermindModel theModel) {
-		this.theModel = theModel;
-		// Create a new HBox instance that displays the overall layout
-		root = new HBox(30);
-		root.setPadding(new Insets(20));
-		root.setAlignment(Pos.CENTER);
-		root.setMaxHeight(660);
-		root.setMinWidth(800);
-		root.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+    public MastermindView(MastermindModel theModel) {
+        this.theModel = theModel;
+        // Create a new HBox instance that displays the overall layout
+        root = new HBox(30);
+        root.setPadding(new Insets(20));
+        root.setAlignment(Pos.CENTER);
+        root.setMaxHeight(660);
+        root.setMinWidth(800);
+        root.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
-		// Initialize the left pane
-		initLeftPane();
-		// Initialize the right pane
-		initRightPane();
+        // Initialize the left pane
+        initLeftPane();
+        // Initialize the right pane
+        initRightPane();
 
-		// Add the two panes to root
-		root.getChildren().addAll(leftPane, rightPane);
-	}
+        // Add the two panes to root
+        root.getChildren().addAll(leftPane, rightPane);
+    }
 
-	/**
-	 * Method for creating the right pane (for buttons and stuffs)
-	 */
-	private void initRightPane() {
-		rightPane = new BorderPane();
-		rightPane.setMinHeight(620);
-		rightPane.setPadding(new Insets(10, 0, 0, 0));
-		// The topPane that hold the name label, turns left label, trayBox, deleteBtn, checkBtn and hintBtn
-		FlowPane topPane = new FlowPane(Orientation.VERTICAL);
-		topPane.setVgap(10);
+    public void createNewScene() {
+        updateTurnLeftString();
+        restartLeftPane();
+    }
 
-		// Player Label
-		HBox title1 = new HBox();
-		Label nameLabel = new Label("Player: ");
-		nameText = new Text(theModel.getPlayer().getPlayerName());
-		nameText.setId("text-bold");
-		title1.getChildren().addAll(nameLabel, nameText);
-		title1.setAlignment(Pos.CENTER);
-		// "Turns left" Label
-		HBox title2 = new HBox();
-		Label turnLabel = new Label("You have: ");
-		Text turnText = new Text(String.format("%d turns left", theModel.MAX_GUESS - theModel.getCurrGuess()));
-		turnText.setId("text-bold");
-		title2.getChildren().addAll(turnLabel, turnText);
-		title2.setAlignment(Pos.CENTER);
+    /**
+     * Method to reinitialize all variables in the left pane into blank states
+     */
+    private void restartLeftPane() {
+        // Initialize through the 12 rows
+        for (int i = 0; i < theModel.getMaxGuess(); i++) {
+            // Get the user input rows
+            TilePane currentRow = rows.get(i);
+            // Get the list of circle that we have to change
+            ArrayList<Circle> currResponse = feedbacks.get(i);
+            // Iterate through the four options
+            for (int g = 0; g < PegSequence.getSequenceLength(); g++) {
+                currentRow.getChildren().get(g).setId("blank-circle");
+                currResponse.get(g).setId("blank-circle");
+            }
 
-		// Peg tray
-		HBox trayBox = new HBox(20);
-		trayBox.setAlignment(Pos.CENTER);
-		trayBox.setPadding(new Insets(10, 40, 10, 40));
-		trayBox.setId("pane-with-shadow");
-		// Pegs inside the box
-		pegsTray = new ArrayList<>();
-		Circle redPeg = new Circle(13.5, Peg.THE_RED_PEG.getColor());
-		Circle yellowPeg = new Circle(13.5, Peg.THE_YELLOW_PEG.getColor());
-		Circle greenPeg = new Circle(13.5, Peg.THE_GREEN_PEG.getColor());
-		Circle bluePeg = new Circle(13.5, Peg.THE_BLUE_PEG.getColor());
-		/*redPeg.setId("peg-circle");
-		yellowPeg.setId("peg-circle");
-		greenPeg.setId("peg-circle");
-		bluePeg.setId("peg-circle");*/
-		pegsTray.add(redPeg);
-		pegsTray.add(yellowPeg);
-		pegsTray.add(greenPeg);
-		pegsTray.add(bluePeg);
-		trayBox.getChildren().addAll(pegsTray);
+        }
+    }
 
-		// Delete button
-		deleteBtn = new Button("Delete");
-		deleteBtn.setStyle("-fx-text-fill: white; -fx-background-color: rgba(0, 0, 0, 0.85)");
-		// check answer button
-		checkBtn = new Button("Check answer");
-		checkBtn.setStyle("-fx-text-fill: white; -fx-background-color: rgb(239, 71, 111)");
-		// hint button
-		hintBtn = new Button("Hint");
+    /**
+     * Method for creating the right pane (for buttons and stuffs)
+     */
+    private void initRightPane() {
+        rightPane = new BorderPane();
+        rightPane.setMinHeight(620);
+        rightPane.setPadding(new Insets(10, 0, 0, 0));
+        // The topPane that hold the name label, turns left label, trayBox, deleteBtn, checkBtn and hintBtn
+        FlowPane topPane = new FlowPane(Orientation.VERTICAL);
+        topPane.setVgap(10);
 
-		// Flow Pane in the bottom
-		FlowPane botPane = new FlowPane(Orientation.VERTICAL);
-		botPane.setVgap(10);
-		// rules button
-		rulesBtn = new Button("Rules");
-		// reset button
-		resetBtn = new Button("Reset the game");
-		// quit button
-		quitBtn = new Button("Quit");
-		quitBtn.setStyle("-fx-text-fill: white; -fx-background-color: rgba(0, 0, 0, 0.85)");
+        // Player Label
+        HBox title1 = new HBox();
+        Label nameLabel = new Label("Player: ");
+        nameText = new Text(theModel.getPlayer().getPlayerName());
+        nameText.setId("text-bold");
+        title1.getChildren().addAll(nameLabel, nameText);
+        title1.setAlignment(Pos.CENTER);
+        // "Turns left" Label
+        HBox title2 = new HBox();
+        Label turnLabel = new Label("You have: ");
+        turnText = new Text(String.format("%d turns left", theModel.MAX_GUESS));
+        turnText.setId("text-bold");
+        title2.getChildren().addAll(turnLabel, turnText);
+        title2.setAlignment(Pos.CENTER);
 
-		// Add everything
-		topPane.getChildren().addAll(title1, title2, trayBox, deleteBtn, checkBtn, hintBtn);
-		botPane.getChildren().addAll(rulesBtn, resetBtn, quitBtn);
-		botPane.setAlignment(Pos.BOTTOM_CENTER);
-		rightPane.setTop(topPane);
-		rightPane.setBottom(botPane);
-	}
+        // Peg tray
+        HBox trayBox = new HBox(20);
+        trayBox.setAlignment(Pos.CENTER);
+        trayBox.setPadding(new Insets(10, 40, 10, 40));
+        trayBox.setId("pane-with-shadow");
+        // Pegs inside the box
+        pegsTray = new ArrayList<>();
+        Circle redPeg = new Circle(13.5, Peg.THE_RED_PEG.getColor());
+        Circle yellowPeg = new Circle(13.5, Peg.THE_YELLOW_PEG.getColor());
+        Circle greenPeg = new Circle(13.5, Peg.THE_GREEN_PEG.getColor());
+        Circle bluePeg = new Circle(13.5, Peg.THE_BLUE_PEG.getColor());
+        // Set the drop shadow effect for them
+        redPeg.setId("peg-circle");
+        yellowPeg.setId("peg-circle");
+        greenPeg.setId("peg-circle");
+        bluePeg.setId("peg-circle");
+        pegsTray.add(redPeg);
+        pegsTray.add(yellowPeg);
+        pegsTray.add(greenPeg);
+        pegsTray.add(bluePeg);
+        trayBox.getChildren().addAll(pegsTray);
+        // Output string above the button
+        outputString = new Text("");
+        // Delete button
+        deleteBtn = new Button("Delete");
+        deleteBtn.setStyle("-fx-text-fill: white; -fx-background-color: rgba(0, 0, 0, 0.85)");
+        // check answer button
+        checkBtn = new Button("Check answer");
+        checkBtn.setStyle("-fx-text-fill: white; -fx-background-color: rgb(239, 71, 111)");
+        // hint button
+        hintBtn = new Button("Hint");
 
-	/**
-	 * method for creating the left pane (the big ass pane that show the user input as well as the feedbacks)
-	 */
-	private void initLeftPane() {
-		leftPane = new VBox(16);
-		leftPane.setPrefHeight(620);
-		leftPane.setAlignment(Pos.CENTER);
-		leftPane.setPadding(new Insets(10, 40, 10, 40));
-		leftPane.setId("pane-with-shadow");
+        // Flow Pane in the bottom
+        FlowPane botPane = new FlowPane(Orientation.VERTICAL);
+        botPane.setVgap(10);
+        // rules button
+        rulesBtn = new Button("Rules");
+        // reset button
+        resetBtn = new Button("Restart the game");
+        // quit button
+        quitBtn = new Button("Quit");
+        quitBtn.setStyle("-fx-text-fill: white; -fx-background-color: rgba(0, 0, 0, 0.85)");
 
-		// Initialize guesses and feedbacks
-		guesses = new ArrayList<ArrayList<Circle> >();
-		feedbacks = new ArrayList<ArrayList<Circle> >();
+        // Add everything
+        topPane.getChildren().addAll(title1, title2, trayBox, deleteBtn, checkBtn, hintBtn);
+        botPane.getChildren().addAll(rulesBtn, resetBtn, quitBtn);
+        botPane.setAlignment(Pos.BOTTOM_CENTER);
+        rightPane.setTop(topPane);
+        rightPane.setCenter(outputString);
+        rightPane.setBottom(botPane);
+    }
 
-		// rows in the guesses(left) pane
-		rows = new ArrayList<>();
-		for (int i = 0; i< theModel.getMaxGuess(); i++) {
-			for (int g = 0; g<PegSequence.getSEQUENCE_LENGTH(); g++) {
-				guesses.add(new ArrayList<>());
-				feedbacks.add(new ArrayList<>());
-				// Input pegs
-				Circle guessPeg = new Circle(13.5);
-				guessPeg.setId("blank-circle");
-				guesses.get(i).add(guessPeg);
-				// Feedback pegs
-				Circle fbPeg = new Circle(7);
-				fbPeg.setId("blank-circle");
-				feedbacks.get(i).add(fbPeg);
-			}
-			// Feedback pegs group box
-			GridPane fbBox = new GridPane();
-			fbBox.setHgap(8);
-			fbBox.setVgap(8);
-			fbBox.add(feedbacks.get(i).get(0), 0, 0);
-			fbBox.add(feedbacks.get(i).get(1), 1, 0);
-			fbBox.add(feedbacks.get(i).get(2), 0, 1);
-			fbBox.add(feedbacks.get(i).get(3), 1, 1);
+    /**
+     * method for creating the left pane (the big pane that show the user input as well as the feedbacks)
+     */
+    private void initLeftPane() {
+        leftPane = new VBox(16);
+        leftPane.setPrefHeight(620);
+        leftPane.setAlignment(Pos.CENTER);
+        leftPane.setPadding(new Insets(10, 40, 10, 40));
+        leftPane.setId("pane-with-shadow");
 
-			// A single row
-			TilePane row = new TilePane();
-			row.setHgap(20);
-			row.setAlignment(Pos.CENTER);
-			row.getChildren().addAll(guesses.get(i));
-			row.getChildren().add(fbBox);
-			// Add to the rows list
-			rows.add(row);
-		}
-		leftPane.getChildren().addAll(rows);
-	}
+        // Initialize guesses and feedbacks
+        guesses = new ArrayList<ArrayList<Circle>>();
+        feedbacks = new ArrayList<ArrayList<Circle>>();
 
-	public ArrayList<Circle> getPegsTray() {
-		return pegsTray;
-	}
+        // rows in the guesses(left) pane
+        rows = new ArrayList<>();
+        for (int i = 0; i < theModel.getMaxGuess(); i++) {
+            for (int g = 0; g < PegSequence.getSequenceLength(); g++) {
+                guesses.add(new ArrayList<>());
+                feedbacks.add(new ArrayList<>());
+                // Input pegs
+                Circle guessPeg = new Circle(13.5);
+                guessPeg.setId("blank-circle");
+                guesses.get(i).add(guessPeg);
+                // Feedback pegs
+                Circle fbPeg = new Circle(7);
+                fbPeg.setId("blank-circle");
+                feedbacks.get(i).add(fbPeg);
+            }
+            // Feedback pegs group box
+            GridPane fbBox = new GridPane();
+            fbBox.setHgap(8);
+            fbBox.setVgap(8);
+            fbBox.add(feedbacks.get(i).get(0), 0, 0);
+            fbBox.add(feedbacks.get(i).get(1), 1, 0);
+            fbBox.add(feedbacks.get(i).get(2), 0, 1);
+            fbBox.add(feedbacks.get(i).get(3), 1, 1);
 
-	/**
-	 * Getter for the root
-	 * @return HBox object
-	 */
-	public HBox getRoot() {
-		return root;
-	}
+            // A single row
+            TilePane row = new TilePane();
+            row.setHgap(20);
+            row.setAlignment(Pos.CENTER);
+            row.getChildren().addAll(guesses.get(i));
+            row.getChildren().add(fbBox);
+            // Add to the rows list
+            rows.add(row);
+        }
+        leftPane.getChildren().addAll(rows);
+    }
 
-	public ArrayList<TilePane> getRows() {
-		return rows;
-	}
+    public ArrayList<Circle> getPegsTray() {
+        return pegsTray;
+    }
 
-	public ArrayList<ArrayList<Circle>> getGuesses() {
-		return guesses;
-	}
+    /**
+     * Getter for the root
+     *
+     * @return HBox object
+     */
+    public HBox getRoot() {
+        return root;
+    }
 
-	public ArrayList<ArrayList<Circle>> getFeedbacks() {
-		return feedbacks;
-	}
+    public ArrayList<TilePane> getRows() {
+        return rows;
+    }
 
-	public Button getDeleteBtn() {
-		return deleteBtn;
-	}
+    public ArrayList<ArrayList<Circle>> getGuesses() {
+        return guesses;
+    }
 
-	public Button getCheckBtn() {
-		return checkBtn;
-	}
+    public ArrayList<ArrayList<Circle>> getFeedbacks() {
+        return feedbacks;
+    }
 
-	public Button getHintBtn() {
-		return hintBtn;
-	}
+    public Button getDeleteBtn() {
+        return deleteBtn;
+    }
 
-	public Button getRulesBtn() {
-		return rulesBtn;
-	}
+    public Button getCheckBtn() {
+        return checkBtn;
+    }
 
-	public Button getResetBtn() {
-		return resetBtn;
-	}
+    public Button getHintBtn() {
+        return hintBtn;
+    }
 
-	public Button getQuitBtn() {
-		return quitBtn;
-	}
+    public Button getRulesBtn() {
+        return rulesBtn;
+    }
 
-	public void updateName(String playerName) {
-		nameText.setText(playerName);
-	}
+    public Button getResetBtn() {
+        return resetBtn;
+    }
 
-	public TilePane getRow(int rowNumber) { return rows.get(rowNumber);}
+    public Button getQuitBtn() {
+        return quitBtn;
+    }
 
-	public void updateGuess(int rowNumber, int pegNumber, Color newColor) {
-		TilePane currentRow = rows.get(rowNumber);
-		ObservableList<Node> guesses = currentRow.getChildren();
-		Circle circleToChange = (Circle) guesses.get(pegNumber);
-		if (newColor.equals(Color.WHITE)) {
-			circleToChange.setId("blank-circle");
-		} else {
-			circleToChange.setId(newColor.toString());
-			circleToChange.setFill(newColor);
-		}
-	}
+    public void updateName(String playerName) {
+        nameText.setText(playerName);
+    }
 
-	// TODO Update Response( row number, peg sequence)
-	/*
-	feedback.get(rowNumber).set 1st object with a circle color similar to the peg
-	 */
+    public void updateTurnLeftString() {
+        turnText.setText(String.format("%d turns left", theModel.MAX_GUESS - theModel.getCurrGuess()));
+    }
 
+    public void updateOutputString(String string) {
+        outputString.setText(string);
+    }
 
+    public TilePane getRow(int rowNumber) {
+        return rows.get(rowNumber);
+    }
 
+    public void updateGuess(int rowNumber, int pegNumber, Color newColor) {
+        TilePane currentRow = rows.get(rowNumber);
+        ObservableList<Node> guesses = currentRow.getChildren();
+        Circle circleToChange = (Circle) guesses.get(pegNumber);
+        if (newColor.equals(Color.WHITE)) {
+            circleToChange.setId("blank-circle");
+        } else {
+            circleToChange.setId("peg-circle");
+            circleToChange.setFill(newColor);
+        }
+    }
 
+    /**
+     * Method to turn the comparison result sequence into pegs
+     *
+     * @param rowNumber        - The current row to display the output to
+     * @param comparisonResult - The output obtained from comparing the secret code in the model
+     */
+    public void updateResponse(int rowNumber, PegSequence comparisonResult) {
+        // Get the list of circle that we have to change
+        ArrayList<Circle> currResponse = feedbacks.get(rowNumber);
+        // Update corresponding circle ID
+        for (int i = 0; i < PegSequence.getSequenceLength(); i++) {
+            // Check for the black peg
+            if (comparisonResult.getSequence().get(i).equals(Peg.THE_BLACK_PEG)) {
+                currResponse.get(i).setId("black-peg");
+            } else if (comparisonResult.getSequence().get(i).equals(Peg.THE_WHITE_PEG)) {
+                currResponse.get(i).setId("white-peg");
+            }
+        }
+    }
 
+    /**
+     * Method to handle when an user has win. Currently only output the text string method
+     *
+     * @param win - Indicate if the user has successfully
+     */
+    public void displayEndGame(boolean win) {
+        if (win) {
+            updateOutputString("CONGRATULATIONS, YOU WIN. You can:\n    Hit Restart the game to play a new one\n    Change mode to multiplayer option\n    Exit the game!");
+        } else {
+            updateOutputString("Too bad you lose! You can:\n    Hit Restart the game to play a new one\n    Change mode to multiplayer option\n    Exit the game!");
+        }
+    }
 }

@@ -39,10 +39,18 @@ public class MastermindModel {
      */
     private static PegSequence userGuess;
 
+    public int getLastRowChecked() {
+        return lastRowChecked;
+    }
+
+    public void setLastRowChecked(int lastRowChecked) {
+        this.lastRowChecked = lastRowChecked;
+    }
+
     /**
      * Variable to represent the feedback for the user response
      */
-    private static PegSequence response;
+    private int lastRowChecked = -1;
 
     /**
      * Number representing the current guess;
@@ -78,13 +86,6 @@ public class MastermindModel {
         player.setPlayerName(pName);
     }
 
-    /**
-     * Method to start the game and reset the code
-     */
-    private void gameStart(){
-        currGuess = 1;
-
-    }
 
     /**
      * Method to restart the game and
@@ -93,7 +94,7 @@ public class MastermindModel {
         currGuess = 0;
         codeMaker.generateCode();
         userGuess = null;
-        response = null;
+        lastRowChecked = -1;
     }
 
     /**
@@ -101,6 +102,7 @@ public class MastermindModel {
      */
     public PegSequence setUserCode(PegSequence userInputCode){
         currGuess ++;
+        lastRowChecked ++;
         return codeMaker.compare(userInputCode);
     }
 

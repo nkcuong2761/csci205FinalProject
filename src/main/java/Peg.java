@@ -17,7 +17,11 @@ public enum Peg {
     private Color color;
     private String value;
 
-
+    /**
+     * Constructor for the peg
+     * @param color - Color of the peg
+     * @param value - Value of the peg
+     */
     Peg(Color color, String value) {
         this.color = color;
         this.value = value;
@@ -39,6 +43,11 @@ public enum Peg {
         return null;
     }
 
+    /**
+     * Return the peg based on the input color
+     * @param c - The color of the peg
+     * @return the corresponding peg or null if not found
+     */
     public static Peg getPegForColor(Color c) {
         // find the corresponding peg
         for (Peg peg : Peg.values()){

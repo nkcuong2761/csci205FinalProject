@@ -54,7 +54,7 @@ public class CodeMaker {
     /**
      * Public constructor to generate secret code
      */
-    public CodeMaker(){
+    public CodeMaker() {
         generateCode();
     }
 
@@ -93,7 +93,7 @@ public class CodeMaker {
         int n = 0;
 
         // Check for correct number and correct order
-        for (int i = 0; i < secretCode.getSEQUENCE_LENGTH(); i++) {
+        for (int i = 0; i < secretCode.getSequenceLength(); i++) {
             // Compare the secret code to the input
             if (secreteCodeString.charAt(i) == userInputCodeString.charAt(i)) {
                 responseCodeString = responseCodeString.replace(n, n + 1, "*");
@@ -104,7 +104,7 @@ public class CodeMaker {
         }
 
         // Check for correct number but wrong order
-        for (int i = 0; i < secretCode.getSEQUENCE_LENGTH(); i++) {
+        for (int i = 0; i < secretCode.getSequenceLength(); i++) {
             // Skip the one that pass the * test
             if (userInputCodeString.charAt(i) == '0') {
                 continue;
@@ -122,6 +122,7 @@ public class CodeMaker {
 
     /**
      * setter that is only used for JUnitTest
+     *
      * @param code - our predefined secret code
      */
     public void setSecretCode(PegSequence code) {
@@ -130,6 +131,7 @@ public class CodeMaker {
 
     /**
      * getter that is only used for JUnitTest
+     *
      * @return secretCode - our secret code
      */
     public PegSequence getSecretCode() {
