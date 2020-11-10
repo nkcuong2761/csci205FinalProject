@@ -100,6 +100,10 @@ public class MastermindView {
 		Circle yellowPeg = new Circle(13.5, Peg.THE_YELLOW_PEG.getColor());
 		Circle greenPeg = new Circle(13.5, Peg.THE_GREEN_PEG.getColor());
 		Circle bluePeg = new Circle(13.5, Peg.THE_BLUE_PEG.getColor());
+		/*redPeg.setId("peg-circle");
+		yellowPeg.setId("peg-circle");
+		greenPeg.setId("peg-circle");
+		bluePeg.setId("peg-circle");*/
 		pegsTray.add(redPeg);
 		pegsTray.add(yellowPeg);
 		pegsTray.add(greenPeg);
@@ -115,7 +119,7 @@ public class MastermindView {
 		// hint button
 		hintBtn = new Button("Hint");
 
-		//omg im so high rn
+		// Flow Pane in the bottom
 		FlowPane botPane = new FlowPane(Orientation.VERTICAL);
 		botPane.setVgap(10);
 		// rules button
@@ -249,6 +253,11 @@ public class MastermindView {
 			circleToChange.setFill(newColor);
 		}
 	}
+
+	// TODO Update Response( row number, peg sequence)
+	/*
+	feedback.get(rowNumber).set 1st object with a circle color similar to the peg
+	 */
 
 
 

@@ -68,22 +68,20 @@ public class MastermindController {
 
             // do not allow user to use check button if entered guess is incomplete
             if (getColumn(getRow()) != 0 || (getColumn(getRow()) == 0 && getRow() == 0)) {
-
+                // TODO Change this into feedback string output on View
                 System.out.println("Finish entering your guess please");
             }
             else {
                 // if you are in the else part, then you know for sure that the user
                 // guess is a sequence of four colors
                 int currentGuess = getRow();
-                theModel.setCurrGuess(currentGuess);
-                System.out.println("Current guess number is: " + theModel.getCurrGuess());
 
                 // get the row the user is on
                 System.out.println("The user is on row: " + getRow());
                 rowsChecked.add(getRow() - 1);
                 System.out.println("Rows checked: " + rowsChecked.toString());
 
-                // get the sequence of colors now
+                // get the sequence of colors input as a peg sequence
                 PegSequence userGuessPegSequence = new PegSequence();
                 for (int i = 0; i < theView.getGuesses().get(getRow() - 1).size(); i++) {
                     Peg currentPeg = Peg.getPegForColor(Color.web(theView.getGuesses().get(getRow() - 1).get(i)
@@ -91,16 +89,19 @@ public class MastermindController {
 
                     userGuessPegSequence.addPeg(currentPeg);
                 }
+                System.out.println("Current guess number is: " + theModel.getCurrGuess());
+                PegSequence comparisonResult = theModel.setUserCode(userGuessPegSequence);
 
-               PegSequence comparisonResult = CodeMaker.compare(userGuessPegSequence);
-               System.out.println(comparisonResult.toString());
+                //TODO DISPLAY THE RESULT TO VIEW + WIN LOSE MESSAGE IF APPROPRIATE
+                System.out.println(comparisonResult.toString());
             }
 
 
 
             // if the row is 11, then quit (TODO: should display result)
             if (theModel.getCurrGuess() == 11){
-                Platform.exit();
+                System.out.println("Max guesses already");
+                //Platform.exit();
             }
 
 
@@ -174,7 +175,8 @@ public class MastermindController {
                     theView.updateGuess(xValue, yValue, (Color) circle.getFill());
                 }
                 else {
-                    System.out.println("Row is not entirely filled yet");
+                    // TODO FIX THIS ROW IS FILLED ALREADY TO OUTPUT
+                    System.out.println("Row is entirely filled! Hit submit button");
                 }
             });
         }
@@ -188,6 +190,7 @@ public class MastermindController {
            columnNumber -= 1;
            if(columnNumber == -1 ) {
                columnNumber = 0;
+               // TODO CHANGE TO OUTPUT ON THE SCREEN
                System.out.println("Cannot delete an already submitted answer :P");
            }
            theView.updateGuess(rowNumber,columnNumber, Color.WHITE);
@@ -227,7 +230,7 @@ public class MastermindController {
 
         introView.getNameInput().setOnAction(introView.getPlayBtn().getOnAction());
     }
-
+// TODO HANDLE RESET BUTTON: CALL RESET IN THE MODEL, RENDER A NEW SCREEN, GAME SCENE
     private void handleModeButtons() {
         modeView.getSinglePlayerBtn().setOnAction((ActionEvent event) -> {
             String mode = "Single";

@@ -52,7 +52,7 @@ public class MastermindModel {
     /**
      * Number representing the max number of guesses guess;
      */
-    protected static final int MAX_GUESS = 12;
+    public static final int MAX_GUESS = 12;
 
     /**
      * Constructor for the model to initialize the variable player and the codeMaker
@@ -100,6 +100,7 @@ public class MastermindModel {
      * Set user code to be the one the user entered to receive the feedback
      */
     public PegSequence setUserCode(PegSequence userInputCode){
+        currGuess ++;
         return codeMaker.compare(userInputCode);
     }
 
