@@ -17,6 +17,7 @@
  * *****************************************
  */
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -55,9 +56,19 @@ public class MastermindController {
         // method to set up the pegs
         handleUserChoice();
 
+        // handler for the quit button
+        handleQuitButton(theView);
+
+
         handleDelete();
 
 
+    }
+
+    private void handleQuitButton(MastermindView theView) {
+        theView.getQuitBtn().setOnAction(event -> {
+            Platform.exit();
+        });
     }
 
 
