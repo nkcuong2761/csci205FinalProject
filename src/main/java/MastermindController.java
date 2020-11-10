@@ -28,6 +28,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class MastermindController {
 
     private MastermindModel theModel;
@@ -36,6 +38,7 @@ public class MastermindController {
     private MastermindModeView modeView;
     private Scene modeScene;
     private Scene gameScene;
+    private ArrayList<Integer> rowsChecked = new ArrayList<>();
 
 
     public MastermindController(MastermindModel theModel, MastermindModeView modeView, MastermindIntroView introView, MastermindView theView) {
@@ -59,6 +62,37 @@ public class MastermindController {
         // handler for the quit button
         handleQuitButton(theView);
 
+        // handler for the submit button
+        theView.getCheckBtn().setOnAction(event -> {
+
+
+            // do not allow user to use check button if entered guess is incomplete
+            if (getColumn(getRow()) != 0 || (getColumn(getRow()) == 0 && getRow() == 0)) {
+
+                System.out.println("Finish entering your guess please");
+            }
+            else {
+                // if you are in the else part, then you know for sure that the user
+                // guess is a sequence of four colors
+                int currentGuess = getRow();
+                theModel.setCurrGuess(currentGuess);
+                System.out.println("Current guess number is: " + theModel.getCurrGuess());
+
+                // get the row the user is on
+                System.out.println("The user is on row: " + getRow());
+                rowsChecked.add(getRow() - 1);
+                System.out.println("Rows checked: " + rowsChecked.toString());
+            }
+
+
+
+            // if the row is 11, then quit (TODO: should display result)
+            if (theModel.getCurrGuess() == 11){
+                Platform.exit();
+            }
+
+
+        });
 
         handleDelete();
 
@@ -117,10 +151,18 @@ public class MastermindController {
         for (int j = 0; j < theView.getPegsTray().size(); j++) {
             Circle circle = theView.getPegsTray().get(j);
             circle.setOnMouseClicked(event -> {
-                if(getColumn(11) != -1) {
+                if ( getColumn(getRow()) != -1 && getRow() == 0){
                     int xValue = getRow();
                     int yValue = getColumn(xValue);
                     theView.updateGuess(xValue, yValue, (Color) circle.getFill());
+                }
+                else if (getColumn(getRow()) != -1 && rowsChecked.contains(getRow() - 1)){
+                    int xValue = getRow();
+                    int yValue = getColumn(xValue);
+                    theView.updateGuess(xValue, yValue, (Color) circle.getFill());
+                }
+                else {
+                    System.out.println("Row is not entirely filled yet");
                 }
             });
         }
@@ -133,8 +175,8 @@ public class MastermindController {
            int columnNumber = getColumn(rowNumber) ;
            columnNumber -= 1;
            if(columnNumber == -1 ) {
-               columnNumber = 3;
-               rowNumber = rowNumber -1;
+               columnNumber = 0;
+               System.out.println("Cannot delete an already submitted answer :P");
            }
            theView.updateGuess(rowNumber,columnNumber, Color.WHITE);
 

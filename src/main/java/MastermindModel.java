@@ -70,7 +70,7 @@ public class MastermindModel {
         return player;
     }
 
-    public static int getMaxGuess() {
+    public int getMaxGuess() {
         return MAX_GUESS;
     }
 
@@ -82,6 +82,7 @@ public class MastermindModel {
      * Method to start the game and reset the code
      */
     private void gameStart(){
+        currGuess = 1;
 
     }
 
@@ -113,7 +114,7 @@ public class MastermindModel {
      * Getter for userGuess
      * @return userGuess
      */
-    public static PegSequence getUserGuess() {
+    public PegSequence getUserGuess() {
         return userGuess;
     }
 
@@ -121,7 +122,11 @@ public class MastermindModel {
      * Getter for current Guess
      * @return currGuess
      */
-    public static int getCurrGuess() {
+    public int getCurrGuess() {
         return currGuess;
+    }
+
+    public void setCurrGuess(int currGuess) {
+        MastermindModel.currGuess = currGuess;
     }
 }

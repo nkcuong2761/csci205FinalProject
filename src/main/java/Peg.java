@@ -48,7 +48,7 @@ public enum Peg {
     }
 
     public Color getColor() {
-        return color;
+        return this.color;
     }
 
     @Override

@@ -150,7 +150,7 @@ public class MastermindView {
 
 		// rows in the guesses(left) pane
 		rows = new ArrayList<>();
-		for (int i = 0; i< theModel.MAX_GUESS; i++) {
+		for (int i = 0; i< theModel.getMaxGuess(); i++) {
 			for (int g = 0; g<PegSequence.getSEQUENCE_LENGTH(); g++) {
 				guesses.add(new ArrayList<>());
 				feedbacks.add(new ArrayList<>());
@@ -245,7 +245,7 @@ public class MastermindView {
 		if (newColor.equals(Color.WHITE)) {
 			circleToChange.setId("blank-circle");
 		} else {
-			circleToChange.setId("");
+			circleToChange.setId(newColor.toString());
 			circleToChange.setFill(newColor);
 		}
 	}
