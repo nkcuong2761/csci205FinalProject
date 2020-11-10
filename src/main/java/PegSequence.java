@@ -23,16 +23,24 @@ import java.util.Objects;
 public class PegSequence {
     private static final int SEQUENCE_LENGTH = 4;
 
-    private ArrayList<Peg> sequence = new ArrayList<>(SEQUENCE_LENGTH);
+    private ArrayList<Peg> sequence;
 
 
     public PegSequence(String input) {
-
+        sequence = new ArrayList<>(SEQUENCE_LENGTH);
         sequence.add(Peg.getPegfromString(String.valueOf(input.charAt(0))));
         sequence.add(Peg.getPegfromString(String.valueOf(input.charAt(1))));
         sequence.add(Peg.getPegfromString(String.valueOf(input.charAt(2))));
         sequence.add(Peg.getPegfromString(String.valueOf(input.charAt(3))));
+        System.out.println("Just created peg sequence");
+    }
 
+    public PegSequence() {
+        sequence = new ArrayList<>(SEQUENCE_LENGTH);
+    }
+
+    public void addPeg (Peg p) {
+        sequence.add(p);
     }
 
     @Override

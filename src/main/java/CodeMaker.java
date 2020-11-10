@@ -67,12 +67,14 @@ public class CodeMaker {
         Random rand = new Random(); // instance of random class
         // Generate string
         int length = 4;
-        String code = "";
+        StringBuilder code = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            code += String.valueOf(rand.nextInt(length));
+            code.append(rand.nextInt(length));
         }
+        System.out.println(code.toString());
         // Create the secretCode
-        secretCode = new PegSequence(code);
+        secretCode = new PegSequence(code.toString());
+        System.out.println("Secret code is: " + secretCode.toString());
 
         // Debug System.out.println(secretCode);
     }
@@ -85,7 +87,7 @@ public class CodeMaker {
      * * -> correct both location and number
      * + -> correct number, but not location
      */
-    protected PegSequence compare(PegSequence userCode) {
+    public static PegSequence compare(PegSequence userCode) {
         // Create new StringBuffer for the output
         responseCodeString = new StringBuilder("----");
         secreteCodeString = new StringBuilder(secretCode.toString());

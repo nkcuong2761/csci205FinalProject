@@ -39,6 +39,18 @@ public enum Peg {
         return null;
     }
 
+    public static Peg getPegForColor(Color c) {
+        // find the corresponding peg
+        for (Peg peg : Peg.values()){
+            if (peg.color.equals(c)){
+                return peg;
+            }
+        }
+        // Return null if cannot find the peg
+        return null;
+
+    }
+
     /**
      * Return the value string of the peg
      * @return value - String to represent the value of the Peg

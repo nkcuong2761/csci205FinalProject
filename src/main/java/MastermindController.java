@@ -82,6 +82,18 @@ public class MastermindController {
                 System.out.println("The user is on row: " + getRow());
                 rowsChecked.add(getRow() - 1);
                 System.out.println("Rows checked: " + rowsChecked.toString());
+
+                // get the sequence of colors now
+                PegSequence userGuessPegSequence = new PegSequence();
+                for (int i = 0; i < theView.getGuesses().get(getRow() - 1).size(); i++) {
+                    Peg currentPeg = Peg.getPegForColor(Color.web(theView.getGuesses().get(getRow() - 1).get(i)
+                                    .getFill().toString().substring(2,8).toUpperCase()));
+
+                    userGuessPegSequence.addPeg(currentPeg);
+                }
+
+               PegSequence comparisonResult = CodeMaker.compare(userGuessPegSequence);
+               System.out.println(comparisonResult.toString());
             }
 
 
