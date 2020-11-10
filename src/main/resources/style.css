@@ -1,17 +1,30 @@
-.label, .text-area, .text-field, .button {
+.label, .text-area, .text-field, .button, #text-normal {
     -fx-font-family: Roboto;
     -fx-font-weight: normal;
     -fx-font-size: 14px;
+    -fx-font-smoothing-type: lcd;
 }
 
 #text-bold {
     -fx-font-weight: bolder;
     -fx-font-size: 14px;
+    -fx-font-smoothing-type: lcd;
 }
 
 #title {
     -fx-font-weight: bolder;
     -fx-font-size: 50px;
+    -fx-font-smoothing-type: lcd;
+}
+
+#resultMsg {
+    -fx-font-family: Roboto;
+    -fx-font-weight: bolder;
+    -fx-font-size: 20px;
+    -fx-font-smoothing-type: lcd;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.24), 3, -4, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 8, -6, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 14, -8, 2, 5);
 }
 
 #pane-with-shadow, .button {
@@ -22,10 +35,54 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 14, -8, 2, 5);
 }
 
+/*this is not an error*/
 .button {
     -fx-text-fill: black;
     -fx-min-height: 40px;
     -fx-min-width: 340px;
+}
+
+#iconQuestion {
+    -fx-background-color: transparent;
+    -fx-min-height: 27px;
+    -fx-min-width: 27px;
+    -fx-effect: none;
+    -fx-background-image: url("assets/QuestionCircle.png");
+    -fx-background-size: 27px 27px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#iconQuestionSmall {
+    -fx-background-color: transparent;
+    -fx-min-height: 20px;
+    -fx-min-width: 20px;
+    -fx-effect: none;
+    -fx-background-image: url("assets/QuestionCircleSmall.png");
+    -fx-background-size: 20px 20px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+/*#indicatorIcon {*/
+/*    -fx-fill-width: 20px;*/
+/*    -fx-fill-height: 20px;*/
+/*    -fx-image: url("assets/indicatorTriangle.png");*/
+/*}*/
+
+#iconHolder, #indicatorHolder {
+    -fx-background-color: white;
+    -fx-max-height: 20px;
+    -fx-max-width: 20px;
+}
+
+.tooltip {
+    -fx-font-family: Roboto;
+    -fx-font-weight: normal;
+    -fx-font-size: 12px;
+    -fx-text-fill: white;
+    -fx-background-radius: 6px;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 10, 0.0 , 0 , 3 );
 }
 
 .circle {
@@ -48,7 +105,7 @@
 }
 
 #white-peg {
-    -fx-fill: D9D9D9;
+    -fx-fill: #D9D9D9;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.24), 3, -4, 0, 3);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 8, -6, 0, 3);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 14, -8, 2, 5);

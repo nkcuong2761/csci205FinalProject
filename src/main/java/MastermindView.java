@@ -5,10 +5,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 
@@ -53,8 +56,24 @@ public class MastermindView {
     private ArrayList<ArrayList<Circle>> feedbacks;
 
     private Text nameText;
-    private Text outputString;
     private Text turnText;
+
+    /** Tooltips for questionCircle(left) */
+    private ArrayList<Button> questionIconList;
+    /** Line Indicator */
+    private ArrayList<ImageView> lineIndicators;
+    /** Questions Icons(right) */
+    private Button questionCircleBig;
+
+    /** output string to show the text below the result (next steps etc.) */
+    private Text outputString;
+
+    /** output message for winning/losing */
+    private Label outputLabel;
+
+    /** Tooltip for questionCircle(right) */
+    private Tooltip tooltipRight;
+
 
     public MastermindView(MastermindModel theModel) {
         this.theModel = theModel;
@@ -63,9 +82,11 @@ public class MastermindView {
         root.setPadding(new Insets(20));
         root.setAlignment(Pos.CENTER);
         root.setMaxHeight(660);
-        root.setMinWidth(800);
+        root.setMinWidth(850);
         root.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
+        // Initialize Tooltip(s)
+        initExtras();
         // Initialize the left pane
         initLeftPane();
         // Initialize the right pane
@@ -78,6 +99,17 @@ public class MastermindView {
     public void createNewScene() {
         updateTurnLeftString();
         restartLeftPane();
+    }
+
+    /**
+     * Method to initialize static pop-up(s) and line indicators
+     */
+    private void initExtras() {
+        tooltipRight = new Tooltip("Click on each colored peg until you've filled the row\n" +
+                "Use the \"Delete\" button to delete your guess");
+        tooltipRight.setShowDelay(Duration.seconds(0));
+        questionIconList = new ArrayList<>();
+        lineIndicators = new ArrayList<>();
     }
 
     /**
@@ -106,10 +138,11 @@ public class MastermindView {
         rightPane = new BorderPane();
         rightPane.setMinHeight(620);
         rightPane.setPadding(new Insets(10, 0, 0, 0));
+
         // The topPane that hold the name label, turns left label, trayBox, deleteBtn, checkBtn and hintBtn
         FlowPane topPane = new FlowPane(Orientation.VERTICAL);
         topPane.setVgap(10);
-
+        topPane.setAlignment(Pos.TOP_CENTER);
         // Player Label
         HBox title1 = new HBox();
         Label nameLabel = new Label("Player: ");
@@ -124,7 +157,6 @@ public class MastermindView {
         turnText.setId("text-bold");
         title2.getChildren().addAll(turnLabel, turnText);
         title2.setAlignment(Pos.CENTER);
-
         // Peg tray
         HBox trayBox = new HBox(20);
         trayBox.setAlignment(Pos.CENTER);
@@ -136,6 +168,9 @@ public class MastermindView {
         Circle yellowPeg = new Circle(13.5, Peg.THE_YELLOW_PEG.getColor());
         Circle greenPeg = new Circle(13.5, Peg.THE_GREEN_PEG.getColor());
         Circle bluePeg = new Circle(13.5, Peg.THE_BLUE_PEG.getColor());
+        questionCircleBig = new Button();
+        questionCircleBig.setId("iconQuestion");
+        questionCircleBig.setTooltip(tooltipRight);
         // Set the drop shadow effect for them
         redPeg.setId("peg-circle");
         yellowPeg.setId("peg-circle");
@@ -146,8 +181,7 @@ public class MastermindView {
         pegsTray.add(greenPeg);
         pegsTray.add(bluePeg);
         trayBox.getChildren().addAll(pegsTray);
-        // Output string above the button
-        outputString = new Text("");
+        trayBox.getChildren().add(questionCircleBig);
         // Delete button
         deleteBtn = new Button("Delete");
         deleteBtn.setStyle("-fx-text-fill: white; -fx-background-color: rgba(0, 0, 0, 0.85)");
@@ -157,9 +191,20 @@ public class MastermindView {
         // hint button
         hintBtn = new Button("Hint");
 
+        // The midPane that hold the output label and string
+        VBox midPane = new VBox(10);
+        midPane.setAlignment(Pos.CENTER);
+        // Output label above the string
+        outputLabel = new Label("");
+        outputLabel.setId("resultMsg");
+        // Output string above the button
+        outputString = new Text("");
+        outputString.setId("text-normal");
+
         // Flow Pane in the bottom
         FlowPane botPane = new FlowPane(Orientation.VERTICAL);
         botPane.setVgap(10);
+        botPane.setAlignment(Pos.BOTTOM_CENTER);
         // rules button
         rulesBtn = new Button("Rules");
         // reset button
@@ -170,10 +215,10 @@ public class MastermindView {
 
         // Add everything
         topPane.getChildren().addAll(title1, title2, trayBox, deleteBtn, checkBtn, hintBtn);
+        midPane.getChildren().addAll(outputLabel, outputString);
         botPane.getChildren().addAll(rulesBtn, resetBtn, quitBtn);
-        botPane.setAlignment(Pos.BOTTOM_CENTER);
         rightPane.setTop(topPane);
-        rightPane.setCenter(outputString);
+        rightPane.setCenter(midPane);
         rightPane.setBottom(botPane);
     }
 
@@ -183,8 +228,9 @@ public class MastermindView {
     private void initLeftPane() {
         leftPane = new VBox(16);
         leftPane.setPrefHeight(620);
+        leftPane.setMinWidth(500);
         leftPane.setAlignment(Pos.CENTER);
-        leftPane.setPadding(new Insets(10, 40, 10, 40));
+        leftPane.setPadding(new Insets(10, 20, 10, 20));
         leftPane.setId("pane-with-shadow");
 
         // Initialize guesses and feedbacks
@@ -194,6 +240,22 @@ public class MastermindView {
         // rows in the guesses(left) pane
         rows = new ArrayList<>();
         for (int i = 0; i < theModel.getMaxGuess(); i++) {
+            // indicator holder
+            Pane indicatorBox = new FlowPane();
+            indicatorBox.setId("indicatorHolder");
+            // indicator icon
+            ImageView icon = new ImageView(getClass().getResource("assets/indicatorTriangle.png").toExternalForm());
+            icon.setFitHeight(20);
+            icon.setFitWidth(20);
+            // show the indicator if this is the first guess
+            if (i==0)
+                icon.setVisible(true);
+            else
+                icon.setVisible(false);
+            lineIndicators.add(icon);
+            indicatorBox.getChildren().add(lineIndicators.get(i));
+
+            // Peg sequence
             for (int g = 0; g < PegSequence.getSequenceLength(); g++) {
                 guesses.add(new ArrayList<>());
                 feedbacks.add(new ArrayList<>());
@@ -214,13 +276,23 @@ public class MastermindView {
             fbBox.add(feedbacks.get(i).get(1), 1, 0);
             fbBox.add(feedbacks.get(i).get(2), 0, 1);
             fbBox.add(feedbacks.get(i).get(3), 1, 1);
+            // iconBox holder
+            Pane iconBox = new FlowPane();
+            iconBox.setId("iconHolder");
+            //QuestionCircle Icon
+            Button questionCircleSmall = new Button();
+            questionCircleSmall.setVisible(false);
+            questionCircleSmall.setId("iconQuestionSmall");
+            questionIconList.add(questionCircleSmall);
+            iconBox.getChildren().add(questionIconList.get(i));
 
             // A single row
             TilePane row = new TilePane();
             row.setHgap(20);
             row.setAlignment(Pos.CENTER);
+            row.getChildren().add(indicatorBox);
             row.getChildren().addAll(guesses.get(i));
-            row.getChildren().add(fbBox);
+            row.getChildren().addAll(fbBox, iconBox);
             // Add to the rows list
             rows.add(row);
         }
@@ -276,6 +348,14 @@ public class MastermindView {
         return quitBtn;
     }
 
+    public ArrayList<Button> getQuestionIconList() {
+        return questionIconList;
+    }
+
+    public ArrayList<ImageView> getLineIndicators() {
+        return lineIndicators;
+    }
+
     public void updateName(String playerName) {
         nameText.setText(playerName);
     }
@@ -286,6 +366,10 @@ public class MastermindView {
 
     public void updateOutputString(String string) {
         outputString.setText(string);
+    }
+
+    public void updateOutputLabel(String string) {
+        outputLabel.setText(string);
     }
 
     public TilePane getRow(int rowNumber) {
@@ -305,35 +389,56 @@ public class MastermindView {
     }
 
     /**
-     * Method to turn the comparison result sequence into pegs
+     * Method to turn the comparison result sequence into pegs, update the Question Icon and the line Indicator
      *
      * @param rowNumber        - The current row to display the output to
      * @param comparisonResult - The output obtained from comparing the secret code in the model
      */
-    public void updateResponse(int rowNumber, PegSequence comparisonResult) {
+    public void updateRow(int rowNumber, PegSequence comparisonResult) {
         // Get the list of circle that we have to change
-        ArrayList<Circle> currResponse = feedbacks.get(rowNumber);
-        // Update corresponding circle ID
+        ArrayList<Circle> currResponse = getFeedbacks().get(rowNumber);
+        // Get the list of buttons that we have to change
+        Button currIcon = getQuestionIconList().get(rowNumber);
+        currIcon.setVisible(true);
+        // Update corresponding button and set tooltip
+        Tooltip tooltip = new Tooltip("");
+        int countBlack = 0;
+        int countWhite = 0;
         for (int i = 0; i < PegSequence.getSequenceLength(); i++) {
             // Check for the black peg
             if (comparisonResult.getSequence().get(i).equals(Peg.THE_BLACK_PEG)) {
                 currResponse.get(i).setId("black-peg");
+                countBlack += 1;
             } else if (comparisonResult.getSequence().get(i).equals(Peg.THE_WHITE_PEG)) {
                 currResponse.get(i).setId("white-peg");
+                countWhite += 1;
             }
         }
+        tooltip.setText(String.format("You got %d peg with right color in the right position and\n" +
+                "%d peg with right color but in the wrong position", countBlack, countWhite));
+        tooltip.setShowDelay(Duration.seconds(0));
+        currIcon.setTooltip(tooltip);
+
+        // show the current indicator icon and hide the previous icon
+        ImageView prevTrig = getLineIndicators().get(rowNumber);
+        prevTrig.setVisible(false);
+        ImageView currTrig = getLineIndicators().get(rowNumber + 1);
+        currTrig.setVisible(true);
     }
 
     /**
-     * Method to handle when an user has win. Currently only output the text string method
+     * Method to handle when an user has win. Output the winning/losing label and the text string method
      *
      * @param win - Indicate if the user has successfully
      */
     public void displayEndGame(boolean win) {
         if (win) {
-            updateOutputString("CONGRATULATIONS, YOU WIN. You can:\n    Hit Restart the game to play a new one\n    Change mode to multiplayer option\n    Exit the game!");
+            updateOutputLabel("YOU WON! LET'S GOOO!!!");
+            outputLabel.setTextFill(Color.web("023E8A"));
         } else {
-            updateOutputString("Too bad you lose! You can:\n    Hit Restart the game to play a new one\n    Change mode to multiplayer option\n    Exit the game!");
+            updateOutputLabel("You lost! Better luck next time");
+            outputLabel.setTextFill(Color.web("EF476F"));
         }
+        updateOutputString("You can:\n    Hit Restart the game to play a new one\n    Change mode to multiplayer option\n    Exit the game!");
     }
 }

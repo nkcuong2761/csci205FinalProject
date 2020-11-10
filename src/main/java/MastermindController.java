@@ -93,7 +93,7 @@ public class MastermindController {
             System.out.println(getColumn(getRow()) + " " + getRow());
             // do not allow user to use check button if entered guess is incomplete
             // NOTE THIS ONE DOES NOT CONSIDER THE LAST ROW SUBMISSION: ROW = 11; COLUMN = -1
-            if ((getColumn(getRow()) != 0 || (getColumn(getRow()) == 0 && getRow() == 0)) && !(getColumn(getRow()) == -1 && getRow() == 11)){
+            if ((getColumn(getRow()) != 1 || (getColumn(getRow()) == 1 && getRow() == 0)) && !(getColumn(getRow()) == -1 && getRow() == 11)){
                 theView.updateOutputString("Finish entering your guess first!");
             }
             else {
@@ -126,9 +126,9 @@ public class MastermindController {
 
                 // Update the response peg accordingly
                 if (getRow() == 11 && theModel.getLastRowChecked() == 11){
-                    theView.updateResponse(getRow(), comparisonResult);
+                    theView.updateRow(getRow(), comparisonResult);
                 } else {
-                    theView.updateResponse(getRow() - 1, comparisonResult);
+                    theView.updateRow(getRow() - 1, comparisonResult);
                 }
                 theView.updateTurnLeftString();
                 System.out.println("Current guess number is: " + theModel.getCurrGuess());
@@ -174,6 +174,7 @@ public class MastermindController {
 
     /**
      * Method to get the index of the column of the first open circle on the input row
+     * !CAUTION! Each row now has 6 columns
      *
      * @param row - integer of the row that is input
      * @return -index of the open circle
@@ -182,7 +183,7 @@ public class MastermindController {
         int colNumber = -1;
         TilePane currentRow = theView.getRows().get(row);
         ObservableList<Node> guesses = currentRow.getChildren();
-        for (int j = 0; j < 4; j++) {
+        for (int j = 1; j < 5; j++) {
             if (guesses.get(j).getId().equals("blank-circle")) {
                 colNumber = j;
                 break;
@@ -232,6 +233,7 @@ public class MastermindController {
             }
             // Empty output string
             theView.updateOutputString("");
+            theView.updateOutputLabel("");
             int rowNumber = getRow();
             int columnNumber = getColumn(rowNumber);
             columnNumber -= 1;
@@ -323,6 +325,7 @@ public class MastermindController {
         theView.getResetBtn().setOnMouseClicked(event -> {
             // Empty the current string there
             theView.updateOutputString("");
+            theView.updateOutputLabel("");
             // Restart the game
             theModel.restartGame();
             theView.createNewScene();
