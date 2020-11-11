@@ -29,6 +29,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MastermindController {
 //TODO Need to test more on the restart logic.
@@ -74,7 +75,11 @@ public class MastermindController {
         // handler for the delete button
         handleDelete();
 
+        // handler for rules button
+        handleRulesButton();
 
+        // handler for hint button
+        handleHintButton();
     }
 
     /**
@@ -174,7 +179,7 @@ public class MastermindController {
 
     /**
      * Method to get the index of the column of the first open circle on the input row
-     * !CAUTION! Each row now has 6 columns
+     * !REMEMBER! Each row now has 7 columns (with the line indicators on the 1st column)
      *
      * @param row - integer of the row that is input
      * @return -index of the open circle
@@ -237,24 +242,33 @@ public class MastermindController {
             int rowNumber = getRow();
             int columnNumber = getColumn(rowNumber);
             columnNumber -= 1;
+            System.out.println("rowsChecked: " + rowsChecked);
+            System.out.println("rowNumber: " + rowNumber + ", columnNumber: " + columnNumber);
             // Handling edge cases
-            if (columnNumber == -1) {
-                columnNumber = 0;
+            if (columnNumber <= 0) {
+                columnNumber = 1;
                 // Deleting at the beginning of the game
                 if (rowNumber == 0 && rowsChecked.size() == 0) {
                     theView.updateOutputString("Haven't entered anything to be deleted");
                     System.out.println("Haven't entered anything to be deleted");
                 }
                 // Deleting a submitted answer
-                else if (rowsChecked.size() != 0 && rowsChecked.get(rowsChecked.size() - 1) == rowNumber - 1) {
+                else if (rowsChecked.size() != 0 && rowsChecked.get(rowsChecked.size() - 1) == rowNumber - 1 && theModel.getCurrGuess()!=theModel.getMaxGuess()-1) {
                     theView.updateOutputString("Cannot delete an already submitted answer :P");
                     System.out.println("Cannot delete an already submitted answer :P");
                 }
                 // Deleting a filled row that has not yet been checked
-                else if (rowsChecked.size() == theModel.getCurrGuess()) {
-                    theView.updateGuess(rowNumber - 1, 3, Color.WHITE);
+                else if (rowsChecked.size() == theModel.getCurrGuess() && theModel.getCurrGuess() != theModel.getMaxGuess()-1) {
+                    System.out.println("asfd");
+                    theView.updateGuess(rowNumber - 1, 4, Color.WHITE);
+                    return;
                 }
-
+                // Deleting a filled row if it is the last row
+                else if (theModel.getCurrGuess() == theModel.getMaxGuess()-1) {
+                    System.out.println("ilui");
+                    theView.updateGuess(rowNumber, 4, Color.WHITE);
+                    return;
+                }
             }
             theView.updateGuess(rowNumber, columnNumber, Color.WHITE);
 
@@ -326,9 +340,65 @@ public class MastermindController {
             // Empty the current string there
             theView.updateOutputString("");
             theView.updateOutputLabel("");
+            // reset rowsChecked
+            rowsChecked = new ArrayList<>();
+            // reset finished
+            finished = false;
             // Restart the game
             theModel.restartGame();
             theView.createNewScene();
+        });
+    }
+
+    /**
+     * Method to handle the rules button
+     */
+    private void handleRulesButton() {
+        theView.getRulesBtn().setOnMouseClicked(event -> {
+            // show the rules in the output string
+            theView.updateOutputString("" +
+                    "The idea of the game is for one player (the\n" +
+                    "code-breaker) to guess the secret code chosen\n" +
+                    "by the other player (the code-maker). The code\n" +
+                    "is a sequence of 4 colored pegs chosen from six\n" +
+                    "colors available. The code-breaker makes a serie\n" +
+                    "of pattern guesses - after each guess the\n" +
+                    "code-maker gives feedback in the form of 2 numbers,\n" +
+                    "the number of pegs that are of the right color and\n" +
+                    "in the correct position, and the number of pegs that\n" +
+                    "are of the correct color but not in the correct\n" +
+                    "position - these numbers are represented by small\n" +
+                    "black and grey pegs.");
+        });
+    }
+
+    /**
+     * Method to handle the hint button
+     */
+    private void handleHintButton() {
+        theView.getHintBtn().setOnMouseClicked(event -> {
+            // tell the user about one peg that is in the secret code
+            Random rand = new Random();
+            int i = rand.nextInt(PegSequence.getSequenceLength());
+            String colorValue = theModel.getCodeMaker().getSecretCode().getSequence().get(i).getValueofPeg();
+            String colorName;
+            switch (colorValue) {
+                case "1":
+                    colorName = "Red";
+                    break;
+                case "2":
+                    colorName = "Yellow";
+                    break;
+                case "3":
+                    colorName = "Green";
+                    break;
+                case "4":
+                    colorName = "Blue";
+                    break;
+                default:
+                    colorName = "bruh";
+            }
+            theView.updateOutputString("There is 1 " + colorName + " peg in the secret code");
         });
     }
 

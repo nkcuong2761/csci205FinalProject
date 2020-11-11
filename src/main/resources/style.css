@@ -64,12 +64,6 @@
     -fx-background-position: center;
 }
 
-/*#indicatorIcon {*/
-/*    -fx-fill-width: 20px;*/
-/*    -fx-fill-height: 20px;*/
-/*    -fx-image: url("assets/indicatorTriangle.png");*/
-/*}*/
-
 #iconHolder, #indicatorHolder {
     -fx-background-color: white;
     -fx-max-height: 20px;

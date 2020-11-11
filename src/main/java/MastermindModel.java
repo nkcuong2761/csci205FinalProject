@@ -132,4 +132,12 @@ public class MastermindModel {
     public void setCurrGuess(int currGuess) {
         MastermindModel.currGuess = currGuess;
     }
+
+    /**
+     * Getter for codeMaker
+     * @return the codeMaker object
+     */
+    public static CodeMaker getCodeMaker() {
+        return codeMaker;
+    }
 }

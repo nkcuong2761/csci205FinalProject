@@ -81,7 +81,7 @@ public class MastermindView {
         root = new HBox(30);
         root.setPadding(new Insets(20));
         root.setAlignment(Pos.CENTER);
-        root.setMaxHeight(660);
+        root.setMaxHeight(740);
         root.setMinWidth(850);
         root.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
@@ -102,7 +102,7 @@ public class MastermindView {
     }
 
     /**
-     * Method to initialize static pop-up(s) and line indicators
+     * Method to initialize tooltips and line indicators
      */
     private void initExtras() {
         tooltipRight = new Tooltip("Click on each colored peg until you've filled the row\n" +
@@ -119,16 +119,24 @@ public class MastermindView {
         // Initialize through the 12 rows
         for (int i = 0; i < theModel.getMaxGuess(); i++) {
             // Get the user input rows
-            TilePane currentRow = rows.get(i);
+            TilePane currentRow = getRows().get(i);
             // Get the list of circle that we have to change
-            ArrayList<Circle> currResponse = feedbacks.get(i);
+            ArrayList<Circle> currResponse = getFeedbacks().get(i);
             // Iterate through the four options
-            for (int g = 0; g < PegSequence.getSequenceLength(); g++) {
+            for (int g = 1; g < PegSequence.getSequenceLength() + 1; g++) {
                 currentRow.getChildren().get(g).setId("blank-circle");
-                currResponse.get(g).setId("blank-circle");
+                currResponse.get(g-1).setId("blank-circle");
             }
-
+            // Reset line indicators
+            ImageView currTrig = getLineIndicators().get(i);
+            currTrig.setVisible(false);
+            // Reset tooltips
+            Button currIcon = getQuestionIconList().get(i);
+            currIcon.setVisible(false);
         }
+        // Set the first line indicator to be visible
+        ImageView newTrig = getLineIndicators().get(0);
+        newTrig.setVisible(true);
     }
 
     /**
@@ -245,8 +253,8 @@ public class MastermindView {
             indicatorBox.setId("indicatorHolder");
             // indicator icon
             ImageView icon = new ImageView(getClass().getResource("assets/indicatorTriangle.png").toExternalForm());
-            icon.setFitHeight(20);
-            icon.setFitWidth(20);
+            icon.setFitHeight(22);
+            icon.setFitWidth(22);
             // show the indicator if this is the first guess
             if (i==0)
                 icon.setVisible(true);
@@ -422,8 +430,10 @@ public class MastermindView {
         // show the current indicator icon and hide the previous icon
         ImageView prevTrig = getLineIndicators().get(rowNumber);
         prevTrig.setVisible(false);
-        ImageView currTrig = getLineIndicators().get(rowNumber + 1);
-        currTrig.setVisible(true);
+        if (rowNumber < 11) {
+            ImageView currTrig = getLineIndicators().get(rowNumber + 1);
+            currTrig.setVisible(true);
+        }
     }
 
     /**
