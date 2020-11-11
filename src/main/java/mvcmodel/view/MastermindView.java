@@ -1,3 +1,5 @@
+package mvcmodel.view;
+
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -12,6 +14,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import mvcmodel.MastermindModel;
+import objects.Peg;
+import objects.PegSequence;
 
 import java.util.ArrayList;
 
@@ -151,7 +156,7 @@ public class MastermindView {
         FlowPane topPane = new FlowPane(Orientation.VERTICAL);
         topPane.setVgap(10);
         topPane.setAlignment(Pos.TOP_CENTER);
-        // Player Label
+        // objects.Player Label
         HBox title1 = new HBox();
         Label nameLabel = new Label("Player: ");
         nameText = new Text(theModel.getPlayer().getPlayerName());
@@ -165,7 +170,7 @@ public class MastermindView {
         turnText.setId("text-bold");
         title2.getChildren().addAll(turnLabel, turnText);
         title2.setAlignment(Pos.CENTER);
-        // Peg tray
+        // objects.Peg tray
         HBox trayBox = new HBox(20);
         trayBox.setAlignment(Pos.CENTER);
         trayBox.setPadding(new Insets(10, 40, 10, 40));
@@ -252,7 +257,7 @@ public class MastermindView {
             Pane indicatorBox = new FlowPane();
             indicatorBox.setId("indicatorHolder");
             // indicator icon
-            ImageView icon = new ImageView(getClass().getResource("assets/indicatorTriangle.png").toExternalForm());
+            ImageView icon = new ImageView(getClass().getResource("/assets/indicatorTriangle.png").toExternalForm());
             icon.setFitHeight(22);
             icon.setFitWidth(22);
             // show the indicator if this is the first guess
@@ -263,7 +268,7 @@ public class MastermindView {
             lineIndicators.add(icon);
             indicatorBox.getChildren().add(lineIndicators.get(i));
 
-            // Peg sequence
+            // objects.Peg sequence
             for (int g = 0; g < PegSequence.getSequenceLength(); g++) {
                 guesses.add(new ArrayList<>());
                 feedbacks.add(new ArrayList<>());

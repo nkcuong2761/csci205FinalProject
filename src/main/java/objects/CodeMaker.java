@@ -1,4 +1,4 @@
-/* *****************************************
+package objects;/* *****************************************
 * CSCI205 - Software Engineering and Design
 * Fall 2020
 * Instructor: Prof. Brian King
@@ -15,7 +15,7 @@
 *
 * Project: csci205FinalProject
 * Package: PACKAGE_NAME
-* Class: CodeMaker
+* Class: objects.CodeMaker
 *
 * Description: Mastermind Final Project for CSCI 205
 *
@@ -61,7 +61,7 @@ public class CodeMaker {
     /**
      * Method to generate random secret code
      */
-    protected void generateCode() {
+    public void generateCode() {
         // Reinitialize secret code
         secretCode = null;
         Random rand = new Random(); // instance of random class

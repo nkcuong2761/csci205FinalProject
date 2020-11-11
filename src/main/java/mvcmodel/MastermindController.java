@@ -1,4 +1,4 @@
-/* *****************************************
+package mvcmodel;/* *****************************************
  * CSCI205 - Software Engineering and Design
  * Fall 2020
  * Instructor: Prof. Brian King
@@ -10,7 +10,7 @@
  *
  * Project: csci205FinalProject
  * Package: PACKAGE_NAME
- * Class: MastermindController
+ * Class: mvcmodel.MastermindController
  *
  * Description:
  *
@@ -27,6 +27,11 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import mvcmodel.view.MastermindIntroView;
+import mvcmodel.view.MastermindModeView;
+import mvcmodel.view.MastermindView;
+import objects.Peg;
+import objects.PegSequence;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -281,10 +286,10 @@ public class MastermindController {
     private void setUpScenes() {
         // Scene to choose single/ multiplayer
         modeScene = new Scene(modeView.getRoot());
-        modeScene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        modeScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         // Scene to enter the game
         gameScene = new Scene(theView.getRoot());
-        gameScene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        gameScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
     }
 
     /**

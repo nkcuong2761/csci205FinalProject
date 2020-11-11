@@ -1,4 +1,4 @@
-/* *****************************************
+package mvcmodel.view;/* *****************************************
  * CSCI205 - Software Engineering and Design
  * Fall 2020
  * Instructor: Prof. Brian King
@@ -10,7 +10,7 @@
  *
  * Project: csci205FinalProject
  * Package: PACKAGE_NAME
- * Class: MastermindModeView
+ * Class: mvcmodel.view.MastermindModeView
  *
  * Description: Class for the second scene of the game
  *

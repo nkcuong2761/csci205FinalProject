@@ -1,4 +1,4 @@
-/* *****************************************
+package mvcmodel;/* *****************************************
 * CSCI205 - Software Engineering and Design
 * Fall 2020
 * Instructor: Prof. Brian King
@@ -15,12 +15,16 @@
 *
 * Project: csci205FinalProject
 * Package: Object
-* Class: MastermindModel
+* Class: mvcmodel.MastermindModel
 *
 * Description: Mastermind Final Project for CSCI 205
 *
 * ****************************************
 */
+
+import objects.CodeMaker;
+import objects.PegSequence;
+import objects.Player;
 
 public class MastermindModel {
 
@@ -30,7 +34,7 @@ public class MastermindModel {
     private static CodeMaker codeMaker;
 
     /**
-     * Player in the model
+     * objects.Player in the model
      */
     private static Player player;
 

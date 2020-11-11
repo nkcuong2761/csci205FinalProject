@@ -1,4 +1,4 @@
-/* *****************************************
+package mvcmodel;/* *****************************************
  * CSCI205 - Software Engineering and Design
  * Fall 2020
  * Instructor: Prof. Brian King
@@ -20,6 +20,9 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import mvcmodel.view.MastermindIntroView;
+import mvcmodel.view.MastermindModeView;
+import mvcmodel.view.MastermindView;
 
 public class MastermindMain extends Application {
 
@@ -44,7 +47,7 @@ public class MastermindMain extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Mastermind");
         introScene = new Scene(introView.getRoot());
-        introScene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        introScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         primaryStage.setScene(introScene);
         primaryStage.sizeToScene();
         primaryStage.show();

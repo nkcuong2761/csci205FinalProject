@@ -1,4 +1,4 @@
-/* *****************************************
+package objects;/* *****************************************
  * CSCI205 - Software Engineering and Design
  * Fall 2020
  * Instructor: Prof. Brian King
@@ -10,7 +10,7 @@
  *
  * Project: csci205FinalProject
  * Package: PACKAGE_NAME
- * Class: PegSequence
+ * Class: objects.PegSequence
  *
  * Description:
  *
@@ -78,7 +78,7 @@ public class PegSequence {
 
     /**
      * Overriden toString method to print the pegs in readable format
-     * @return string - Peg string using the values indicated
+     * @return string - objects.Peg string using the values indicated
      */
     @Override
     public String toString() {

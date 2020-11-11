@@ -1,3 +1,5 @@
+package objects;
+
 import javafx.scene.paint.Color;
 
 public enum Peg {
@@ -29,7 +31,7 @@ public enum Peg {
 
     /**
      * Return the corresponding EnumPeg from String
-     * @param string - the value of the Peg
+     * @param string - the value of the objects.Peg
      * @return peg - Corresponding peg from string
      */
     public static Peg getPegfromString(String string) {
@@ -62,9 +64,9 @@ public enum Peg {
 
     /**
      * Return the value string of the peg
-     * @return value - String to represent the value of the Peg
+     * @return value - String to represent the value of the objects.Peg
      */
-    protected String getValueofPeg(){
+    public String getValueofPeg(){
         return this.value;
     }
 
@@ -74,7 +76,7 @@ public enum Peg {
 
     @Override
     public String toString() {
-        return "Peg{" +
+        return "objects.Peg{" +
                 "color=" + color +
                 ", value='" + value + '\'' +
                 '}';
