@@ -69,7 +69,7 @@ public class CodeMaker {
         int length = 4;
         StringBuilder code = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            code.append(rand.nextInt(length - 1) + 1);
+            code.append(rand.nextInt(length) + 1);
         }
         // Create the secretCode
         secretCode = new PegSequence(code.toString());
