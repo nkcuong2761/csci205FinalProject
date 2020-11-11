@@ -166,7 +166,7 @@ public class MastermindView {
         // "Turns left" Label
         HBox title2 = new HBox();
         Label turnLabel = new Label("You have: ");
-        turnText = new Text(String.format("%d turns left", theModel.MAX_GUESS));
+        turnText = new Text(String.format("%d turns left", theModel.getMaxGuess()));
         turnText.setId("text-bold");
         title2.getChildren().addAll(turnLabel, turnText);
         title2.setAlignment(Pos.CENTER);
@@ -375,6 +375,10 @@ public class MastermindView {
 
     public void updateTurnLeftString() {
         turnText.setText(String.format("%d turns left", theModel.MAX_GUESS - theModel.getCurrGuess()));
+    }
+
+    public void updateMaxTurns(int maxTurns) {
+        turnText.setText(String.format("%d turns left", maxTurns));
     }
 
     public void updateOutputString(String string) {

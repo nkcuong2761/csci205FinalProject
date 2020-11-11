@@ -287,10 +287,10 @@ public class MastermindController {
         // Scene to choose single/ multiplayer
         modeScene = new Scene(modeView.getRoot());
         modeScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
-        // Scene to enter the game
         gameScene = new Scene(theView.getRoot());
         gameScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
     }
+
 
     /**
      * Method to update the player name to display on the game
@@ -327,14 +327,30 @@ public class MastermindController {
      * Method to handle the mode transition to single player/ multiplayer option
      */
     private void handleModeButtons() {
-        modeView.getSinglePlayerBtn().setOnAction((ActionEvent event) -> {
-            String mode = "Single";
-            Stage modeStage = (Stage) modeView.getSinglePlayerBtn().getScene().getWindow();
+        modeView.getEasyBtn().setOnAction((ActionEvent event) -> {
+            theModel.setMode("Easy");
+            theView.updateMaxTurns(theModel.getMaxGuess());
+            Stage modeStage = (Stage) modeView.getEasyBtn().getScene().getWindow();
             modeStage.setScene(gameScene);
             modeStage.sizeToScene();
         });
 
-        modeView.getMultiplayerBtn().setOnAction(modeView.getSinglePlayerBtn().getOnAction());
+        modeView.getMediumBtn().setOnAction((ActionEvent event) -> {
+            theModel.setMode("Intermediate");
+            theView.updateMaxTurns(theModel.getMaxGuess());
+            Stage modeStage = (Stage) modeView.getEasyBtn().getScene().getWindow();
+            modeStage.setScene(gameScene);
+            modeStage.sizeToScene();
+        });
+
+        modeView.getMasterBtn().setOnAction((ActionEvent event) -> {
+            theModel.setMode("Master");
+            theView.updateMaxTurns(theModel.getMaxGuess());
+            Stage modeStage = (Stage) modeView.getEasyBtn().getScene().getWindow();
+            modeStage.setScene(gameScene);
+            modeStage.sizeToScene();
+        });
+
     }
 
     /**

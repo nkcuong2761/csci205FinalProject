@@ -38,6 +38,23 @@ public class MastermindModel {
      */
     private static Player player;
 
+    public void setMode(String mode) {
+        switch(mode) {
+            case("Easy"):
+                System.out.println("set to 12 guesses");
+                MAX_GUESS = 12;
+                break;
+            case("Intermediate"):
+                System.out.println("set to 10 guesses");
+                MAX_GUESS = 10;
+                break;
+            case("Master"):
+                System.out.println("set to 8 guesses");
+                MAX_GUESS = 8;
+                break;
+        }
+    }
+
     /**
      * Variable to represent user guess
      */
@@ -64,7 +81,7 @@ public class MastermindModel {
     /**
      * Number representing the max number of guesses guess;
      */
-    public static final int MAX_GUESS = 12;
+    public int MAX_GUESS = 12;
 
     /**
      * Constructor for the model to initialize the variable player and the codeMaker
