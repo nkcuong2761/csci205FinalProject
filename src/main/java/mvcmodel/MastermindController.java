@@ -403,7 +403,7 @@ public class MastermindController {
                 default:
                     colorName = "bruh";
             }
-            theView.updateOutputString("There is 1 " + colorName + " peg in the secret code");
+            theView.updateOutputString("There is at least 1 " + colorName + " peg in the secret code");
         });
     }
 
