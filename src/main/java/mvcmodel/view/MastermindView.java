@@ -24,10 +24,16 @@ import java.util.ArrayList;
  * Method to store the view(interface) of the Mastermind board
  */
 public class MastermindView {
-
+    /** The model of the game */
     private MastermindModel theModel;
+
+    /** The root of the view */
     private HBox root;
+
+    /** The right pane of the game */
     private VBox leftPane;
+
+    /** The left pane of the game */
     private BorderPane rightPane;
 
     /**
@@ -101,6 +107,9 @@ public class MastermindView {
         root.getChildren().addAll(leftPane, rightPane);
     }
 
+    /**
+     * Method to erase the previous scene to restart the program
+     */
     public void createNewScene() {
         updateTurnLeftString();
         restartLeftPane();
@@ -156,21 +165,40 @@ public class MastermindView {
         FlowPane topPane = new FlowPane(Orientation.VERTICAL);
         topPane.setVgap(10);
         topPane.setAlignment(Pos.TOP_CENTER);
-        // objects.Player Label
-        HBox title1 = new HBox();
-        Label nameLabel = new Label("Player: ");
-        nameText = new Text(theModel.getPlayer().getPlayerName());
-        nameText.setId("text-bold");
-        title1.getChildren().addAll(nameLabel, nameText);
-        title1.setAlignment(Pos.CENTER);
-        // "Turns left" Label
-        HBox title2 = new HBox();
-        Label turnLabel = new Label("You have: ");
-        turnText = new Text(String.format("%d turns left", theModel.getMaxGuess()));
-        turnText.setId("text-bold");
-        title2.getChildren().addAll(turnLabel, turnText);
-        title2.setAlignment(Pos.CENTER);
-        // objects.Peg tray
+        // Initialize the player name upper box
+        HBox title1 = initPlayerNameBox();
+        // Initialize the turn remaining box
+        HBox title2 = initTurnRemainBox();
+        // Initialize the peg tray
+        HBox trayBox = initPegTray();
+        // Delete button
+        deleteBtn = new Button("Delete");
+        deleteBtn.setStyle("-fx-text-fill: white; -fx-background-color: rgba(0, 0, 0, 0.85)");
+        // check answer button
+        checkBtn = new Button("Check answer");
+        checkBtn.setStyle("-fx-text-fill: white; -fx-background-color: rgb(239, 71, 111)");
+        // hint button
+        hintBtn = new Button("Hint");
+        // Initialize the middle pane
+        VBox midPane = initMidPane();
+        // Initialize the bottom pane
+        FlowPane botPane = initBotPane();
+
+        // Add everything
+        topPane.getChildren().addAll(title1, title2, trayBox, deleteBtn, checkBtn, hintBtn);
+        midPane.getChildren().addAll(outputLabel, outputString);
+        botPane.getChildren().addAll(rulesBtn, resetBtn, quitBtn);
+        rightPane.setTop(topPane);
+        rightPane.setCenter(midPane);
+        rightPane.setBottom(botPane);
+    }
+
+    /**
+     * Method to initialize the peg tray
+     * @return trayBox - HBox containing the peg tray
+     */
+    private HBox initPegTray() {
+        // Peg tray
         HBox trayBox = new HBox(20);
         trayBox.setAlignment(Pos.CENTER);
         trayBox.setPadding(new Insets(10, 40, 10, 40));
@@ -195,15 +223,44 @@ public class MastermindView {
         pegsTray.add(bluePeg);
         trayBox.getChildren().addAll(pegsTray);
         trayBox.getChildren().add(questionCircleBig);
-        // Delete button
-        deleteBtn = new Button("Delete");
-        deleteBtn.setStyle("-fx-text-fill: white; -fx-background-color: rgba(0, 0, 0, 0.85)");
-        // check answer button
-        checkBtn = new Button("Check answer");
-        checkBtn.setStyle("-fx-text-fill: white; -fx-background-color: rgb(239, 71, 111)");
-        // hint button
-        hintBtn = new Button("Hint");
+        return trayBox;
+    }
 
+    /**
+     * Method to initialize the number of turns left
+     * @return title2 - an HBox for the text string of the turns left
+     */
+    private HBox initTurnRemainBox() {
+        // "Turns left" Label
+        HBox title2 = new HBox();
+        Label turnLabel = new Label("You have: ");
+        turnText = new Text(String.format("%d turns left", theModel.getMaxGuess()));
+        turnText.setId("text-bold");
+        title2.getChildren().addAll(turnLabel, turnText);
+        title2.setAlignment(Pos.CENTER);
+        return title2;
+    }
+
+    /**
+     * Method to initialize the player name text string in an HBox
+     * @return title1 - an HBox for the text string
+     */
+    private HBox initPlayerNameBox() {
+        // objects.Player Label
+        HBox title1 = new HBox();
+        Label nameLabel = new Label("Player: ");
+        nameText = new Text(theModel.getPlayer().getPlayerName());
+        nameText.setId("text-bold");
+        title1.getChildren().addAll(nameLabel, nameText);
+        title1.setAlignment(Pos.CENTER);
+        return title1;
+    }
+
+    /**
+     * Method to initialize the middle pane
+     * @return mid - The VBox containing feedback information
+     */
+    private VBox initMidPane() {
         // The midPane that hold the output label and string
         VBox midPane = new VBox(10);
         midPane.setAlignment(Pos.CENTER);
@@ -213,7 +270,14 @@ public class MastermindView {
         // Output string above the button
         outputString = new Text("");
         outputString.setId("text-normal");
+        return midPane;
+    }
 
+    /**
+     * Initialize the bottom pane of the right pane
+     * @return bot - The flowpane initialized
+     */
+    private FlowPane initBotPane() {
         // Flow Pane in the bottom
         FlowPane botPane = new FlowPane(Orientation.VERTICAL);
         botPane.setVgap(10);
@@ -225,14 +289,7 @@ public class MastermindView {
         // quit button
         quitBtn = new Button("Quit");
         quitBtn.setStyle("-fx-text-fill: white; -fx-background-color: rgba(0, 0, 0, 0.85)");
-
-        // Add everything
-        topPane.getChildren().addAll(title1, title2, trayBox, deleteBtn, checkBtn, hintBtn);
-        midPane.getChildren().addAll(outputLabel, outputString);
-        botPane.getChildren().addAll(rulesBtn, resetBtn, quitBtn);
-        rightPane.setTop(topPane);
-        rightPane.setCenter(midPane);
-        rightPane.setBottom(botPane);
+        return botPane;
     }
 
     /**
@@ -249,7 +306,15 @@ public class MastermindView {
         // Initialize guesses and feedbacks
         guesses = new ArrayList<ArrayList<Circle>>();
         feedbacks = new ArrayList<ArrayList<Circle>>();
+        // Initialize all the rows
+        initRow();
+        leftPane.getChildren().addAll(rows);
+    }
 
+    /**
+     * Method to initialize all the rows in the board
+     */
+    private void initRow() {
         // rows in the guesses(left) pane
         rows = new ArrayList<>();
         for (int i = 0; i < theModel.getMaxGuess(); i++) {
@@ -267,20 +332,8 @@ public class MastermindView {
                 icon.setVisible(false);
             lineIndicators.add(icon);
             indicatorBox.getChildren().add(lineIndicators.get(i));
-
-            // objects.Peg sequence
-            for (int g = 0; g < PegSequence.getSequenceLength(); g++) {
-                guesses.add(new ArrayList<>());
-                feedbacks.add(new ArrayList<>());
-                // Input pegs
-                Circle guessPeg = new Circle(13.5);
-                guessPeg.setId("blank-circle");
-                guesses.get(i).add(guessPeg);
-                // Feedback pegs
-                Circle fbPeg = new Circle(7);
-                fbPeg.setId("blank-circle");
-                feedbacks.get(i).add(fbPeg);
-            }
+            // Initialize the peg sequence: input pegs and feedback pegs
+            initPegSequence(i);
             // Feedback pegs group box
             GridPane fbBox = new GridPane();
             fbBox.setHgap(8);
@@ -309,7 +362,26 @@ public class MastermindView {
             // Add to the rows list
             rows.add(row);
         }
-        leftPane.getChildren().addAll(rows);
+    }
+
+    /**
+     * Method to initialize the user guesses and the feedback pegs
+     * @param i - Index of the current row
+     */
+    private void initPegSequence(int i) {
+        // Peg sequence
+        for (int g = 0; g < PegSequence.getSequenceLength(); g++) {
+            guesses.add(new ArrayList<>());
+            feedbacks.add(new ArrayList<>());
+            // Input pegs
+            Circle guessPeg = new Circle(13.5);
+            guessPeg.setId("blank-circle");
+            guesses.get(i).add(guessPeg);
+            // Feedback pegs
+            Circle fbPeg = new Circle(7);
+            fbPeg.setId("blank-circle");
+            feedbacks.get(i).add(fbPeg);
+        }
     }
 
     public ArrayList<Circle> getPegsTray() {
@@ -373,33 +445,55 @@ public class MastermindView {
         nameText.setText(playerName);
     }
 
+    /**
+     * Method to update the string displaying the number of turns left
+     */
     public void updateTurnLeftString() {
         turnText.setText(String.format("%d turns left", theModel.MAX_GUESS - theModel.getCurrGuess()));
     }
 
+    /**
+     * Method to update the max number of turns allowed for the participant
+     * @param maxTurns - Max number of turns needed
+     */
     public void updateMaxTurns(int maxTurns) {
         turnText.setText(String.format("%d turns left", maxTurns));
     }
 
+    /**
+     * Method to update the output string to show the feedback to the user for trivial message
+     * For important message, use the updateOutputLabel() method.
+     * @param string - String of feedback
+     */
     public void updateOutputString(String string) {
         outputString.setText(string);
     }
 
+    /**
+     * Method to update the output label to show the feedback to the user for important message.
+     * For trivial message, use the updateOutputString() method.
+     * @param string - String of feedback
+     */
     public void updateOutputLabel(String string) {
         outputLabel.setText(string);
     }
 
-    public TilePane getRow(int rowNumber) {
-        return rows.get(rowNumber);
-    }
-
+    /**
+     * Update the guesses in the game board with the corresponding pegs the user chooses
+     * @param rowNumber - Index of the row
+     * @param pegNumber - Index of the position of the peg (from 1 to 4)
+     * @param newColor - The color of the peg the user chooses
+     */
     public void updateGuess(int rowNumber, int pegNumber, Color newColor) {
         TilePane currentRow = rows.get(rowNumber);
         ObservableList<Node> guesses = currentRow.getChildren();
         Circle circleToChange = (Circle) guesses.get(pegNumber);
+        // Delete the peg for the delete button
         if (newColor.equals(Color.WHITE)) {
             circleToChange.setId("blank-circle");
-        } else {
+        }
+        // Change to the user guess
+        else {
             circleToChange.setId("peg-circle");
             circleToChange.setFill(newColor);
         }

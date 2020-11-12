@@ -64,10 +64,6 @@ public class MastermindModel {
         return lastRowChecked;
     }
 
-    public void setLastRowChecked(int lastRowChecked) {
-        this.lastRowChecked = lastRowChecked;
-    }
-
     /**
      * Variable to represent the feedback for the user response
      */
@@ -103,10 +99,13 @@ public class MastermindModel {
         return MAX_GUESS;
     }
 
+    /**
+     * Set the player name in the model
+     * @param pName - the Name of the player
+     */
     public void setPlayerName(String pName) {
         player.setPlayerName(pName);
     }
-
 
     /**
      * Method to restart the game and
@@ -128,13 +127,6 @@ public class MastermindModel {
     }
 
     /**
-     * Method to end the game
-     */
-    private void gameEnd(){
-
-    }
-
-    /**
      * Getter for userGuess
      * @return userGuess
      */
@@ -148,10 +140,6 @@ public class MastermindModel {
      */
     public int getCurrGuess() {
         return currGuess;
-    }
-
-    public void setCurrGuess(int currGuess) {
-        MastermindModel.currGuess = currGuess;
     }
 
     /**

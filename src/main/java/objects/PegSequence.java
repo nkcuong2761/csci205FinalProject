@@ -12,7 +12,7 @@ package objects;/* *****************************************
  * Package: PACKAGE_NAME
  * Class: objects.PegSequence
  *
- * Description:
+ * Description: Representing an object of 4 pegs sequentially such as the feedback or the user guess
  *
  * ****************************************
  */

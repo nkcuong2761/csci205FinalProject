@@ -17,7 +17,7 @@ package objects;/* *****************************************
 * Package: PACKAGE_NAME
 * Class: objects.Player
 *
-* Description: Mastermind Final Project for CSCI 205
+* Description: The player for the game
 *
 * ****************************************
 */

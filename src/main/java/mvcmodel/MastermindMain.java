@@ -12,7 +12,7 @@ package mvcmodel;/* *****************************************
  * Package: PACKAGE_NAME
  * Class: Main
  *
- * Description:
+ * Description: The JavaFX Class to run the JavaFX application.
  *
  * ****************************************
  */
@@ -25,12 +25,34 @@ import mvcmodel.view.MastermindModeView;
 import mvcmodel.view.MastermindView;
 
 public class MastermindMain extends Application {
-
+    /**
+     * The model of the game
+     */
     private MastermindModel theModel;
+
+    /**
+     * The main board view of the game
+     */
     private MastermindView theView;
+
+    /**
+     * The intro view of the game
+     */
     private MastermindIntroView introView;
+
+    /**
+     * The mode view of the game
+     */
     private MastermindModeView modeView;
+
+    /**
+     * The controller for the game
+     */
     private MastermindController theController;
+
+    /**
+     * The first scene of the game
+     */
     private Scene introScene;
 
 
@@ -45,13 +67,13 @@ public class MastermindMain extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        theController = new MastermindController(theModel,modeView,introView,theView);
         primaryStage.setTitle("Mastermind");
         introScene = new Scene(introView.getRoot());
         introScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         primaryStage.setScene(introScene);
         primaryStage.sizeToScene();
         primaryStage.show();
-        this.theController = new MastermindController(theModel,modeView,introView,theView);
     }
 
     public static void main(String[] args) {
