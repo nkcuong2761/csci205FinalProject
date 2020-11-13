@@ -48,7 +48,7 @@ public class MastermindMain extends Application {
     /**
      * The controller for the game
      */
-    private MastermindController theController;
+    private IntroController theIntroController;
 
     /**
      * The first scene of the game
@@ -62,18 +62,18 @@ public class MastermindMain extends Application {
         this.theModel = new MastermindModel();
         this.introView = new MastermindIntroView();
         this.modeView = new MastermindModeView();
-        this.theView = new MastermindView(theModel);
     }
 
     @Override
     public void start(Stage primaryStage) {
-        theController = new MastermindController(theModel,modeView,introView,theView);
+        theIntroController = new IntroController(modeView,introView,theModel);
         primaryStage.setTitle("Mastermind");
         introScene = new Scene(introView.getRoot());
         introScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         primaryStage.setScene(introScene);
         primaryStage.sizeToScene();
         primaryStage.show();
+
     }
 
     public static void main(String[] args) {

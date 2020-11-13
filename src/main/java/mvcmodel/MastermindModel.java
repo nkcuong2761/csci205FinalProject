@@ -40,7 +40,7 @@ public class MastermindModel {
 
     public void setMode(String mode) {
         switch(mode) {
-            case("Easy"):
+            case("Beginner"):
                 System.out.println("set to 12 guesses");
                 MAX_GUESS = 12;
                 break;
