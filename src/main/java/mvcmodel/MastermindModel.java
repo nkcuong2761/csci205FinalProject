@@ -1,4 +1,4 @@
-/* *****************************************
+package mvcmodel;/* *****************************************
 * CSCI205 - Software Engineering and Design
 * Fall 2020
 * Instructor: Prof. Brian King
@@ -15,12 +15,16 @@
 *
 * Project: csci205FinalProject
 * Package: Object
-* Class: MastermindModel
+* Class: mvcmodel.MastermindModel
 *
 * Description: Mastermind Final Project for CSCI 205
 *
 * ****************************************
 */
+
+import objects.CodeMaker;
+import objects.PegSequence;
+import objects.Player;
 
 public class MastermindModel {
 
@@ -30,9 +34,26 @@ public class MastermindModel {
     private static CodeMaker codeMaker;
 
     /**
-     * Player in the model
+     * objects.Player in the model
      */
     private static Player player;
+
+    public void setMode(String mode) {
+        switch(mode) {
+            case("Beginner"):
+                System.out.println("set to 12 guesses");
+                MAX_GUESS = 12;
+                break;
+            case("Intermediate"):
+                System.out.println("set to 10 guesses");
+                MAX_GUESS = 10;
+                break;
+            case("Master"):
+                System.out.println("set to 8 guesses");
+                MAX_GUESS = 8;
+                break;
+        }
+    }
 
     /**
      * Variable to represent user guess
@@ -41,10 +62,6 @@ public class MastermindModel {
 
     public int getLastRowChecked() {
         return lastRowChecked;
-    }
-
-    public void setLastRowChecked(int lastRowChecked) {
-        this.lastRowChecked = lastRowChecked;
     }
 
     /**
@@ -60,7 +77,7 @@ public class MastermindModel {
     /**
      * Number representing the max number of guesses guess;
      */
-    public static final int MAX_GUESS = 12;
+    public int MAX_GUESS = 12;
 
     /**
      * Constructor for the model to initialize the variable player and the codeMaker
@@ -82,10 +99,13 @@ public class MastermindModel {
         return MAX_GUESS;
     }
 
+    /**
+     * Set the player name in the model
+     * @param pName - the Name of the player
+     */
     public void setPlayerName(String pName) {
         player.setPlayerName(pName);
     }
-
 
     /**
      * Method to restart the game and
@@ -107,13 +127,6 @@ public class MastermindModel {
     }
 
     /**
-     * Method to end the game
-     */
-    private void gameEnd(){
-
-    }
-
-    /**
      * Getter for userGuess
      * @return userGuess
      */
@@ -127,10 +140,6 @@ public class MastermindModel {
      */
     public int getCurrGuess() {
         return currGuess;
-    }
-
-    public void setCurrGuess(int currGuess) {
-        MastermindModel.currGuess = currGuess;
     }
 
     /**

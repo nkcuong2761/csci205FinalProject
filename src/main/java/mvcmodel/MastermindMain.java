@@ -1,4 +1,4 @@
-/* *****************************************
+package mvcmodel;/* *****************************************
  * CSCI205 - Software Engineering and Design
  * Fall 2020
  * Instructor: Prof. Brian King
@@ -12,7 +12,7 @@
  * Package: PACKAGE_NAME
  * Class: Main
  *
- * Description:
+ * Description: The JavaFX Class to run the JavaFX application.
  *
  * ****************************************
  */
@@ -20,14 +20,39 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import mvcmodel.view.MastermindIntroView;
+import mvcmodel.view.MastermindModeView;
+import mvcmodel.view.MastermindView;
 
 public class MastermindMain extends Application {
-
+    /**
+     * The model of the game
+     */
     private MastermindModel theModel;
+
+    /**
+     * The main board view of the game
+     */
     private MastermindView theView;
+
+    /**
+     * The intro view of the game
+     */
     private MastermindIntroView introView;
+
+    /**
+     * The mode view of the game
+     */
     private MastermindModeView modeView;
-    private MastermindController theController;
+
+    /**
+     * The controller for the game
+     */
+    private IntroController theIntroController;
+
+    /**
+     * The first scene of the game
+     */
     private Scene introScene;
 
 
@@ -37,18 +62,18 @@ public class MastermindMain extends Application {
         this.theModel = new MastermindModel();
         this.introView = new MastermindIntroView();
         this.modeView = new MastermindModeView();
-        this.theView = new MastermindView(theModel);
     }
 
     @Override
     public void start(Stage primaryStage) {
+        theIntroController = new IntroController(modeView,introView,theModel);
         primaryStage.setTitle("Mastermind");
         introScene = new Scene(introView.getRoot());
-        introScene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        introScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         primaryStage.setScene(introScene);
         primaryStage.sizeToScene();
         primaryStage.show();
-        this.theController = new MastermindController(theModel,modeView,introView,theView);
+
     }
 
     public static void main(String[] args) {

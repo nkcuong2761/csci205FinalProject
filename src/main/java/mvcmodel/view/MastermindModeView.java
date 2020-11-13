@@ -1,4 +1,4 @@
-/* *****************************************
+package mvcmodel.view;/* *****************************************
  * CSCI205 - Software Engineering and Design
  * Fall 2020
  * Instructor: Prof. Brian King
@@ -10,7 +10,7 @@
  *
  * Project: csci205FinalProject
  * Package: PACKAGE_NAME
- * Class: MastermindModeView
+ * Class: mvcmodel.view.MastermindModeView
  *
  * Description: Class for the second scene of the game
  *
@@ -32,11 +32,14 @@ public class MastermindModeView {
     /** VBox of the root */
     private VBox root;
 
-    /** Button for the single player option */
-    private Button singlePlayerBtn;
+    /** Button for the easy difficulty */
+    private Button easyBtn;
 
-    /** Button for the multiplayer option */
-    private Button multiplayerBtn;
+    /** Button for the medium difficulty */
+    private Button mediumBtn;
+
+    /** Button for the master difficulty */
+    private Button masterBtn;
 
     /**
      * Constructor for the class
@@ -66,14 +69,18 @@ public class MastermindModeView {
      * Method to set up the buttons
      */
     private void setUpButtons() {
-        singlePlayerBtn = new Button("Single Player");
-        singlePlayerBtn.setStyle("-fx-background-color: #03045E; -fx-text-fill: #FFFFFF; -fx-font-size: 20");
-        singlePlayerBtn.setPrefSize(200,50);
-        root.getChildren().add(singlePlayerBtn);
-        multiplayerBtn = new Button("Multiplayer");
-        multiplayerBtn.setStyle("-fx-background-color: #0077B6; -fx-text-fill: #FFFFFF; -fx-font-size: 20");
-        root.getChildren().add(multiplayerBtn);
-        multiplayerBtn.setPrefSize(200,50);
+        easyBtn = new Button("Beginner");
+        easyBtn.setStyle("-fx-background-color: #03045E; -fx-text-fill: #FFFFFF; -fx-font-size: 20");
+        easyBtn.setPrefSize(200,50);
+        root.getChildren().add(easyBtn);
+        mediumBtn = new Button("Intermediate");
+        mediumBtn.setStyle("-fx-background-color: #0077B6; -fx-text-fill: #FFFFFF; -fx-font-size: 20");
+        root.getChildren().add(mediumBtn);
+        mediumBtn.setPrefSize(200,50);
+        masterBtn = new Button("Master");
+        masterBtn.setStyle("-fx-background-color: #00B4D8; -fx-text-fill: #FFFFFF; -fx-font-size: 20");
+        root.getChildren().add(masterBtn);
+        masterBtn.setPrefSize(200,50);
     }
 
     /**
@@ -87,21 +94,30 @@ public class MastermindModeView {
     }
 
     /**
-     * Getter for the single player button
+     * Getter for the easy button
      *
-     * @return - Button object of the single player button object
+     * @return - Button object of the easy button object
      */
-    public Button getSinglePlayerBtn() {
-        return singlePlayerBtn;
+    public Button getEasyBtn() {
+        return easyBtn;
     }
 
     /**
-     * Getter for the multiplayer button
+     * Getter for the intermediate button
      *
-     * @return - Button object of the multiplayer button object
+     * @return - Button object of the intermediate button object
      */
-    public Button getMultiplayerBtn() {
-        return multiplayerBtn;
+    public Button getMediumBtn() {
+        return mediumBtn;
+    }
+
+    /**
+     * Getter for the master button
+     *
+     * @return - Button object of the master button object
+     */
+    public Button getMasterBtn() {
+        return masterBtn;
     }
 
     /**
