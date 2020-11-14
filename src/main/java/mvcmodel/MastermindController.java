@@ -33,6 +33,7 @@ import mvcmodel.view.MastermindView;
 import objects.Peg;
 import objects.PegSequence;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -137,7 +138,11 @@ public class MastermindController {
 
                 // Output winning message
                 if (comparisonResult.toString().equals(PegSequence.WINNING_SEQUENCE)) {
-                    theView.displayEndGame(true);
+                    try {
+                        theView.displayEndGame(true);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                     finished = true;
                 }
 
@@ -154,7 +159,11 @@ public class MastermindController {
 
             // Finished when all the rows are filled
             if (theModel.getCurrGuess() == 12) {
-                theView.displayEndGame(false);
+                try {
+                    theView.displayEndGame(false);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
                 finished = true;
                 return;
             }
