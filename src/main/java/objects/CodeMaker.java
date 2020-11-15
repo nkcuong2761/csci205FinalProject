@@ -66,7 +66,7 @@ public class CodeMaker {
         secretCode = null;
         Random rand = new Random(); // instance of random class
         // Generate string
-        int length = 4;
+        int length = PegSequence.getSequenceLength();
         StringBuilder code = new StringBuilder();
         for (int i = 0; i < length; i++) {
             code.append(rand.nextInt(length) + 1);

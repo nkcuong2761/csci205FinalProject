@@ -79,6 +79,13 @@ public class MastermindView {
     /** Questions Icons(right) */
     private Button questionCircleBig;
 
+    /** Theme icon */
+    private Button themeBtn;
+    /** Theme option circle array */
+    private ArrayList<Circle> themeOption;
+    /** Theme tray that contains the theme list */
+    private FlowPane themeTray;
+
     /** output string to show the text below the result (next steps etc.) */
     private Text outputString;
 
@@ -98,7 +105,6 @@ public class MastermindView {
         root.setAlignment(Pos.CENTER);
         root.setMaxHeight(740);
         root.setMinWidth(850);
-        root.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
         // Initialize Tooltip(s)
         initExtras();
@@ -178,10 +184,10 @@ public class MastermindView {
         HBox trayBox = initPegTray();
         // Delete button
         deleteBtn = new Button("Delete");
-        deleteBtn.setStyle("-fx-text-fill: white; -fx-background-color: rgba(0, 0, 0, 0.85)");
+        deleteBtn.setId("blackBtn");
         // check answer button
         checkBtn = new Button("Check answer");
-        checkBtn.setStyle("-fx-text-fill: white; -fx-background-color: rgb(239, 71, 111)");
+        checkBtn.setId("checkBtn");
         // hint button
         hintBtn = new Button("Hint");
         // Initialize the middle pane
@@ -189,10 +195,8 @@ public class MastermindView {
         // Initialize the bottom pane
         FlowPane botPane = initBotPane();
 
-        // Add everything
         topPane.getChildren().addAll(title1, title2, trayBox, deleteBtn, checkBtn, hintBtn);
-        midPane.getChildren().addAll(outputLabel, outputString);
-        botPane.getChildren().addAll(rulesBtn, resetBtn, quitBtn);
+
         rightPane.setTop(topPane);
         rightPane.setCenter(midPane);
         rightPane.setBottom(botPane);
@@ -206,8 +210,8 @@ public class MastermindView {
         // Peg tray
         HBox trayBox = new HBox(20);
         trayBox.setAlignment(Pos.CENTER);
-        trayBox.setPadding(new Insets(10, 40, 10, 40));
-        trayBox.setId("pane-with-shadow");
+        trayBox.setPadding(new Insets(20, 40, 20, 40));
+        trayBox.setId("peg-pane");
         // Pegs inside the box
         pegsTray = new ArrayList<>();
         Circle redPeg = new Circle(13.5, Peg.THE_RED_PEG.getColor());
@@ -222,6 +226,10 @@ public class MastermindView {
         yellowPeg.setId("peg-circle");
         greenPeg.setId("peg-circle");
         bluePeg.setId("peg-circle");
+//        redPeg.getStyleClass().add("red-peg");
+//        yellowPeg.getStyleClass().add("yellow-peg");
+//        greenPeg.getStyleClass().add("green-peg");
+//        bluePeg.getStyleClass().add("blue-peg");
         pegsTray.add(redPeg);
         pegsTray.add(yellowPeg);
         pegsTray.add(greenPeg);
@@ -275,25 +283,55 @@ public class MastermindView {
         // Output string above the button
         outputString = new Text("");
         outputString.setId("text-normal");
+
+        midPane.getChildren().addAll(outputLabel, outputString);
         return midPane;
     }
 
     /**
      * Initialize the bottom pane of the right pane
-     * @return bot - The flowpane initialized
+     * @return bot - The flowPane initialized
      */
     private FlowPane initBotPane() {
         // Flow Pane in the bottom
         FlowPane botPane = new FlowPane(Orientation.VERTICAL);
         botPane.setVgap(10);
         botPane.setAlignment(Pos.BOTTOM_CENTER);
+
+        // The overall container that hold both the themeBtn and the expanded themeTray
+        StackPane themeContainer = new StackPane();
+        themeContainer.setMinSize(340,37);
+        themeContainer.setAlignment(Pos.CENTER_RIGHT);
+        // theme tray (the bigger tray that contain the theme options and the button)
+        themeTray = new FlowPane();
+        themeTray.setAlignment(Pos.CENTER_LEFT);
+        themeTray.setId("themeTray");
+        // theme list pane
+        TilePane themeList = new TilePane();
+        themeList.setHgap(10);
+        // init theme option
+        themeOption = new ArrayList<>();
+        themeOption.add(new Circle(10, Color.WHITE));
+        themeOption.add(new Circle(10, Color.web("D58097")));
+//        themeOption.add(new Circle(13.5, Color.web("F759AB")));
+        themeList.getChildren().addAll(themeOption);
+        themeTray.getChildren().add(themeList);
+        themeTray.setVisible(false);
+        // theme button - expanded
+        themeBtn = new Button();
+        themeBtn.setId("themeBtn");
+        // Add to the container
+        themeContainer.getChildren().addAll(themeTray, themeBtn);
+
         // rules button
         rulesBtn = new Button("Rules");
         // reset button
         resetBtn = new Button("Restart the game");
         // quit button
         quitBtn = new Button("Quit");
-        quitBtn.setStyle("-fx-text-fill: white; -fx-background-color: rgba(0, 0, 0, 0.85)");
+        quitBtn.setId("blackBtn");
+
+        botPane.getChildren().addAll(themeContainer, rulesBtn, resetBtn, quitBtn);
         return botPane;
     }
 
@@ -303,7 +341,7 @@ public class MastermindView {
     private void initLeftPane() {
         leftPane = new VBox(16);
         leftPane.setPrefHeight(620);
-        leftPane.setMinWidth(500);
+        leftPane.setMinWidth(460);
         leftPane.setAlignment(Pos.CENTER);
         leftPane.setPadding(new Insets(10, 20, 10, 20));
         leftPane.setId("pane-with-shadow");
@@ -444,6 +482,18 @@ public class MastermindView {
 
     public ArrayList<ImageView> getLineIndicators() {
         return lineIndicators;
+    }
+
+    public Button getThemeBtn() {
+        return themeBtn;
+    }
+
+    public ArrayList<Circle> getThemeOption() {
+        return themeOption;
+    }
+
+    public FlowPane getThemeTray() {
+        return themeTray;
     }
 
     public void updateName(String playerName) {
