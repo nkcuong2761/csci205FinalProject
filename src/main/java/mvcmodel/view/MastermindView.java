@@ -19,8 +19,6 @@ import mvcmodel.MastermindModel;
 import objects.Peg;
 import objects.PegSequence;
 
-
-//import javafx.scene.media.Media;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -575,7 +573,6 @@ public class MastermindView {
             imageView.setPreserveRatio(true);
 
             midPane.getChildren().add(imageView);
-
 
         } else {
             updateOutputLabel("You lost! Better luck next time");
