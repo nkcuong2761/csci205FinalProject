@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -18,6 +19,10 @@ import mvcmodel.MastermindModel;
 import objects.Peg;
 import objects.PegSequence;
 
+
+//import javafx.scene.media.Media;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
@@ -91,6 +96,7 @@ public class MastermindView {
 
     /** Tooltip for questionCircle(right) */
     private Tooltip tooltipRight;
+    private VBox midPane;
 
 
     public MastermindView(MastermindModel theModel) {
@@ -157,6 +163,7 @@ public class MastermindView {
         // Set the first line indicator to be visible
         ImageView newTrig = getLineIndicators().get(0);
         newTrig.setVisible(true);
+        midPane.getChildren().remove(midPane.getChildren().size() - 1);
     }
 
     /**
@@ -270,7 +277,7 @@ public class MastermindView {
      */
     private VBox initMidPane() {
         // The midPane that hold the output label and string
-        VBox midPane = new VBox(10);
+        midPane = new VBox(10);
         midPane.setAlignment(Pos.CENTER);
         // Output label above the string
         outputLabel = new Label("");
@@ -594,14 +601,55 @@ public class MastermindView {
      *
      * @param win - Indicate if the user has successfully
      */
-    public void displayEndGame(boolean win) {
+    public void displayEndGame(boolean win) throws FileNotFoundException {
         if (win) {
-            updateOutputLabel("YOU WON! LET'S GOOO!!!");
+
+            updateOutputLabel("Congratulations! You won");
             outputLabel.setTextFill(Color.web("023E8A"));
+
+            // display winning gif
+            Image image = new Image(getClass().getResource("/assets/congratulations.gif").toExternalForm());
+
+            //Setting the image view
+            ImageView imageView = new ImageView(image);
+
+            //Setting the position of the image
+            imageView.setX(50);
+            imageView.setY(25);
+
+            //setting the fit height and width of the image view
+            imageView.setFitHeight(150);
+            imageView.setFitWidth(160);
+
+            //Setting the preserve ratio of the image view
+            imageView.setPreserveRatio(true);
+
+            midPane.getChildren().add(imageView);
+
+
         } else {
             updateOutputLabel("You lost! Better luck next time");
+            // display winning gif
+            Image image = new Image(getClass().getResource("/assets/sad2.gif").toExternalForm());
+
+            //Setting the image view
+            ImageView imageView = new ImageView(image);
+
+            //Setting the position of the image
+            imageView.setX(50);
+            imageView.setY(25);
+
+            //setting the fit height and width of the image view
+            imageView.setFitHeight(150);
+            imageView.setFitWidth(160);
+
+            //Setting the preserve ratio of the image view
+            imageView.setPreserveRatio(true);
+
+            midPane.getChildren().add(imageView);
+
             outputLabel.setTextFill(Color.web("EF476F"));
         }
-        updateOutputString("You can:\n    Hit Restart the game to play a new one\n    Change mode to multiplayer option\n    Exit the game!");
+//        updateOutputString("You can:\n    Hit Restart the game to play a new one\n    Change mode to multiplayer option\n    Exit the game!");
     }
 }
