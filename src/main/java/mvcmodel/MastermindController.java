@@ -19,16 +19,11 @@ package mvcmodel;/* *****************************************
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
-import mvcmodel.view.MastermindIntroView;
-import mvcmodel.view.MastermindModeView;
 import mvcmodel.view.MastermindView;
 import objects.Peg;
 import objects.PegSequence;
@@ -92,6 +87,9 @@ public class MastermindController {
 
         // handler for hint button
         handleHintButton();
+
+        // handler for theme button
+        handleThemeButton();
     }
 
     /**
@@ -356,6 +354,26 @@ public class MastermindController {
             }
             theView.updateOutputString("There is at least 1 " + colorName + " peg in the secret code");
         });
+    }
+
+    /**
+     * Method to handle the theme Button
+     */
+    private void handleThemeButton() {
+        // Set the handler for the button to open/close the tray
+        theView.getThemeBtn().setOnMouseClicked(event -> {
+             Boolean trayVisibility = theView.getThemeTray().isVisible();
+             theView.getThemeTray().setVisible(!trayVisibility);
+        });
+        // Set the handler for the theme circles being clicked
+        for (Circle c : theView.getThemeOption()) {
+            c.setOnMouseClicked(event -> {
+                if (c.getFill().equals(Color.web("D58097")))
+                    theView.getRoot().getStylesheets().setAll(getClass().getResource("/style2.css").toExternalForm());
+                else
+                    theView.getRoot().getStylesheets().setAll(getClass().getResource("/style.css").toExternalForm());
+            });
+        }
     }
 
 }

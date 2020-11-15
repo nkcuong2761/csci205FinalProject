@@ -1,8 +1,8 @@
 /**
-WHITE(DEFAULT) THEME
+PINK THEME
  */
 .root {
-    -fx-background-color: white;
+    -fx-background-color: linear-gradient(to bottom, #EBDDD0 0%, #E6B5B8 100%);
 }
 
 .label, .text-area, .text-field, .button, #text-normal {
@@ -10,18 +10,21 @@ WHITE(DEFAULT) THEME
     -fx-font-weight: normal;
     -fx-font-size: 14px;
     -fx-font-smoothing-type: lcd;
+    -fx-text-fill: #0B3039;
 }
 
 #text-bold {
     -fx-font-weight: bolder;
     -fx-font-size: 14px;
     -fx-font-smoothing-type: lcd;
+    -fx-text-fill: #0B3039;
 }
 
 #title {
     -fx-font-weight: bolder;
     -fx-font-size: 50px;
     -fx-font-smoothing-type: lcd;
+    -fx-text-fill: #0B3039;
 }
 
 #resultMsg {
@@ -29,13 +32,22 @@ WHITE(DEFAULT) THEME
     -fx-font-weight: bolder;
     -fx-font-size: 20px;
     -fx-font-smoothing-type: lcd;
+    -fx-text-fill: #0B3039;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.24), 3, -4, 0, 3);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 8, -6, 0, 3);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 14, -8, 2, 5);
 }
 
-#pane-with-shadow, #peg-pane, .button {
-    -fx-background-color: white;
+#pane-with-shadow {
+    -fx-background-color: linear-gradient(to bottom, #EBDDD0 0%, #E6B5B8 100%);
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.24), 3, -4, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 8, -6, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 14, -8, 2, 5);
+}
+
+#peg-pane {
+    -fx-background-color: #EBDDD0;
     -fx-background-radius: 8px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.24), 3, -4, 0, 3);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 8, -6, 0, 3);
@@ -43,23 +55,28 @@ WHITE(DEFAULT) THEME
 }
 
 .button {
-    -fx-text-fill: black;
+    -fx-background-color: #EBDDD0;
+    -fx-text-fill: #0B3039;
     -fx-min-height: 40px;
     -fx-min-width: 340px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.24), 3, -4, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 8, -6, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 14, -8, 2, 5);
 }
 
 #blackBtn {
-    -fx-background-color: #1D1D1D;
-    -fx-text-fill: white;
+    -fx-background-color: #0B3039;
+    -fx-text-fill: #EBDDD0;
 }
 
 #checkBtn {
-    -fx-background-color: #EF476F;
-    -fx-text-fill: white;
+    -fx-background-color: #6F5771;
+    -fx-text-fill: #EBDDD0;
 }
 
 #themeBtn {
-    -fx-background-color: #1D1D1D;
+    -fx-background-color: #0B3039;
     -fx-background-image: url("assets/theme.png");
     -fx-background-size: 22px 22px;
     -fx-min-width: 36px;
@@ -70,7 +87,7 @@ WHITE(DEFAULT) THEME
 }
 
 #themeTray {
-    -fx-background-color: #1D1D1D;
+    -fx-background-color: #0B3039;
     -fx-background-radius: 12px;
     -fx-padding: 3px 8px 3px 8px;
     -fx-min-height: 37px;
@@ -100,30 +117,32 @@ WHITE(DEFAULT) THEME
 }
 
 #iconHolder, #indicatorHolder {
-    -fx-background-color: white;
+    -fx-background-color: transparent;
     -fx-max-height: 20px;
     -fx-max-width: 20px;
 }
 
 .tooltip {
+    -fx-background-color: #0B3039;
     -fx-font-family: Roboto;
     -fx-font-weight: normal;
     -fx-font-size: 12px;
-    -fx-text-fill: white;
+    -fx-text-fill: #EBDDD0;
     -fx-background-radius: 6px;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 10, 0.0 , 0 , 3 );
 }
 
 .circle {
-    -fx-fill: white;
+    -fx-fill: #EBDDD0;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.24), 3, -4, 0, 3);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 8, -6, 0, 3);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 14, -8, 2, 5);
 }
 
 #blank-circle {
-    -fx-fill: white;
-    -fx-effect: innershadow(gaussian, rgba(6, 38, 68, 0.06), 6, -8, -3, 2);
+    -fx-fill: #EBDDD0;
+    -fx-blend-mode: darken;
+    -fx-effect: innershadow(gaussian, rgba(6, 38, 68, 0.2), 5, -8, -3, 2);
 }
 
 #peg-circle, #black-peg, #white-peg {
@@ -133,9 +152,25 @@ WHITE(DEFAULT) THEME
 }
 
 #black-peg {
-    -fx-fill: black;
+    -fx-fill: #0B3039;
 }
 
 #white-peg {
-    -fx-fill: #D9D9D9;
+    -fx-fill: #F3F5E8;
+}
+
+.red-peg {
+    -fx-fill: #294352;
+}
+
+.yellow-peg {
+    -fx-fill: #6F5771;
+}
+
+.green-peg {
+    -fx-fill: #D58097;
+}
+
+.blue-peg {
+    -fx-fill: #E6B5B8;
 }
