@@ -99,6 +99,7 @@ public class MastermindView {
     private VBox midPane;
 
 
+
     public MastermindView(MastermindModel theModel) {
         this.theModel = theModel;
         // Create a new HBox instance that displays the overall layout
@@ -106,7 +107,7 @@ public class MastermindView {
         root.setPadding(new Insets(20));
         root.setAlignment(Pos.CENTER);
         root.setMaxHeight(740);
-        root.setMinWidth(850);
+        root.setMinWidth(950);
 
         // Initialize Tooltip(s)
         initExtras();
@@ -204,6 +205,7 @@ public class MastermindView {
         rightPane.setBottom(botPane);
     }
 
+
     /**
      * Method to initialize the peg tray
      * @return trayBox - HBox containing the peg tray
@@ -216,26 +218,79 @@ public class MastermindView {
         trayBox.setId("peg-pane");
         // Pegs inside the box
         pegsTray = new ArrayList<>();
-        Circle redPeg = new Circle(13.5, Peg.THE_RED_PEG.getColor());
-        Circle yellowPeg = new Circle(13.5, Peg.THE_YELLOW_PEG.getColor());
-        Circle greenPeg = new Circle(13.5, Peg.THE_GREEN_PEG.getColor());
-        Circle bluePeg = new Circle(13.5, Peg.THE_BLUE_PEG.getColor());
-        questionCircleBig = new Button();
-        questionCircleBig.setId("iconQuestion");
-        questionCircleBig.setTooltip(tooltipRight);
-        // Set the drop shadow effect for them
-        redPeg.setId("peg-circle");
-        yellowPeg.setId("peg-circle");
-        greenPeg.setId("peg-circle");
-        bluePeg.setId("peg-circle");
+
+        if (theModel.getNumPegs() == 4) {
+            Circle redPeg = new Circle(13.5, Peg.THE_RED_PEG.getColor());
+            Circle yellowPeg = new Circle(13.5, Peg.THE_YELLOW_PEG.getColor());
+            Circle greenPeg = new Circle(13.5, Peg.THE_GREEN_PEG.getColor());
+            Circle bluePeg = new Circle(13.5, Peg.THE_BLUE_PEG.getColor());
+            questionCircleBig = new Button();
+            questionCircleBig.setId("iconQuestion");
+            questionCircleBig.setTooltip(tooltipRight);
+            // Set the drop shadow effect for them
+            redPeg.setId("peg-circle");
+            yellowPeg.setId("peg-circle");
+            greenPeg.setId("peg-circle");
+            bluePeg.setId("peg-circle");
 //        redPeg.getStyleClass().add("red-peg");
 //        yellowPeg.getStyleClass().add("yellow-peg");
 //        greenPeg.getStyleClass().add("green-peg");
 //        bluePeg.getStyleClass().add("blue-peg");
-        pegsTray.add(redPeg);
-        pegsTray.add(yellowPeg);
-        pegsTray.add(greenPeg);
-        pegsTray.add(bluePeg);
+            pegsTray.add(redPeg);
+            pegsTray.add(yellowPeg);
+            pegsTray.add(greenPeg);
+            pegsTray.add(bluePeg);
+        }
+
+        else if (theModel.getNumPegs() == 5) {
+            Circle redPeg = new Circle(12, Peg.THE_RED_PEG.getColor());
+            Circle yellowPeg = new Circle(12, Peg.THE_YELLOW_PEG.getColor());
+            Circle greenPeg = new Circle(12, Peg.THE_GREEN_PEG.getColor());
+            Circle bluePeg = new Circle(12, Peg.THE_BLUE_PEG.getColor());
+            Circle brownPeg = new Circle(12, Peg.THE_BROWN_PEG.getColor());
+            questionCircleBig = new Button();
+            questionCircleBig.setId("iconQuestion");
+            questionCircleBig.setTooltip(tooltipRight);
+            // Set the drop shadow effect for them
+            redPeg.setId("peg-circle");
+            yellowPeg.setId("peg-circle");
+            greenPeg.setId("peg-circle");
+            bluePeg.setId("peg-circle");
+            brownPeg.setId("peg-circle");
+
+            pegsTray.add(redPeg);
+            pegsTray.add(yellowPeg);
+            pegsTray.add(greenPeg);
+            pegsTray.add(bluePeg);
+            pegsTray.add(brownPeg);
+        }
+
+        else if (theModel.getNumPegs() == 6) {
+            Circle redPeg = new Circle(11, Peg.THE_RED_PEG.getColor());
+            Circle yellowPeg = new Circle(11, Peg.THE_YELLOW_PEG.getColor());
+            Circle greenPeg = new Circle(11, Peg.THE_GREEN_PEG.getColor());
+            Circle bluePeg = new Circle(11, Peg.THE_BLUE_PEG.getColor());
+            Circle brownPeg = new Circle(11, Peg.THE_BROWN_PEG.getColor());
+            Circle purplePeg = new Circle(11, Peg.THE_PURPLE_PEG.getColor());
+            questionCircleBig = new Button();
+            questionCircleBig.setId("iconQuestion");
+            questionCircleBig.setTooltip(tooltipRight);
+            // Set the drop shadow effect for them
+            redPeg.setId("peg-circle");
+            yellowPeg.setId("peg-circle");
+            greenPeg.setId("peg-circle");
+            bluePeg.setId("peg-circle");
+            brownPeg.setId("peg-circle");
+            purplePeg.setId("peg-circle");
+
+            pegsTray.add(redPeg);
+            pegsTray.add(yellowPeg);
+            pegsTray.add(greenPeg);
+            pegsTray.add(bluePeg);
+            pegsTray.add(brownPeg);
+            pegsTray.add(purplePeg);
+        }
+
         trayBox.getChildren().addAll(pegsTray);
         trayBox.getChildren().add(questionCircleBig);
         return trayBox;
@@ -341,11 +396,11 @@ public class MastermindView {
      * method for creating the left pane (the big pane that show the user input as well as the feedbacks)
      */
     private void initLeftPane() {
-        leftPane = new VBox(16);
+        leftPane = new VBox(13);
         leftPane.setPrefHeight(620);
-        leftPane.setMinWidth(460);
+        leftPane.setMinWidth(750);
         leftPane.setAlignment(Pos.CENTER);
-        leftPane.setPadding(new Insets(10, 20, 10, 20));
+        leftPane.setPadding(new Insets(10, 5, 10, 5));
         leftPane.setId("pane-with-shadow");
 
         // Initialize guesses and feedbacks
@@ -383,10 +438,16 @@ public class MastermindView {
             GridPane fbBox = new GridPane();
             fbBox.setHgap(8);
             fbBox.setVgap(8);
-            fbBox.add(feedbacks.get(i).get(0), 0, 0);
-            fbBox.add(feedbacks.get(i).get(1), 1, 0);
-            fbBox.add(feedbacks.get(i).get(2), 0, 1);
-            fbBox.add(feedbacks.get(i).get(3), 1, 1);
+            int count = 0;
+            for (int j = 0; j < theModel.getNumPegs(); j++) {
+                if(j % 2 == 0) {
+                    fbBox.add(feedbacks.get(i).get(j), count,0);
+                }
+                else {
+                    fbBox.add(feedbacks.get(i).get(j),count,1);
+                    count++;
+                }
+            }
             // iconBox holder
             Pane iconBox = new FlowPane();
             iconBox.setId("iconHolder");
@@ -415,11 +476,20 @@ public class MastermindView {
      */
     private void initPegSequence(int i) {
         // Peg sequence
+        double radius = 13.5;
+        if (PegSequence.getSequenceLength() == 5) {
+            radius = 12;
+        }
+        else if (PegSequence.getSequenceLength() == 6) {
+            radius = 11;
+        }
+
         for (int g = 0; g < PegSequence.getSequenceLength(); g++) {
             guesses.add(new ArrayList<>());
             feedbacks.add(new ArrayList<>());
             // Input pegs
-            Circle guessPeg = new Circle(13.5);
+
+            Circle guessPeg = new Circle(radius);
             guessPeg.setId("blank-circle");
             guesses.get(i).add(guessPeg);
             // Feedback pegs

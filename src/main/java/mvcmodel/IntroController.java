@@ -22,10 +22,13 @@ package mvcmodel;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import mvcmodel.view.MastermindIntroView;
 import mvcmodel.view.MastermindModeView;
 import mvcmodel.view.MastermindView;
+
+import java.sql.SQLOutput;
 
 public class IntroController {
 
@@ -109,37 +112,21 @@ public class IntroController {
      */
     private void handleModeButtons() {
         modeView.getEasyBtn().setOnAction((ActionEvent event) -> {
-            theModel.setMode(modeView.getEasyBtn().getText());
+            theModel.setMode(((Button)event.getSource()).getText());
+            System.out.println("- Mode has been set -");
             Stage modeStage = (Stage) modeView.getEasyBtn().getScene().getWindow();
             MastermindView theView = new MastermindView(theModel);
             gameScene = new Scene(theView.getRoot());
             gameScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
             modeStage.setScene(gameScene);
             modeStage.sizeToScene();
+            theModel.startGame();
             MastermindController theController = new MastermindController(theModel, theView);
+
         });
 
-        modeView.getMediumBtn().setOnAction((ActionEvent event) -> {
-            theModel.setMode(modeView.getMediumBtn().getText());
-            Stage modeStage = (Stage) modeView.getEasyBtn().getScene().getWindow();
-            MastermindView theView = new MastermindView(theModel);
-            gameScene = new Scene(theView.getRoot());
-            gameScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
-            modeStage.setScene(gameScene);
-            modeStage.sizeToScene();
-            MastermindController theController = new MastermindController(theModel, theView);
-        });
-
-        modeView.getMasterBtn().setOnAction((ActionEvent event) -> {
-            theModel.setMode(modeView.getMasterBtn().getText());
-            Stage modeStage = (Stage) modeView.getEasyBtn().getScene().getWindow();
-            MastermindView theView = new MastermindView(theModel);
-            gameScene = new Scene(theView.getRoot());
-            gameScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
-            modeStage.setScene(gameScene);
-            modeStage.sizeToScene();
-            MastermindController theController = new MastermindController(theModel, theView);
-        });
+        modeView.getMediumBtn().setOnAction((modeView.getEasyBtn().getOnAction()));
+        modeView.getMasterBtn().setOnAction((modeView.getEasyBtn().getOnAction()));
 
     }
 }

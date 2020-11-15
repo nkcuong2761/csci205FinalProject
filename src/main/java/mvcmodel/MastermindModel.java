@@ -38,21 +38,32 @@ public class MastermindModel {
      */
     private static Player player;
 
+    private String mode;
+
+    public int getNumPegs() {
+        return numPegs;
+    }
+
+    private int numPegs;
+
     public void setMode(String mode) {
+        this.mode = mode;
         switch(mode) {
             case("Beginner"):
-                System.out.println("set to 12 guesses");
                 MAX_GUESS = 12;
+                this.numPegs = 4;
                 break;
             case("Intermediate"):
-                System.out.println("set to 10 guesses");
                 MAX_GUESS = 10;
+                this.numPegs = 5;
                 break;
             case("Master"):
-                System.out.println("set to 8 guesses");
                 MAX_GUESS = 8;
+                this.numPegs = 6;
                 break;
         }
+        PegSequence.setSequenceLength(this.numPegs);
+
     }
 
     /**
@@ -83,7 +94,6 @@ public class MastermindModel {
      * Constructor for the model to initialize the variable player and the codeMaker
      */
     public MastermindModel(){
-        codeMaker = new CodeMaker();
         player = new Player();
     }
 
@@ -115,6 +125,10 @@ public class MastermindModel {
         codeMaker.generateCode();
         userGuess = null;
         lastRowChecked = -1;
+    }
+
+    public void startGame() {
+        codeMaker = new CodeMaker();
     }
 
     /**

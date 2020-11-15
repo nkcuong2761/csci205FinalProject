@@ -109,7 +109,7 @@ public class MastermindController {
             System.out.println(getColumn(getRow()) + " " + getRow());
             // do not allow user to use check button if entered guess is incomplete
             // NOTE THIS ONE DOES NOT CONSIDER THE LAST ROW SUBMISSION: ROW = 11; COLUMN = -1
-            if ((getColumn(getRow()) != 1 || (getColumn(getRow()) == 1 && getRow() == 0)) && !(getColumn(getRow()) == -1 && getRow() == 11)){
+            if ((getColumn(getRow()) != 1 || (getColumn(getRow()) == 1 && getRow() == 0)) && !(getColumn(getRow()) == -1 && getRow() == (theModel.getMaxGuess()-1))){
                 theView.updateOutputString("Finish entering your guess first!");
             }
             else {
@@ -118,7 +118,7 @@ public class MastermindController {
 
                 // get the row the user is on
                 rowsChecked.add(getRow() - 1);
-                if ((getRow() == theModel.getLastRowChecked() + 1) && (getRow() != 11)){
+                if ((getRow() == theModel.getLastRowChecked() + 1) && (getRow() != (theModel.getMaxGuess()-1))){
                     theView.updateOutputString(String.format("Row %d has already been checked", theModel.getLastRowChecked() + 1));
                     return;
                 }
@@ -145,18 +145,17 @@ public class MastermindController {
                 }
 
                 // Update the response peg accordingly
-                if (getRow() == 11 && theModel.getLastRowChecked() == 11){
+                if (getRow() == (theModel.getMaxGuess()-1) && theModel.getLastRowChecked() == (theModel.getMaxGuess())){
                     theView.updateRow(getRow(), comparisonResult);
                 } else {
                     theView.updateRow(getRow() - 1, comparisonResult);
                 }
                 theView.updateTurnLeftString();
                 System.out.println("Current guess number is: " + theModel.getCurrGuess());
-                System.out.println(comparisonResult.toString());
             }
 
             // Finished when all the rows are filled
-            if (theModel.getCurrGuess() == 12) {
+            if (theModel.getCurrGuess() == theModel.getMaxGuess()) {
                 try {
                     theView.displayEndGame(false);
                 } catch (FileNotFoundException e) {
@@ -207,7 +206,7 @@ public class MastermindController {
         int colNumber = -1;
         TilePane currentRow = theView.getRows().get(row);
         ObservableList<Node> guesses = currentRow.getChildren();
-        for (int j = 1; j < 5; j++) {
+        for (int j = 1; j <= theModel.getNumPegs(); j++) {
             if (guesses.get(j).getId().equals("blank-circle")) {
                 colNumber = j;
                 break;
@@ -339,6 +338,8 @@ public class MastermindController {
      * Method to handle the hint button
      */
     private void handleHintButton() {
+        // TODO update this for the changing amount of options for colors of pegs
+
         theView.getHintBtn().setOnMouseClicked(event -> {
             // tell the user about one peg that is in the secret code
             Random rand = new Random();

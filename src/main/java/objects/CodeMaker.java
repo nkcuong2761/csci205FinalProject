@@ -38,7 +38,7 @@ public class CodeMaker {
     /**
      * Variable to do the comparison: secret code in string
      */
-    private static StringBuilder secreteCodeString;
+    private static StringBuilder secretCodeString;
 
     /**
      * Variable to do the comparison: user input code in string
@@ -55,6 +55,7 @@ public class CodeMaker {
      * Public constructor to generate secret code
      */
     public CodeMaker() {
+        PegSequence.setUpWinningSequence();
         generateCode();
     }
 
@@ -66,6 +67,7 @@ public class CodeMaker {
         secretCode = null;
         Random rand = new Random(); // instance of random class
         // Generate string
+
         int length = PegSequence.getSequenceLength();
         StringBuilder code = new StringBuilder();
         for (int i = 0; i < length; i++) {
@@ -86,8 +88,9 @@ public class CodeMaker {
      */
     public static PegSequence compare(PegSequence userCode) {
         // Create new StringBuffer for the output
-        responseCodeString = new StringBuilder("----");
-        secreteCodeString = new StringBuilder(secretCode.toString());
+        String blankSymbol = "-";
+        responseCodeString = new StringBuilder(blankSymbol.repeat(secretCode.getSequenceLength()));
+        secretCodeString = new StringBuilder(secretCode.toString());
         userInputCodeString = new StringBuilder(userCode.toString());
         userInputChar = userCode.toString().toCharArray();
         int n = 0;
@@ -95,10 +98,10 @@ public class CodeMaker {
         // Check for correct number and correct order
         for (int i = 0; i < secretCode.getSequenceLength(); i++) {
             // Compare the secret code to the input
-            if (secreteCodeString.charAt(i) == userInputCodeString.charAt(i)) {
+            if (secretCodeString.charAt(i) == userInputCodeString.charAt(i)) {
                 responseCodeString = responseCodeString.replace(n, n + 1, "*");
                 n++;
-                secreteCodeString.setCharAt(i, '0');// Reassign the index to avoid repetition
+                secretCodeString.setCharAt(i, '0');// Reassign the index to avoid repetition
                 userInputCodeString.setCharAt(i, '0');
             }
         }
@@ -110,13 +113,14 @@ public class CodeMaker {
                 continue;
             }
             // Check the remaining for correct number
-            if (secreteCodeString.indexOf(String.valueOf(userInputCodeString.charAt(i))) >= 0) {
+            if (secretCodeString.indexOf(String.valueOf(userInputCodeString.charAt(i))) >= 0) {
                 responseCodeString = responseCodeString.replace(n, n + 1, "+");
                 n++;
-                secreteCodeString.setCharAt(secreteCodeString.indexOf(String.valueOf(userInputChar[i])), '0');// Reassign the index to avoid repetition
+                secretCodeString.setCharAt(secretCodeString.indexOf(String.valueOf(userInputChar[i])), '0');// Reassign the index to avoid repetition
             }
         }
         // Return the Code
+        System.out.println("response code string: " + responseCodeString);
         return new PegSequence(responseCodeString.toString());
     }
 
