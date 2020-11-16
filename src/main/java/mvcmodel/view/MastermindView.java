@@ -99,6 +99,10 @@ public class MastermindView {
     private VBox midPane;
     private Media media;
     private MediaPlayer mediaPlayer;
+    private Media errorMedia = new Media(getClass().getResource("/assets/error.wav").toExternalForm());
+    private MediaPlayer errorMediaPlayer = new MediaPlayer(errorMedia);
+
+
 
 
     public MastermindView(MastermindModel theModel) {
@@ -128,6 +132,7 @@ public class MastermindView {
         updateTurnLeftString();
         restartLeftPane();
         mediaPlayer.stop();
+
     }
 
     /**
@@ -734,5 +739,9 @@ public class MastermindView {
             mediaPlayer.play();
         }
 //        updateOutputString("You can:\n    Hit Restart the game to play a new one\n    Change mode to multiplayer option\n    Exit the game!");
+    }
+
+    public void buttonClickSound() {
+
     }
 }

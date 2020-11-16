@@ -23,12 +23,12 @@ import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import mvcmodel.view.MastermindIntroView;
 import mvcmodel.view.MastermindModeView;
 import mvcmodel.view.MastermindView;
-
-import java.sql.SQLOutput;
 
 public class IntroController {
 
@@ -56,6 +56,10 @@ public class IntroController {
      * The mode view of the game
      */
     private MastermindModeView modeView;
+
+
+
+
 
     public IntroController(MastermindModeView modeView, MastermindIntroView introView, MastermindModel theModel) {
         this.modeView = modeView;
@@ -91,6 +95,7 @@ public class IntroController {
                     introStage.setScene(modeScene);
                     introStage.sizeToScene();
                 }
+
             }
             // Error checking for valid name
             catch (NumberFormatException numberFormatException) {
@@ -101,6 +106,7 @@ public class IntroController {
                         introView.getNameInput().getText()));
 
                 alert.show();
+
             }
         });
 
