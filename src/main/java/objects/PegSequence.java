@@ -21,15 +21,16 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class PegSequence {
-    /**
-     * Final variable for the winning sequence
-     */
-    public static final String WINNING_SEQUENCE = "****";
+
     /**
      * Final variable for the sequence length
      */
-    private static final int SEQUENCE_LENGTH = 4;
+    private static int SEQUENCE_LENGTH;
 
+    /**
+     * Variable for the winning sequence
+     */
+    public static String WINNING_SEQUENCE;
 
     /** Getter method for sequence of the peg
      * @return sequence - the array list
@@ -47,11 +48,12 @@ public class PegSequence {
      */
     public PegSequence(String input) {
         sequence = new ArrayList<>(SEQUENCE_LENGTH);
-        sequence.add(Peg.getPegfromString(String.valueOf(input.charAt(0))));
-        sequence.add(Peg.getPegfromString(String.valueOf(input.charAt(1))));
-        sequence.add(Peg.getPegfromString(String.valueOf(input.charAt(2))));
-        sequence.add(Peg.getPegfromString(String.valueOf(input.charAt(3))));
+        for (int i = 0; i < SEQUENCE_LENGTH; i++) {
+            sequence.add(Peg.getPegfromString(String.valueOf(input.charAt(i))));
+        }
     }
+
+
 
     /**
      * Constructor to create an empty peg sequence array
@@ -95,5 +97,14 @@ public class PegSequence {
      */
     public static int getSequenceLength() {
         return SEQUENCE_LENGTH;
+    }
+
+    public static void setSequenceLength(int length) {
+        SEQUENCE_LENGTH = length;
+    }
+
+    public static void setUpWinningSequence() {
+        String star = "*";
+        WINNING_SEQUENCE = star.repeat(SEQUENCE_LENGTH);
     }
 }

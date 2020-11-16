@@ -75,6 +75,7 @@ public class MastermindMain extends Application {
         primaryStage.show();
 
     }
+    //change scene
 
     public static void main(String[] args) {
         launch(args);
