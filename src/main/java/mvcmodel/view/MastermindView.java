@@ -11,6 +11,8 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -95,7 +97,8 @@ public class MastermindView {
     /** Tooltip for questionCircle(right) */
     private Tooltip tooltipRight;
     private VBox midPane;
-
+    private Media media;
+    private MediaPlayer mediaPlayer;
 
 
     public MastermindView(MastermindModel theModel) {
@@ -124,6 +127,7 @@ public class MastermindView {
     public void createNewScene() {
         updateTurnLeftString();
         restartLeftPane();
+        mediaPlayer.stop();
     }
 
     /**
@@ -672,7 +676,6 @@ public class MastermindView {
     public void displayEndGame(boolean win) throws FileNotFoundException {
         if (win) {
 
-//            Media media = new Media(new File(path).toURI().toString());
 
             updateOutputLabel("Congratulations! You won");
             outputLabel.setTextFill(Color.web("023E8A"));
@@ -696,9 +699,14 @@ public class MastermindView {
 
             midPane.getChildren().add(imageView);
 
+            media = new Media(getClass().getResource("/assets/crowdCheer.wav").toExternalForm());
+            mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            mediaPlayer.play();
+
         } else {
             updateOutputLabel("You lost! Better luck next time");
-//            Media media = new Media(new File(path).toURI().toString());
+
 
             // display winning gif
             Image image = new Image(getClass().getResource("/assets/sad2.gif").toExternalForm());
@@ -720,6 +728,10 @@ public class MastermindView {
             midPane.getChildren().add(imageView);
 
             outputLabel.setTextFill(Color.web("EF476F"));
+            media = new Media(getClass().getResource("/assets/womp-womp.mp3").toExternalForm());
+            mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            mediaPlayer.play();
         }
 //        updateOutputString("You can:\n    Hit Restart the game to play a new one\n    Change mode to multiplayer option\n    Exit the game!");
     }
