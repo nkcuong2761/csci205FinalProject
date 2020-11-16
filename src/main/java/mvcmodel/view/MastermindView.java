@@ -19,9 +19,9 @@ import mvcmodel.MastermindModel;
 import objects.Peg;
 import objects.PegSequence;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+
 
 /**
  * Method to store the view(interface) of the Mastermind board
@@ -602,6 +602,8 @@ public class MastermindView {
     public void displayEndGame(boolean win) throws FileNotFoundException {
         if (win) {
 
+//            Media media = new Media(new File(path).toURI().toString());
+
             updateOutputLabel("Congratulations! You won");
             outputLabel.setTextFill(Color.web("023E8A"));
 
@@ -626,6 +628,8 @@ public class MastermindView {
 
         } else {
             updateOutputLabel("You lost! Better luck next time");
+//            Media media = new Media(new File(path).toURI().toString());
+
             // display winning gif
             Image image = new Image(getClass().getResource("/assets/sad2.gif").toExternalForm());
 
