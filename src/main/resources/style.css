@@ -58,6 +58,17 @@ WHITE(DEFAULT) THEME
     -fx-text-fill: white;
 }
 
+#backBtn {
+    -fx-background-color: transparent;
+    -fx-min-height: 40px;
+    -fx-min-width: 40px;
+    -fx-effect: none;
+    -fx-background-image: url("assets/back.png");
+    -fx-background-size: 40px 40px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
 #themeBtn {
     -fx-background-color: #1D1D1D;
     -fx-background-image: url("assets/theme.png");

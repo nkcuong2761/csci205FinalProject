@@ -23,8 +23,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import mvcmodel.view.MastermindIntroView;
 import mvcmodel.view.MastermindModeView;
@@ -127,7 +125,7 @@ public class IntroController {
             modeStage.setScene(gameScene);
             modeStage.sizeToScene();
             theModel.startGame();
-            MastermindController theController = new MastermindController(theModel, theView);
+            MastermindController theController = new MastermindController(theModel, modeScene, theView);
 
         });
 

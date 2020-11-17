@@ -70,8 +70,13 @@ public class MastermindView {
      * Array for storing the feedbacks of each guess
      */
     private ArrayList<ArrayList<Circle>> feedbacks;
-
+    /**
+     * Text to represent name of the player
+     */
     private Text nameText;
+    /**
+     * Text to represent the number of turns left
+     */
     private Text turnText;
 
     /** Tooltips for questionCircle(left) */
@@ -80,7 +85,8 @@ public class MastermindView {
     private ArrayList<ImageView> lineIndicators;
     /** Questions Icons(right) */
     private Button questionCircleBig;
-
+    /** Button to go back to the previous screen*/
+    private Button backBtn;
     /** Theme icon */
     private Button themeBtn;
     /** Theme option circle array */
@@ -88,7 +94,7 @@ public class MastermindView {
     /** Theme tray that contains the theme list */
     private FlowPane themeTray;
 
-    /** output string to show the text below the result (next steps etc.) */
+    /** Output string to show the text below the result (next steps etc.) */
     private Text outputString;
 
     /** output message for winning/losing */
@@ -102,9 +108,10 @@ public class MastermindView {
     private Media errorMedia = new Media(getClass().getResource("/assets/error.wav").toExternalForm());
     private MediaPlayer errorMediaPlayer = new MediaPlayer(errorMedia);
 
-
-
-
+    /**
+     * The constructor for the main view
+     * @param theModel - the model of the game
+     */
     public MastermindView(MastermindModel theModel) {
         this.theModel = theModel;
         // Create a new HBox instance that displays the overall layout
@@ -409,12 +416,18 @@ public class MastermindView {
         leftPane.setAlignment(Pos.CENTER);
         leftPane.setPadding(new Insets(10, 5, 10, 5));
         leftPane.setId("pane-with-shadow");
-
+        // Initialize the back button by putting it in an HBox
+        HBox backBtnBox = new HBox();
+        backBtnBox.setAlignment(Pos.CENTER_LEFT);
+        backBtn = new Button();
+        backBtn.setId("backBtn");
+        backBtnBox.getChildren().add(backBtn);
         // Initialize guesses and feedbacks
         guesses = new ArrayList<ArrayList<Circle>>();
         feedbacks = new ArrayList<ArrayList<Circle>>();
         // Initialize all the rows
         initRow();
+        leftPane.getChildren().add(backBtnBox);
         leftPane.getChildren().addAll(rows);
     }
 
@@ -743,5 +756,9 @@ public class MastermindView {
 
     public void buttonClickSound() {
 
+    }
+
+    public Button getBackBtn() {
+        return backBtn;
     }
 }

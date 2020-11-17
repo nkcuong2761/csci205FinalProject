@@ -24,6 +24,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
+import mvcmodel.view.MastermindModeView;
 import mvcmodel.view.MastermindView;
 import objects.Peg;
 import objects.PegSequence;
@@ -49,6 +51,11 @@ public class MastermindController {
     private Scene modeScene;
 
     /**
+     * The mode view of the game
+     */
+    private MastermindModeView modeView;
+
+    /**
      * The variable holding list of the rows that have already been checked
      */
     private ArrayList<Integer> rowsChecked = new ArrayList<>();
@@ -63,10 +70,11 @@ public class MastermindController {
      * @param theModel - The main model of the game
      * @param theView - The class for theView
      */
-    public MastermindController(MastermindModel theModel, MastermindView theView) {
+    public MastermindController(MastermindModel theModel, Scene modeScene, MastermindView theView) {
         // Initialize the main variable
         this.theModel = theModel;
         this.theView = theView;
+        this.modeScene = modeScene;
 
         // method to set up the pegs
         handleUserChoice();
@@ -91,6 +99,21 @@ public class MastermindController {
 
         // handler for theme button
         handleThemeButton();
+
+        // handler for the back button
+        handleBackButton();
+    }
+
+    /**
+     * Method to handle transition between the previous and new screen
+     */
+    private void handleBackButton() {
+        theView.getBackBtn().setOnAction(event -> {
+            Stage modeStage = (Stage) theView.getBackBtn().getScene().getWindow();
+            modeStage.setScene(modeScene);
+            // Restart the game
+            theModel.restartGame();
+        });
     }
 
     /**
@@ -317,6 +340,10 @@ public class MastermindController {
      */
     private void handleRulesButton() {
         theView.getRulesBtn().setOnMouseClicked(event -> {
+            // Check for finished case and do not output anything
+            if (finished){
+                return;
+            }
             // show the rules in the output string
             theView.updateOutputString("" +
                     "The idea of the game is for one player (the\n" +
