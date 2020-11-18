@@ -254,11 +254,11 @@ public class MastermindController {
                 else if (getColumn(getRow()) != -1 && getRow() == 0) {
                     int xValue = getRow();
                     int yValue = getColumn(xValue);
-                    theView.updateGuess(xValue, yValue, (Color) circle.getFill());
+                    theView.updateGuess(xValue, yValue, (Color) circle.getFill(), circle.getStyleClass().toString());
                 } else if (getColumn(getRow()) != -1 && rowsChecked.contains(getRow() - 1)) {
                     int xValue = getRow();
                     int yValue = getColumn(xValue);
-                    theView.updateGuess(xValue, yValue, (Color) circle.getFill());
+                    theView.updateGuess(xValue, yValue, (Color) circle.getFill(),  circle.getStyleClass().toString());
                 }
                 // When the rows is already filled
                 else {
@@ -301,17 +301,17 @@ public class MastermindController {
                 // Deleting the last peg of a filled row that has not yet been checked
                 else if (rowsChecked.size() == theModel.getCurrGuess() && theModel.getCurrGuess() != theModel.getMaxGuess()-1) {
                     System.out.println("Deleting the last peg of the row");
-                    theView.updateGuess(rowNumber - 1, 4, Color.WHITE);
+                    theView.updateGuess(rowNumber - 1, 4, Color.WHITE, null);
                     return;
                 }
                 // Deleting a filled row if it is the last row
                 else if (theModel.getCurrGuess() == theModel.getMaxGuess()-1) {
                     System.out.println("Deleting the last peg of the last row");
-                    theView.updateGuess(rowNumber, 4, Color.WHITE);
+                    theView.updateGuess(rowNumber, 4, Color.WHITE, null);
                     return;
                 }
             }
-            theView.updateGuess(rowNumber, columnNumber, Color.WHITE);
+            theView.updateGuess(rowNumber, columnNumber, Color.WHITE, null);
 
         });
     }
@@ -405,10 +405,36 @@ public class MastermindController {
         // Set the handler for the theme circles being clicked
         for (Circle c : theView.getThemeOption()) {
             c.setOnMouseClicked(event -> {
-                if (c.getFill().equals(Color.web("D58097")))
-                    theView.getRoot().getStylesheets().setAll(getClass().getResource("/style2.css").toExternalForm());
-                else
-                    theView.getRoot().getStylesheets().setAll(getClass().getResource("/style.css").toExternalForm());
+                int i = 1;
+                if (c.getFill().equals(Color.web("D58097"))){
+                    Peg.getPegfromString(String.valueOf(1)).updatePegColor(Color.web("294352"));
+                    Peg.getPegfromString(String.valueOf(2)).updatePegColor(Color.web("6F5771"));
+                    Peg.getPegfromString(String.valueOf(3)).updatePegColor(Color.web("D58097"));
+                    Peg.getPegfromString(String.valueOf(4)).updatePegColor(Color.web("E6B5B8"));
+                    Peg.getPegfromString(String.valueOf(5)).updatePegColor(Color.web("123456"));
+                    Peg.getPegfromString(String.valueOf(6)).updatePegColor(Color.web("654321"));
+                    for (Circle circle: theView.getPegsTray()) {
+                        circle.setFill(Peg.getPegfromString(String.valueOf(i)).getColor());
+                        i++;
+                    }
+
+                    /* Loop when later on refactor with an array list
+                    for (int i = 0; i < theView.getPegsTray().size(); i++) {
+                        Peg.getPegfromString(String.valueOf(i + 1)).updatePegColor());
+                    }*/
+                    theView.getRoot().getStylesheets().setAll(getClass().getResource("/style2.css").toExternalForm());}
+                else {
+                    Peg.getPegfromString(String.valueOf(1)).updatePegColor(Color.web("EF476F"));
+                    Peg.getPegfromString(String.valueOf(2)).updatePegColor(Color.web("FFD166"));
+                    Peg.getPegfromString(String.valueOf(3)).updatePegColor(Color.web("06D6A0"));
+                    Peg.getPegfromString(String.valueOf(4)).updatePegColor(Color.web("023E8A"));
+                    Peg.getPegfromString(String.valueOf(5)).updatePegColor(Color.BROWN);
+                    Peg.getPegfromString(String.valueOf(6)).updatePegColor(Color.PURPLE);
+                    for (Circle circle: theView.getPegsTray()) {
+                        circle.setFill(Peg.getPegfromString(String.valueOf(i)).getColor());
+                        i++;
+                    }
+                    theView.getRoot().getStylesheets().setAll(getClass().getResource("/style.css").toExternalForm());}
             });
         }
     }

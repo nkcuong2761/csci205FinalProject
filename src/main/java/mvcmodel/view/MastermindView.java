@@ -246,10 +246,10 @@ public class MastermindView {
             yellowPeg.setId("peg-circle");
             greenPeg.setId("peg-circle");
             bluePeg.setId("peg-circle");
-//        redPeg.getStyleClass().add("red-peg");
-//        yellowPeg.getStyleClass().add("yellow-peg");
-//        greenPeg.getStyleClass().add("green-peg");
-//        bluePeg.getStyleClass().add("blue-peg");
+            redPeg.getStyleClass().add("red-peg");
+            yellowPeg.getStyleClass().add("yellow-peg");
+            greenPeg.getStyleClass().add("green-peg");
+            bluePeg.getStyleClass().add("blue-peg");
             pegsTray.add(redPeg);
             pegsTray.add(yellowPeg);
             pegsTray.add(greenPeg);
@@ -631,10 +631,11 @@ public class MastermindView {
      * @param pegNumber - Index of the position of the peg (from 1 to 4)
      * @param newColor - The color of the peg the user chooses
      */
-    public void updateGuess(int rowNumber, int pegNumber, Color newColor) {
+    public void updateGuess(int rowNumber, int pegNumber, Color newColor, String className) {
         TilePane currentRow = rows.get(rowNumber);
         ObservableList<Node> guesses = currentRow.getChildren();
         Circle circleToChange = (Circle) guesses.get(pegNumber);
+        circleToChange.getStyleClass().add(className);
         // Delete the peg for the delete button
         if (newColor.equals(Color.WHITE)) {
             circleToChange.setId("blank-circle");
