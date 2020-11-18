@@ -411,34 +411,12 @@ public class MastermindController {
         for (Circle c : theView.getThemeOption()) {
             c.setOnMouseClicked(event -> {
                 int i = 1;
-                if (c.getFill().equals(Color.web("D58097"))){
-/*
-                    Peg.getPegfromString(String.valueOf(1)).updatePegColor(Color.web("294352"));
-                    Peg.getPegfromString(String.valueOf(2)).updatePegColor(Color.web("6F5771"));
-                    Peg.getPegfromString(String.valueOf(3)).updatePegColor(Color.web("D58097"));
-                    Peg.getPegfromString(String.valueOf(4)).updatePegColor(Color.web("E6B5B8"));
-                    Peg.getPegfromString(String.valueOf(5)).updatePegColor(Color.web("123456"));
-                    Peg.getPegfromString(String.valueOf(6)).updatePegColor(Color.web("654321"));
-                    for (Circle circle: theView.getPegsTray()) {
-                        circle.setFill(Peg.getPegfromString(String.valueOf(i)).getColor());
-                        i++;
-                    }
-*/
-
-
-                    theView.getRoot().getStylesheets().setAll(getClass().getResource("/style2.css").toExternalForm());}
-                else {
-/*                    Peg.getPegfromString(String.valueOf(1)).updatePegColor(Color.web("EF476F"));
-                    Peg.getPegfromString(String.valueOf(2)).updatePegColor(Color.web("FFD166"));
-                    Peg.getPegfromString(String.valueOf(3)).updatePegColor(Color.web("06D6A0"));
-                    Peg.getPegfromString(String.valueOf(4)).updatePegColor(Color.web("023E8A"));
-                    Peg.getPegfromString(String.valueOf(5)).updatePegColor(Color.BROWN);
-                    Peg.getPegfromString(String.valueOf(6)).updatePegColor(Color.PURPLE);
-                    for (Circle circle: theView.getPegsTray()) {
-                        circle.setFill(Peg.getPegfromString(String.valueOf(i)).getColor());
-                        i++;
-                    }*/
-                    theView.getRoot().getStylesheets().setAll(getClass().getResource("/style.css").toExternalForm());}
+                if (c.getFill().equals(Color.web("00B4D8")))
+                    theView.getRoot().getStylesheets().setAll(getClass().getResource("/style3.css").toExternalForm());
+                else if (c.getFill().equals(Color.web("D58097")))
+                    theView.getRoot().getStylesheets().setAll(getClass().getResource("/style2.css").toExternalForm());
+                else
+                    theView.getRoot().getStylesheets().setAll(getClass().getResource("/style.css").toExternalForm());
             });
         }
     }

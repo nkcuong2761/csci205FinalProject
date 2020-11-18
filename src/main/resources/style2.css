@@ -159,18 +159,26 @@ PINK THEME
     -fx-fill: #F3F5E8;
 }
 
-.red-peg {
+.first-peg {
     -fx-fill: #294352;
 }
 
-.yellow-peg {
+.second-peg {
     -fx-fill: #6F5771;
 }
 
-.green-peg {
+.third-peg {
     -fx-fill: #D58097;
 }
 
-.blue-peg {
+.fourth-peg {
     -fx-fill: #E6B5B8;
+}
+
+.fifth-peg {
+    -fx-fill: #D7AC8D;
+}
+
+.sixth-peg {
+    -fx-fill: #FF7373;
 }
