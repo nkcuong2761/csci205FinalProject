@@ -234,7 +234,17 @@ public class MastermindView {
         trayBox.setId("peg-pane");
         // Pegs inside the box
         pegsTray = new ArrayList<>();
+        String[] styleClassString = {"red-peg", "yellow-peg","green-peg", "blue-peg", "fifth-peg", "sixth-peg"};
+        for (int i = 0; i < theModel.getNumPegs(); i++) {
+            Circle circle = new Circle(13.5);
+            circle.setId("peg-circle");
+            circle.getStyleClass().add(styleClassString[i]);
+            pegsTray.add(circle);
+        }
 
+        questionCircleBig = new Button();
+        questionCircleBig.setId("iconQuestion");
+/*
         if (theModel.getNumPegs() == 4) {
             Circle redPeg = new Circle(13.5, Peg.THE_FIRST_PEG.getColor());
             Circle yellowPeg = new Circle(13.5, Peg.THE_SECOND_PEG.getColor());
@@ -259,11 +269,11 @@ public class MastermindView {
         }
 
         else if (theModel.getNumPegs() == 5) {
-            Circle redPeg = new Circle(12, Peg.THE_FIRST_PEG.getColor());
-            Circle yellowPeg = new Circle(12, Peg.THE_SECOND_PEG.getColor());
-            Circle greenPeg = new Circle(12, Peg.THE_THIRD_PEG.getColor());
-            Circle bluePeg = new Circle(12, Peg.THE_FOURTH_PEG.getColor());
-            Circle brownPeg = new Circle(12, Peg.THE_FIFTH_PEG.getColor());
+            Circle redPeg = new Circle(13.5, Peg.THE_FIRST_PEG.getColor());
+            Circle yellowPeg = new Circle(13.5, Peg.THE_SECOND_PEG.getColor());
+            Circle greenPeg = new Circle(13.5, Peg.THE_THIRD_PEG.getColor());
+            Circle bluePeg = new Circle(13.5, Peg.THE_FOURTH_PEG.getColor());
+            Circle brownPeg = new Circle(13.5, Peg.THE_FIFTH_PEG.getColor());
             questionCircleBig = new Button();
             questionCircleBig.setId("iconQuestion");
             questionCircleBig.setTooltip(tooltipRight);
@@ -282,12 +292,12 @@ public class MastermindView {
         }
 
         else if (theModel.getNumPegs() == 6) {
-            Circle redPeg = new Circle(11, Peg.THE_FIRST_PEG.getColor());
-            Circle yellowPeg = new Circle(11, Peg.THE_SECOND_PEG.getColor());
-            Circle greenPeg = new Circle(11, Peg.THE_THIRD_PEG.getColor());
-            Circle bluePeg = new Circle(11, Peg.THE_FOURTH_PEG.getColor());
-            Circle brownPeg = new Circle(11, Peg.THE_FIFTH_PEG.getColor());
-            Circle purplePeg = new Circle(11, Peg.THE_SIXTH_PEG.getColor());
+            Circle redPeg = new Circle(13.5, Peg.THE_FIRST_PEG.getColor());
+            Circle yellowPeg = new Circle(13.5, Peg.THE_SECOND_PEG.getColor());
+            Circle greenPeg = new Circle(13.5, Peg.THE_THIRD_PEG.getColor());
+            Circle bluePeg = new Circle(13.5, Peg.THE_FOURTH_PEG.getColor());
+            Circle brownPeg = new Circle(13.5, Peg.THE_FIFTH_PEG.getColor());
+            Circle purplePeg = new Circle(13.5, Peg.THE_SIXTH_PEG.getColor());
             questionCircleBig = new Button();
             questionCircleBig.setId("iconQuestion");
             questionCircleBig.setTooltip(tooltipRight);
@@ -305,7 +315,8 @@ public class MastermindView {
             pegsTray.add(bluePeg);
             pegsTray.add(brownPeg);
             pegsTray.add(purplePeg);
-        }
+        }*/
+        questionCircleBig.setTooltip(tooltipRight);
 
         trayBox.getChildren().addAll(pegsTray);
         trayBox.getChildren().add(questionCircleBig);

@@ -421,10 +421,7 @@ public class MastermindController {
                         i++;
                     }
 
-                    /* Loop when later on refactor with an array list
-                    for (int i = 0; i < theView.getPegsTray().size(); i++) {
-                        Peg.getPegfromString(String.valueOf(i + 1)).updatePegColor());
-                    }*/
+
                     theView.getRoot().getStylesheets().setAll(getClass().getResource("/style2.css").toExternalForm());}
                 else {
                     Peg.getPegfromString(String.valueOf(1)).updatePegColor(Color.web("EF476F"));
