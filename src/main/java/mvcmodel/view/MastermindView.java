@@ -108,6 +108,15 @@ public class MastermindView {
     private Media errorMedia = new Media(getClass().getResource("/assets/error.wav").toExternalForm());
     private MediaPlayer errorMediaPlayer = new MediaPlayer(errorMedia);
 
+    public static String[] getStyleClassString() {
+        return STYLE_CLASS_STRING;
+    }
+
+    /**
+     * Final String array
+     */
+    private static final String[] STYLE_CLASS_STRING = new String[]{"red-peg", "yellow-peg", "green-peg", "blue-peg", "fifth-peg", "sixth-peg"};
+
     /**
      * The constructor for the main view
      * @param theModel - the model of the game
@@ -234,11 +243,10 @@ public class MastermindView {
         trayBox.setId("peg-pane");
         // Pegs inside the box
         pegsTray = new ArrayList<>();
-        String[] styleClassString = {"red-peg", "yellow-peg","green-peg", "blue-peg", "fifth-peg", "sixth-peg"};
         for (int i = 0; i < theModel.getNumPegs(); i++) {
             Circle circle = new Circle(13.5);
             circle.setId("peg-circle");
-            circle.getStyleClass().add(styleClassString[i]);
+            circle.getStyleClass().add(STYLE_CLASS_STRING[i]);
             pegsTray.add(circle);
         }
 
