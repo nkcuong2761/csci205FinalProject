@@ -4,12 +4,12 @@ import javafx.scene.paint.Color;
 
 public enum Peg {
     // colors to represent the codes
-    THE_RED_PEG(Color.web("EF476F"), "1"),
-    THE_YELLOW_PEG(Color.web("FFD166"), "2"),
-    THE_GREEN_PEG(Color.web("06D6A0"), "3"),
-    THE_BLUE_PEG(Color.web("023E8A"), "4"),
-    THE_BROWN_PEG(Color.BROWN, "5"),
-    THE_PURPLE_PEG(Color.PURPLE, "6"),
+    THE_FIRST_PEG(Color.web("EF476F"), "1"),
+    THE_SECOND_PEG(Color.web("FFD166"), "2"),
+    THE_THIRD_PEG(Color.web("06D6A0"), "3"),
+    THE_FOURTH_PEG(Color.web("023E8A"), "4"),
+    THE_FIFTH_PEG(Color.BROWN, "5"),
+    THE_SIXTH_PEG(Color.PURPLE, "6"),
 
     // colors to represent the responses
     THE_BLACK_PEG(Color.web("000000", 0.85), "*"),
@@ -68,6 +68,14 @@ public enum Peg {
      */
     public String getValueofPeg(){
         return this.value;
+    }
+
+    /**
+     * Update the value of the peg
+     * @param color - New color of the peg
+     */
+    public void updatePegColor(Color color){
+        this.color = color;
     }
 
     public Color getColor() {

@@ -234,10 +234,10 @@ public class MastermindView {
         pegsTray = new ArrayList<>();
 
         if (theModel.getNumPegs() == 4) {
-            Circle redPeg = new Circle(13.5, Peg.THE_RED_PEG.getColor());
-            Circle yellowPeg = new Circle(13.5, Peg.THE_YELLOW_PEG.getColor());
-            Circle greenPeg = new Circle(13.5, Peg.THE_GREEN_PEG.getColor());
-            Circle bluePeg = new Circle(13.5, Peg.THE_BLUE_PEG.getColor());
+            Circle redPeg = new Circle(13.5, Peg.THE_FIRST_PEG.getColor());
+            Circle yellowPeg = new Circle(13.5, Peg.THE_SECOND_PEG.getColor());
+            Circle greenPeg = new Circle(13.5, Peg.THE_THIRD_PEG.getColor());
+            Circle bluePeg = new Circle(13.5, Peg.THE_FOURTH_PEG.getColor());
             questionCircleBig = new Button();
             questionCircleBig.setId("iconQuestion");
             questionCircleBig.setTooltip(tooltipRight);
@@ -257,11 +257,11 @@ public class MastermindView {
         }
 
         else if (theModel.getNumPegs() == 5) {
-            Circle redPeg = new Circle(12, Peg.THE_RED_PEG.getColor());
-            Circle yellowPeg = new Circle(12, Peg.THE_YELLOW_PEG.getColor());
-            Circle greenPeg = new Circle(12, Peg.THE_GREEN_PEG.getColor());
-            Circle bluePeg = new Circle(12, Peg.THE_BLUE_PEG.getColor());
-            Circle brownPeg = new Circle(12, Peg.THE_BROWN_PEG.getColor());
+            Circle redPeg = new Circle(12, Peg.THE_FIRST_PEG.getColor());
+            Circle yellowPeg = new Circle(12, Peg.THE_SECOND_PEG.getColor());
+            Circle greenPeg = new Circle(12, Peg.THE_THIRD_PEG.getColor());
+            Circle bluePeg = new Circle(12, Peg.THE_FOURTH_PEG.getColor());
+            Circle brownPeg = new Circle(12, Peg.THE_FIFTH_PEG.getColor());
             questionCircleBig = new Button();
             questionCircleBig.setId("iconQuestion");
             questionCircleBig.setTooltip(tooltipRight);
@@ -280,12 +280,12 @@ public class MastermindView {
         }
 
         else if (theModel.getNumPegs() == 6) {
-            Circle redPeg = new Circle(11, Peg.THE_RED_PEG.getColor());
-            Circle yellowPeg = new Circle(11, Peg.THE_YELLOW_PEG.getColor());
-            Circle greenPeg = new Circle(11, Peg.THE_GREEN_PEG.getColor());
-            Circle bluePeg = new Circle(11, Peg.THE_BLUE_PEG.getColor());
-            Circle brownPeg = new Circle(11, Peg.THE_BROWN_PEG.getColor());
-            Circle purplePeg = new Circle(11, Peg.THE_PURPLE_PEG.getColor());
+            Circle redPeg = new Circle(11, Peg.THE_FIRST_PEG.getColor());
+            Circle yellowPeg = new Circle(11, Peg.THE_SECOND_PEG.getColor());
+            Circle greenPeg = new Circle(11, Peg.THE_THIRD_PEG.getColor());
+            Circle bluePeg = new Circle(11, Peg.THE_FOURTH_PEG.getColor());
+            Circle brownPeg = new Circle(11, Peg.THE_FIFTH_PEG.getColor());
+            Circle purplePeg = new Circle(11, Peg.THE_SIXTH_PEG.getColor());
             questionCircleBig = new Button();
             questionCircleBig.setId("iconQuestion");
             questionCircleBig.setTooltip(tooltipRight);
