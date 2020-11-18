@@ -22,6 +22,7 @@ import objects.Peg;
 import objects.PegSequence;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 
@@ -585,13 +586,14 @@ public class MastermindView {
         TilePane currentRow = rows.get(rowNumber);
         ObservableList<Node> guesses = currentRow.getChildren();
         Circle circleToChange = (Circle) guesses.get(pegNumber);
-        circleToChange.getStyleClass().add(className);
+        //circleToChange.getStyleClass().add(className);
         // Delete the peg for the delete button
         if (newColor.equals(Color.WHITE)) {
             circleToChange.setId("blank-circle");
         }
         // Change to the user guess
         else {
+            circleToChange.getStyleClass().add(className);
             circleToChange.setId("peg-circle");
             circleToChange.setFill(newColor);
         }

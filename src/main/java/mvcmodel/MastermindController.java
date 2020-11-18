@@ -148,6 +148,7 @@ public class MastermindController {
                 for (Circle circle: theView.getGuesses().get(getRow()-1)){
                     int num = 0;
                     // Get the index based on the class name
+                    System.out.println("style class String" + theView.getStyleClassString());
                     for (int i = 0; i < theView.getStyleClassString().length; i++) {
                         if (circle.getStyleClass().toString().equals(theView.getStyleClassString()[i])){
                             num = i + 1;
@@ -156,6 +157,7 @@ public class MastermindController {
                     // Create peg from the position
                     Peg currentPeg = Peg.getPegfromString(String.valueOf(num));
                     // Create the user sequence
+                    System.out.println(currentPeg + "current Peg");
                     userGuessPegSequence.addPeg(currentPeg);
                 }
 
@@ -259,6 +261,8 @@ public class MastermindController {
                 else if (getColumn(getRow()) != -1 && getRow() == 0) {
                     int xValue = getRow();
                     int yValue = getColumn(xValue);
+                    System.out.println("Row I'm changing" + xValue + "column" + yValue);
+                    System.out.println(circle.getStyleClass().toString());
                     theView.updateGuess(xValue, yValue, (Color) circle.getFill(), circle.getStyleClass().toString());
                 } else if (getColumn(getRow()) != -1 && rowsChecked.contains(getRow() - 1)) {
                     int xValue = getRow();
@@ -306,13 +310,13 @@ public class MastermindController {
                 // Deleting the last peg of a filled row that has not yet been checked
                 else if (rowsChecked.size() == theModel.getCurrGuess() && theModel.getCurrGuess() != theModel.getMaxGuess()-1) {
                     System.out.println("Deleting the last peg of the row");
-                    theView.updateGuess(rowNumber - 1, 4, Color.WHITE, null);
+                    theView.updateGuess(rowNumber - 1, theModel.getNumPegs(), Color.WHITE, null);
                     return;
                 }
                 // Deleting a filled row if it is the last row
                 else if (theModel.getCurrGuess() == theModel.getMaxGuess()-1) {
                     System.out.println("Deleting the last peg of the last row");
-                    theView.updateGuess(rowNumber, 4, Color.WHITE, null);
+                    theView.updateGuess(rowNumber, theModel.getNumPegs(), Color.WHITE, null);
                     return;
                 }
             }
