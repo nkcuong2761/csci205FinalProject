@@ -138,7 +138,9 @@ public class MastermindView {
     public void createNewScene() {
         updateTurnLeftString();
         restartLeftPane();
-        mediaPlayer.stop();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
 
     }
 
@@ -757,6 +759,10 @@ public class MastermindView {
 
     public void buttonClickSound() {
 
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
     }
 
     public Button getBackBtn() {

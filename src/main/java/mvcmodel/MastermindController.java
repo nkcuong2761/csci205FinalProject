@@ -113,6 +113,9 @@ public class MastermindController {
             modeStage.setScene(modeScene);
             // Restart the game
             theModel.restartGame();
+            if (theView.getMediaPlayer() != null){
+                theView.getMediaPlayer().stop();
+            }
         });
     }
 

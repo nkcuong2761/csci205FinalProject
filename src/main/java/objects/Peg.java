@@ -9,7 +9,7 @@ public enum Peg {
     THE_THIRD_PEG(Color.web("06D6A0"), "3"),
     THE_FOURTH_PEG(Color.web("023E8A"), "4"),
     THE_FIFTH_PEG(Color.web("A52A2A"), "5"),
-    THE_SIXTH_PEG(Color.web("80080"), "6"),
+    THE_SIXTH_PEG(Color.web("800080"), "6"),
 
     // colors to represent the responses
     THE_BLACK_PEG(Color.web("000000", 0.85), "*"),
