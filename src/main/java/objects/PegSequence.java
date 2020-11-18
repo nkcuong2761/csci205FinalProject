@@ -53,8 +53,6 @@ public class PegSequence {
         }
     }
 
-
-
     /**
      * Constructor to create an empty peg sequence array
      */
