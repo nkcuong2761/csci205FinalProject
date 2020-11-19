@@ -22,6 +22,8 @@ package mvcmodel;/* *****************************************
 * ****************************************
 */
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import objects.CodeMaker;
 import objects.PegSequence;
 import objects.Player;
@@ -45,6 +47,19 @@ public class MastermindModel {
     }
 
     private int numPegs;
+
+    private boolean sound;
+
+    public boolean getSound() {
+        return sound;
+    }
+
+    public void setSound(boolean sound) {
+        this.sound = sound;
+    }
+
+
+
 
     public void setMode(String mode) {
         this.mode = mode;
@@ -90,11 +105,19 @@ public class MastermindModel {
      */
     public int MAX_GUESS = 12;
 
+    private Media buttonMedia;
+    private MediaPlayer buttonPlayer;
+
     /**
      * Constructor for the model to initialize the variable player and the codeMaker
      */
     public MastermindModel(){
+
         player = new Player();
+
+        // load button sound clip
+        buttonMedia = new Media(getClass().getResource("/assets/click.wav").toExternalForm());
+        buttonPlayer = new MediaPlayer(buttonMedia);
     }
 
     /**
@@ -162,5 +185,9 @@ public class MastermindModel {
      */
     public static CodeMaker getCodeMaker() {
         return codeMaker;
+    }
+
+    public MediaPlayer getButtonPlayer() {
+        return buttonPlayer;
     }
 }

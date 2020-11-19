@@ -28,6 +28,8 @@ import mvcmodel.view.MastermindIntroView;
 import mvcmodel.view.MastermindModeView;
 import mvcmodel.view.MastermindView;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class IntroController {
 
     /**
@@ -59,7 +61,7 @@ public class IntroController {
 
 
 
-    public IntroController(MastermindModeView modeView, MastermindIntroView introView, MastermindModel theModel) {
+    public IntroController(MastermindModeView modeView, MastermindIntroView introView, MastermindModel theModel) throws InterruptedException {
         this.modeView = modeView;
         this.introView = introView;
         this.theModel = theModel;
@@ -68,6 +70,26 @@ public class IntroController {
         handleGetName();
         handleModeButtons();
 
+        // handle sound
+        handleSoundBtn(modeView);
+
+    }
+
+    private void handleSoundBtn(MastermindModeView modeView) {
+        AtomicInteger count = new AtomicInteger();
+        modeView.getSoundOnOff().setOnAction(event -> {
+            if (count.get() %2 == 0){
+                modeView.getSoundOnOff().setText("Click to turn sound off");
+                theModel.setSound(true);
+                click();
+            }
+            else {
+                modeView.getSoundOnOff().setText("Click to turn sound on");
+                theModel.setSound(false);
+
+            }
+            count.getAndIncrement();
+        });
     }
 
     /**
@@ -114,8 +136,9 @@ public class IntroController {
     /**
      * Method to handle the mode transition to single player/ multiplayer option
      */
-    private void handleModeButtons() {
+    private void handleModeButtons() throws InterruptedException {
         modeView.getEasyBtn().setOnAction((ActionEvent event) -> {
+            click();
             theModel.setMode(((Button)event.getSource()).getText());
             System.out.println("- Mode has been set -");
             Stage modeStage = (Stage) modeView.getEasyBtn().getScene().getWindow();
@@ -132,5 +155,13 @@ public class IntroController {
         modeView.getMediumBtn().setOnAction((modeView.getEasyBtn().getOnAction()));
         modeView.getMasterBtn().setOnAction((modeView.getEasyBtn().getOnAction()));
 
+    }
+
+    private void click() {
+        theModel.getButtonPlayer().stop();
+        if (theModel.getSound()){
+            System.out.println("Going to play sound");
+            theModel.getButtonPlayer().play();
+        }
     }
 }

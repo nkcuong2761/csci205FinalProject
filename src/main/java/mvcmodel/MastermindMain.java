@@ -50,6 +50,7 @@ public class MastermindMain extends Application {
      */
     private IntroController theIntroController;
 
+
     /**
      * The first scene of the game
      */
@@ -65,7 +66,7 @@ public class MastermindMain extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws InterruptedException {
         theIntroController = new IntroController(modeView,introView,theModel);
         primaryStage.setTitle("Mastermind");
         introScene = new Scene(introView.getRoot());

@@ -41,6 +41,9 @@ public class MastermindModeView {
     /** Button for the master difficulty */
     private Button masterBtn;
 
+    /** Button for the master difficulty */
+    private Button soundOnOff;
+
     /**
      * Constructor for the class
      */
@@ -69,6 +72,7 @@ public class MastermindModeView {
      * Method to set up the buttons
      */
     private void setUpButtons() {
+        root.setSpacing(10);
         easyBtn = new Button("Beginner");
         easyBtn.setStyle("-fx-background-color: #03045E; -fx-text-fill: #FFFFFF; -fx-font-size: 20");
         easyBtn.setPrefSize(200,50);
@@ -81,6 +85,13 @@ public class MastermindModeView {
         masterBtn.setStyle("-fx-background-color: #00B4D8; -fx-text-fill: #FFFFFF; -fx-font-size: 20");
         root.getChildren().add(masterBtn);
         masterBtn.setPrefSize(200,50);
+
+
+        // sound button
+        soundOnOff = new Button("Click to turn sound on");
+        soundOnOff.setStyle("-fx-background-color: #34eb71; -fx-text-fill: #FFFFFF; -fx-font-size: 20");
+        root.getChildren().add(soundOnOff);
+        soundOnOff.setPrefSize(200,50);
     }
 
     /**
@@ -127,5 +138,9 @@ public class MastermindModeView {
      */
     public VBox getRoot() {
         return root;
+    }
+
+    public Button getSoundOnOff() {
+        return soundOnOff;
     }
 }

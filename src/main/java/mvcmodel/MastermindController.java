@@ -59,6 +59,8 @@ public class MastermindController {
      */
     private boolean finished;
 
+    private boolean isSoundOnOrOff;
+
     /**
      * The constructor for the controller of the game. Handling the logic between the view and the model
      * @param theModel - The main model of the game
@@ -96,6 +98,7 @@ public class MastermindController {
 
         // handler for the back button
         handleBackButton();
+
     }
 
     /**
@@ -103,6 +106,7 @@ public class MastermindController {
      */
     private void handleBackButton() {
         theView.getBackBtn().setOnAction(event -> {
+            click();
             Stage modeStage = (Stage) theView.getBackBtn().getScene().getWindow();
             modeStage.setScene(modeScene);
             // Restart the game
@@ -119,6 +123,7 @@ public class MastermindController {
      */
     private void handleCheckAnswerBtn() {
         theView.getCheckBtn().setOnAction(event -> {
+            click();
             // TODO SAFE ERROR CHECKING: Nothing happens when clicking on the pegs after game finished
             if (finished) {
             }
@@ -200,6 +205,7 @@ public class MastermindController {
      */
     private void handleQuitButton() {
         theView.getQuitBtn().setOnAction(event -> {
+            click();
             Platform.exit();
         });
     }
@@ -250,6 +256,7 @@ public class MastermindController {
         for (int j = 0; j < theView.getPegsTray().size(); j++) {
             Circle circle = theView.getPegsTray().get(j);
             circle.setOnMouseClicked(event -> {
+                click();
                 // Empty the current string there
                 theView.updateOutputString("");
                 // Ensure the button does nothing when the game is finished
@@ -279,6 +286,7 @@ public class MastermindController {
      */
     private void handleDelete() {
         theView.getDeleteBtn().setOnAction(event -> {
+            click();
             // Ensure the button does nothing when the game is finished
             if (finished) {
             }
@@ -327,6 +335,7 @@ public class MastermindController {
      */
     private void handleResetButton() {
         theView.getResetBtn().setOnMouseClicked(event -> {
+            click();
             // Empty the current string there
             theView.updateOutputString("");
             theView.updateOutputLabel("");
@@ -345,6 +354,7 @@ public class MastermindController {
      */
     private void handleRulesButton() {
         theView.getRulesBtn().setOnMouseClicked(event -> {
+            click();
             // Check for finished case and do not output anything
             if (finished){
                 return;
@@ -373,6 +383,7 @@ public class MastermindController {
         // TODO update this for the changing amount of options for colors of pegs
 
         theView.getHintBtn().setOnMouseClicked(event -> {
+            click();
             // tell the user about one peg that is in the secret code
             Random rand = new Random();
             int i = rand.nextInt(PegSequence.getSequenceLength());
@@ -404,6 +415,7 @@ public class MastermindController {
     private void handleThemeButton() {
         // Set the handler for the button to open/close the tray
         theView.getThemeBtn().setOnMouseClicked(event -> {
+            click();
              Boolean trayVisibility = theView.getThemeTray().isVisible();
              theView.getThemeTray().setVisible(!trayVisibility);
         });
@@ -440,6 +452,13 @@ public class MastermindController {
                     }*/
                     theView.getRoot().getStylesheets().setAll(getClass().getResource("/style.css").toExternalForm());}
             });
+        }
+    }
+    private void click() {
+        theModel.getButtonPlayer().stop();
+        if (theModel.getSound()) {
+            System.out.println("Going to play sound");
+            theModel.getButtonPlayer().play();
         }
     }
 
