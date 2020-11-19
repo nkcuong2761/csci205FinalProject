@@ -126,7 +126,7 @@ public class MastermindView {
         root = new HBox(30);
         root.setPadding(new Insets(20));
         root.setAlignment(Pos.CENTER);
-        root.setMaxHeight(740);
+        root.setMaxHeight(800);
         root.setMinWidth(800);
 
         // Initialize Tooltip(s)
@@ -304,9 +304,9 @@ public class MastermindView {
         // The midPane that hold the output label and string
         midPane = new VBox(10);
         midPane.setAlignment(Pos.CENTER);
+        midPane.setPadding(new Insets(40,0,0,0));
         // Output label above the string
         outputLabel = new Label("");
-        outputLabel.setId("resultMsg");
         // Output string above the button
         outputString = new Text("");
         outputString.setId("text-normal");
@@ -647,9 +647,8 @@ public class MastermindView {
     public void displayEndGame(boolean win) throws FileNotFoundException {
         if (win) {
 
-
             updateOutputLabel("Congratulations! You won");
-            outputLabel.setTextFill(Color.web("023E8A"));
+            outputLabel.setId("winningMsg");
 
             // display winning gif
             Image image = new Image(getClass().getResource("/assets/congratulations.gif").toExternalForm());
@@ -679,7 +678,7 @@ public class MastermindView {
 
         } else {
             updateOutputLabel("You lost! Better luck next time");
-
+            outputLabel.setId("losingMsg");
 
             // display winning gif
             Image image = new Image(getClass().getResource("/assets/sad2.gif").toExternalForm());
@@ -689,18 +688,38 @@ public class MastermindView {
 
             //Setting the position of the image
             imageView.setX(50);
-            imageView.setY(25);
+            imageView.setY(60);
 
             //setting the fit height and width of the image view
-            imageView.setFitHeight(150);
+            imageView.setFitHeight(120);
             imageView.setFitWidth(160);
 
             //Setting the preserve ratio of the image view
             imageView.setPreserveRatio(true);
+            // Remove the white background of the gif
+            imageView.setStyle("-fx-blend-mode: darken");
 
-            midPane.getChildren().add(imageView);
+            // Result pegs pane
+            VBox resultPane = new VBox(10);
+            resultPane.setAlignment(Pos.CENTER);
+            Label label = new Label("The secret code is:");
+            // HBox to store the result pegs
+            HBox codePane = new HBox(20);
+            codePane.setAlignment(Pos.CENTER);
+            codePane.setPadding(new Insets(0, 40, 0, 40));
+            // Pegs inside the box
+            ArrayList<Circle> secretCode = new ArrayList<>();
+            char[] codeArray = theModel.getCodeMaker().getSecretCode().toString().toCharArray();
+            for (char c : codeArray) {
+                Circle circle = new Circle(13.5);
+                circle.setId("peg-circle");
+                circle.getStyleClass().add(STYLE_CLASS_STRING[Integer.parseInt(String.valueOf(c)) - 1]);
+                secretCode.add(circle);
+            }
+            codePane.getChildren().addAll(secretCode);
+            resultPane.getChildren().addAll(label, codePane);
 
-            outputLabel.setTextFill(Color.web("EF476F"));
+            midPane.getChildren().addAll(imageView, resultPane);
 
             if (theModel.getSound()) {
                 media = new Media(getClass().getResource("/assets/womp-womp.mp3").toExternalForm());

@@ -24,7 +24,7 @@ WHITE(DEFAULT) THEME
     -fx-font-smoothing-type: lcd;
 }
 
-#resultMsg {
+#winningMsg, #losingMsg {
     -fx-font-family: Roboto;
     -fx-font-weight: bolder;
     -fx-font-size: 20px;
@@ -32,6 +32,14 @@ WHITE(DEFAULT) THEME
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.24), 3, -4, 0, 3);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 8, -6, 0, 3);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 14, -8, 2, 5);
+}
+
+#winningMsg {
+    -fx-text-fill: #EF476F;
+}
+
+#losingMsg {
+    -fx-text-fill: black;
 }
 
 #pane-with-shadow, #peg-pane, .button {

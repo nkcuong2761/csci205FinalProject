@@ -30,12 +30,12 @@ PINK THEME
     -fx-font-smoothing-type: lcd;
 }
 
-#resultMsg {
+#winningMsg, #losingMsg {
     -fx-font-family: Roboto;
     -fx-font-weight: bolder;
     -fx-font-size: 20px;
-    -fx-font-smoothing-type: lcd;
     -fx-text-fill: white;
+    -fx-font-smoothing-type: lcd;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.24), 3, -4, 0, 3);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 8, -6, 0, 3);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 14, -8, 2, 5);
@@ -165,7 +165,7 @@ PINK THEME
 }
 
 .fourth-peg {
-    -fx-fill: #023E8A;
+    -fx-fill: #E1EF88;
 }
 
 .fifth-peg {

@@ -27,15 +27,22 @@ PINK THEME
     -fx-text-fill: #0B3039;
 }
 
-#resultMsg {
+#winningMsg, #losingMsg {
     -fx-font-family: Roboto;
     -fx-font-weight: bolder;
     -fx-font-size: 20px;
     -fx-font-smoothing-type: lcd;
-    -fx-text-fill: #0B3039;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.24), 3, -4, 0, 3);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 8, -6, 0, 3);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 14, -8, 2, 5);
+}
+
+#winningMsg {
+    -fx-text-fill: #D58097;
+}
+
+#losingMsg {
+    -fx-text-fill: #0B3039;
 }
 
 #pane-with-shadow {

@@ -138,7 +138,7 @@ public class CodeMaker {
      *
      * @return secretCode - our secret code
      */
-    public PegSequence getSecretCode() {
+    public static PegSequence getSecretCode() {
         return secretCode;
     }
 }
