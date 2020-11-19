@@ -644,6 +644,7 @@ public class MastermindView {
      */
     public void updateOutputLabel(String string) {
         outputLabel.setText(string);
+        outputLabel.setTextFill(Color.web("EF476F"));
     }
 
     /**
@@ -739,10 +740,12 @@ public class MastermindView {
 
             midPane.getChildren().add(imageView);
 
-            media = new Media(getClass().getResource("/assets/crowdCheer.wav").toExternalForm());
-            mediaPlayer = new MediaPlayer(media);
-            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-            mediaPlayer.play();
+            if (theModel.getSound()) {
+                media = new Media(getClass().getResource("/assets/crowdCheer.wav").toExternalForm());
+                mediaPlayer = new MediaPlayer(media);
+                mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+                mediaPlayer.play();
+            }
 
         } else {
             updateOutputLabel("You lost! Better luck next time");
@@ -768,17 +771,17 @@ public class MastermindView {
             midPane.getChildren().add(imageView);
 
             outputLabel.setTextFill(Color.web("EF476F"));
-            media = new Media(getClass().getResource("/assets/womp-womp.mp3").toExternalForm());
-            mediaPlayer = new MediaPlayer(media);
-            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-            mediaPlayer.play();
+
+            if (theModel.getSound()) {
+                media = new Media(getClass().getResource("/assets/womp-womp.mp3").toExternalForm());
+                mediaPlayer = new MediaPlayer(media);
+                mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+                mediaPlayer.play();
+            }
         }
 //        updateOutputString("You can:\n    Hit Restart the game to play a new one\n    Change mode to multiplayer option\n    Exit the game!");
     }
 
-    public void buttonClickSound() {
-
-    }
 
     public MediaPlayer getMediaPlayer() {
         return mediaPlayer;
