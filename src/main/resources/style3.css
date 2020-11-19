@@ -1,8 +1,11 @@
 /**
-WHITE(DEFAULT) THEME
+PINK THEME
  */
 .root {
-    -fx-background-color: white;
+    -fx-background-image: url("assets/sky-blue.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center;
 }
 
 .label, .text-area, .text-field, .button, #text-normal {
@@ -10,17 +13,20 @@ WHITE(DEFAULT) THEME
     -fx-font-weight: normal;
     -fx-font-size: 14px;
     -fx-font-smoothing-type: lcd;
+    -fx-text-fill: white;
 }
 
 #text-bold {
     -fx-font-weight: bolder;
     -fx-font-size: 14px;
+    -fx-text-fill: white;
     -fx-font-smoothing-type: lcd;
 }
 
 #title {
     -fx-font-weight: bolder;
     -fx-font-size: 50px;
+    -fx-text-fill: white;
     -fx-font-smoothing-type: lcd;
 }
 
@@ -29,48 +35,40 @@ WHITE(DEFAULT) THEME
     -fx-font-weight: bolder;
     -fx-font-size: 20px;
     -fx-font-smoothing-type: lcd;
+    -fx-text-fill: white;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.24), 3, -4, 0, 3);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 8, -6, 0, 3);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 14, -8, 2, 5);
 }
 
-#pane-with-shadow, #peg-pane, .button {
-    -fx-background-color: white;
+#pane-with-shadow, #peg-pane {
+    -fx-background-color: transparent;
+}
+
+.button {
+    -fx-background-color: #CAF0F8;
+    -fx-text-fill: black;
+    -fx-blend-mode: soft-light;
+    -fx-min-height: 40px;
+    -fx-min-width: 340px;
     -fx-background-radius: 8px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.24), 3, -4, 0, 3);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 8, -6, 0, 3);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 14, -8, 2, 5);
 }
 
-.button {
-    -fx-text-fill: black;
-    -fx-min-height: 40px;
-    -fx-min-width: 340px;
-}
-
 #blackBtn {
-    -fx-background-color: #1D1D1D;
+    -fx-background-color: #023E8A;
     -fx-text-fill: white;
 }
 
 #checkBtn {
-    -fx-background-color: #EF476F;
-    -fx-text-fill: white;
-}
-
-#backBtn {
-    -fx-background-color: transparent;
-    -fx-min-height: 27px;
-    -fx-min-width: 27px;
-    -fx-effect: none;
-    -fx-background-image: url("assets/left-arrow.png");
-    -fx-background-size: 27px 27px;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
+    -fx-background-color: #CAF0F8;
+    -fx-text-fill: black;
 }
 
 #themeBtn {
-    -fx-background-color: #1D1D1D;
+    -fx-background-color: #0B3039;
     -fx-background-image: url("assets/theme.png");
     -fx-background-size: 22px 22px;
     -fx-min-width: 36px;
@@ -81,7 +79,7 @@ WHITE(DEFAULT) THEME
 }
 
 #themeTray {
-    -fx-background-color: #1D1D1D;
+    -fx-background-color: #0B3039;
     -fx-background-radius: 12px;
     -fx-padding: 3px 8px 3px 8px;
     -fx-min-height: 37px;
@@ -111,12 +109,13 @@ WHITE(DEFAULT) THEME
 }
 
 #iconHolder, #indicatorHolder {
-    -fx-background-color: white;
+    -fx-background-color: transparent;
     -fx-max-height: 20px;
     -fx-max-width: 20px;
 }
 
 .tooltip {
+    -fx-background-color: #0B3039;
     -fx-font-family: Roboto;
     -fx-font-weight: normal;
     -fx-font-size: 12px;
@@ -133,7 +132,9 @@ WHITE(DEFAULT) THEME
 }
 
 #blank-circle {
-    -fx-fill: white;
+    -fx-fill: black;
+    -fx-blend-mode: overlay;
+    -fx-opacity: 20%;
     -fx-effect: innershadow(gaussian, rgba(6, 38, 68, 0.06), 6, -8, -3, 2);
 }
 
@@ -148,11 +149,11 @@ WHITE(DEFAULT) THEME
 }
 
 #white-peg {
-    -fx-fill: #D9D9D9;
+    -fx-fill: white;
 }
 
 .first-peg {
-    -fx-fill: #EF476F;
+    -fx-fill: #00BFFE;
 }
 
 .second-peg {
@@ -172,5 +173,5 @@ WHITE(DEFAULT) THEME
 }
 
 .sixth-peg {
-    -fx-fill: #00B4D8;
+    -fx-fill: #DB9562;
 }
