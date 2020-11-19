@@ -22,7 +22,6 @@ import objects.Peg;
 import objects.PegSequence;
 
 import java.io.FileNotFoundException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 
@@ -109,15 +108,14 @@ public class MastermindView {
     private Media errorMedia = new Media(getClass().getResource("/assets/error.wav").toExternalForm());
     private MediaPlayer errorMediaPlayer = new MediaPlayer(errorMedia);
 
-    public static String[] getStyleClassString() {
-        return STYLE_CLASS_STRING;
-    }
-
     /**
      * Final String array
      */
     private static final String[] STYLE_CLASS_STRING = new String[]{"first-peg", "second-peg", "third-peg", "fourth-peg", "fifth-peg", "sixth-peg"};
 
+    public static String[] getStyleClassString() {
+        return STYLE_CLASS_STRING;
+    }
     /**
      * The constructor for the main view
      * @param theModel - the model of the game
@@ -581,22 +579,23 @@ public class MastermindView {
      * Update the guesses in the game board with the corresponding pegs the user chooses
      * @param rowNumber - Index of the row
      * @param pegNumber - Index of the position of the peg (from 1 to 4)
-     * @param newColor - The color of the peg the user chooses
+     * @param className - The className of the peg the user chooses
      */
-    public void updateGuess(int rowNumber, int pegNumber, Color newColor, String className) {
+    public void updateGuess(int rowNumber, int pegNumber, String className) {
         TilePane currentRow = rows.get(rowNumber);
         ObservableList<Node> guesses = currentRow.getChildren();
         Circle circleToChange = (Circle) guesses.get(pegNumber);
-        //circleToChange.getStyleClass().add(className);
+        String prevClassName = circleToChange.getStyleClass().toString();
         // Delete the peg for the delete button
-        if (newColor.equals(Color.WHITE)) {
+        circleToChange.getStyleClass().remove(prevClassName);
+        if (className == null) {
             circleToChange.setId("blank-circle");
+            System.out.println("circle's styleClass after delete: " + circleToChange.getStyleClass().toString());
         }
         // Change to the user guess
         else {
             circleToChange.getStyleClass().add(className);
             circleToChange.setId("peg-circle");
-            circleToChange.setFill(newColor);
         }
     }
 
