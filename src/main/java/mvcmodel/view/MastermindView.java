@@ -156,6 +156,8 @@ public class MastermindView {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
         }
+//        midPane.getChildren().remove(midPane.getChildren().size() - 1);
+        midPane.getChildren().remove(midPane.getChildren().size() - 1);
 
     }
 
@@ -673,8 +675,7 @@ public class MastermindView {
             if (theModel.getSound()) {
                 media = new Media(getClass().getResource("/assets/crowdCheer.wav").toExternalForm());
                 mediaPlayer = new MediaPlayer(media);
-                mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-                mediaPlayer.play();
+                mediaPlayer.setAutoPlay(true);
             }
 
         } else {
@@ -725,8 +726,7 @@ public class MastermindView {
             if (theModel.getSound()) {
                 media = new Media(getClass().getResource("/assets/womp-womp.mp3").toExternalForm());
                 mediaPlayer = new MediaPlayer(media);
-                mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-                mediaPlayer.play();
+                mediaPlayer.setAutoPlay(true);
             }
         }
 //        updateOutputString("You can:\n    Hit Restart the game to play a new one\n    Change mode to multiplayer option\n    Exit the game!");
