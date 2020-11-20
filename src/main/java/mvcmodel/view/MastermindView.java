@@ -408,6 +408,7 @@ public class MastermindView {
             fbBox.setHgap(8);
             fbBox.setVgap(8);
             int count = 0;
+            System.out.println(theModel.getNumPegs());
             for (int j = 0; j < theModel.getNumPegs(); j++) {
                 if(j % 2 == 0) {
                     fbBox.add(feedbacks.get(i).get(j), count,0);

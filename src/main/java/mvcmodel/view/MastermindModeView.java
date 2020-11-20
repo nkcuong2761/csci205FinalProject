@@ -21,14 +21,19 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 /**
  * Class for the mode view scene
  */
 public class MastermindModeView {
 
+    private Label numPegs;
+    private Slider pegsSlider;
     /** VBox of the root */
     private VBox root;
 
@@ -44,6 +49,28 @@ public class MastermindModeView {
     /** Button for the master difficulty */
     private Button soundOnOff;
 
+    private Slider guessesSlider;
+
+    private Label numGuesses;
+
+    public Slider getGuessesSlider() {
+        return guessesSlider;
+    }
+
+    public Label getNumGuesses() {
+        return numGuesses;
+    }
+
+    private Button submit;
+
+    public Button getSubmit() {
+        return submit;
+    }
+
+    public Slider getPegsSlider() {
+        return pegsSlider;
+    }
+
     /**
      * Constructor for the class
      */
@@ -56,6 +83,60 @@ public class MastermindModeView {
 
         // Create buttons
         setUpButtons();
+
+        setUpCustomGuesses();
+
+        setUpCustomNumPegs();
+
+        setUpSubmitCustomBtn();
+
+        setUpSoundBtn();
+    }
+
+    private void setUpSoundBtn() {
+        // sound button
+        soundOnOff = new Button("Click to turn sound on");
+        soundOnOff.setStyle("-fx-background-color: #34eb71; -fx-text-fill: #FFFFFF; -fx-font-size: 20");
+        soundOnOff.setPrefSize(200,50);
+        root.getChildren().add(soundOnOff);
+    }
+
+    private void setUpSubmitCustomBtn() {
+        submit = new Button("Submit Custom Mode!");
+        root.getChildren().add(submit);
+    }
+
+    private void setUpCustomNumPegs() {
+        HBox hBoxNumPegs = new HBox();
+        hBoxNumPegs.setSpacing(10);
+        pegsSlider = new Slider(4,6,4);
+        pegsSlider.setBlockIncrement(1);
+        pegsSlider.setMajorTickUnit(1);
+        pegsSlider.setShowTickLabels(true);
+        pegsSlider.setShowTickMarks(true);
+        pegsSlider.setMinorTickCount(0);
+        pegsSlider.setSnapToTicks(true);
+        hBoxNumPegs.setAlignment(Pos.CENTER);
+        numPegs = new Label("Number of Pegs:");
+        hBoxNumPegs.getChildren().addAll(numPegs,pegsSlider);
+        root.getChildren().add(hBoxNumPegs);
+    }
+
+    private void setUpCustomGuesses() {
+        HBox hBoxNumGuesses = new HBox();
+        hBoxNumGuesses.setSpacing(10);
+        guessesSlider = new Slider(1,12,1);
+        guessesSlider.setShowTickLabels(true);
+        guessesSlider.setShowTickMarks(true);
+        guessesSlider.setMajorTickUnit(1);
+        guessesSlider.setMinorTickCount(0);
+        guessesSlider.setSnapToTicks(true);
+        guessesSlider.setBlockIncrement(1);
+        guessesSlider.setPrefWidth(250);
+        hBoxNumGuesses.setAlignment(Pos.CENTER);
+        numGuesses = new Label("Number of Guesses:");
+        hBoxNumGuesses.getChildren().addAll(numGuesses,guessesSlider);
+        root.getChildren().add(hBoxNumGuesses);
     }
 
     /**
@@ -86,12 +167,6 @@ public class MastermindModeView {
         root.getChildren().add(masterBtn);
         masterBtn.setPrefSize(200,50);
 
-
-        // sound button
-        soundOnOff = new Button("Click to turn sound on");
-        soundOnOff.setStyle("-fx-background-color: #34eb71; -fx-text-fill: #FFFFFF; -fx-font-size: 20");
-        root.getChildren().add(soundOnOff);
-        soundOnOff.setPrefSize(200,50);
     }
 
     /**

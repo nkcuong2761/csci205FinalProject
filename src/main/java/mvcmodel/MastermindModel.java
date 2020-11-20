@@ -150,6 +150,12 @@ public class MastermindModel {
         lastRowChecked = -1;
     }
 
+    public void setCustomMode(double numGuesses, double numPegs) {
+        MAX_GUESS = (int) numGuesses;
+        this.numPegs = (int) numPegs;
+        PegSequence.setSequenceLength(this.numPegs);
+    }
+
     public void startGame() {
         codeMaker = new CodeMaker();
     }

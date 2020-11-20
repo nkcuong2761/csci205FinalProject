@@ -18,7 +18,8 @@
  */
 
 package mvcmodel;
-
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -27,6 +28,7 @@ import javafx.stage.Stage;
 import mvcmodel.view.MastermindIntroView;
 import mvcmodel.view.MastermindModeView;
 import mvcmodel.view.MastermindView;
+
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -69,7 +71,7 @@ public class IntroController {
         setUpScenes();
         handleGetName();
         handleModeButtons();
-
+        handleSubmitBtn();
         // handle sound
         handleSoundBtn(modeView);
 
@@ -92,6 +94,22 @@ public class IntroController {
         });
     }
 
+    private void handleSubmitBtn() {
+        modeView.getSubmit().setOnAction((ActionEvent event) -> {
+            click();
+            theModel.setCustomMode(modeView.getGuessesSlider().getValue(), modeView.getPegsSlider().getValue());
+            Stage modeStage = (Stage) modeView.getEasyBtn().getScene().getWindow();
+            MastermindView theView = new MastermindView(theModel);
+            gameScene = new Scene(theView.getRoot());
+            gameScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+            modeStage.setScene(gameScene);
+            modeStage.sizeToScene();
+            theModel.startGame();
+            MastermindController theController = new MastermindController(theModel, modeScene, theView);
+        });
+    }
+
+
     /**
      * Method to set up the scences for transition to different modes and the main games
      */
@@ -99,6 +117,7 @@ public class IntroController {
         // Scene to choose single/ multiplayer
         modeScene = new Scene(modeView.getRoot());
         modeScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+
     }
 
 
@@ -156,6 +175,7 @@ public class IntroController {
         modeView.getMasterBtn().setOnAction((modeView.getEasyBtn().getOnAction()));
 
     }
+
 
     private void click() {
         theModel.getButtonPlayer().stop();
