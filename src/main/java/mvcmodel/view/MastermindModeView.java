@@ -125,7 +125,7 @@ public class MastermindModeView {
     private void setUpCustomGuesses() {
         HBox hBoxNumGuesses = new HBox();
         hBoxNumGuesses.setSpacing(10);
-        guessesSlider = new Slider(1,12,1);
+        guessesSlider = new Slider(2,12,1);
         guessesSlider.setShowTickLabels(true);
         guessesSlider.setShowTickMarks(true);
         guessesSlider.setMajorTickUnit(1);
