@@ -61,6 +61,9 @@ public class MastermindController {
 
     private boolean isSoundOnOrOff;
 
+    /** count for the number of time that hint button has been clicked */
+    private int countHint;
+
     /**
      * The constructor for the controller of the game. Handling the logic between the view and the model
      * @param theModel - The main model of the game
@@ -71,6 +74,8 @@ public class MastermindController {
         this.theModel = theModel;
         this.theView = theView;
         this.modeScene = modeScene;
+
+        countHint = 0;
 
         // method to set up the pegs
         handleUserChoice();
@@ -206,6 +211,7 @@ public class MastermindController {
      */
     private void handleQuitButton() {
         theView.getQuitBtn().setOnAction(event -> {
+        	countHint = 0;
             click();
             Platform.exit();
         });
@@ -344,6 +350,8 @@ public class MastermindController {
             theView.updateOutputLabel("");
             // reset rowsChecked
             rowsChecked = new ArrayList<>();
+            // reset countHint
+	        countHint = 0;
             // reset finished
             finished = false;
             // Restart the game
@@ -387,28 +395,62 @@ public class MastermindController {
 
         theView.getHintBtn().setOnMouseClicked(event -> {
             click();
+            countHint += 1;
             // tell the user about one peg that is in the secret code
             Random rand = new Random();
             int i = rand.nextInt(PegSequence.getSequenceLength());
-            String colorValue = theModel.getCodeMaker().getSecretCode().getSequence().get(i).getValueofPeg();
-            String colorName;
-            switch (colorValue) {
+            String colorPos = theModel.getCodeMaker().getSecretCode().getSequence().get(i).getValueofPeg();
+            String output = null;
+            switch (colorPos) {
                 case "1":
-                    colorName = "Red";
+	                colorPos = "first";
                     break;
                 case "2":
-                    colorName = "Yellow";
+	                colorPos = "second";
                     break;
                 case "3":
-                    colorName = "Green";
+	                colorPos = "third";
                     break;
                 case "4":
-                    colorName = "Blue";
+	                colorPos = "fourth";
                     break;
+	            case "5":
+		            colorPos = "fifth";
+		            break;
+	            case "6":
+	            	colorPos = "sixth";
+	            	break;
                 default:
-                    colorName = "bruh";
+	                colorPos = "bruh";
             }
-            theView.updateOutputString("There is at least 1 " + colorName + " peg in the secret code");
+            switch (countHint) {
+	            case 1:
+	                output = "See that " + colorPos + " peg in the panel up there?\n" +
+			                "There's at least one of that color in the secret code";
+	                break;
+	            case 2:
+	            	output = "Still stuck? Why don't you give it\n" +
+				            "another round of thought";
+	            	break;
+	            case 3: case 4: case 5: case 6:
+	            	output = "C'mon it can't be that hard!";
+	            	break;
+	            case 7:
+	            	output = "Okay okay geez! That color I talked about earlier,\n" +
+				            "the exact position of the peg with that color in\n" +
+				            "the code is " + (i+1);
+	            	break;
+	            case 8:
+	            	output = "Omg what else do you want? A spiritual cheer?";
+	            	break;
+	            case 9:
+	            	output = "Are you really that dumb?";
+	            	break;
+	            default:
+	            	output = "YOU ARE ON YOUR OWN NOW MY GUY/SISTER";
+	            	break;
+            }
+            theView.updateOutputString(output);
         });
     }
 
