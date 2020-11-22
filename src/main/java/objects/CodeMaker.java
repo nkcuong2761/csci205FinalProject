@@ -120,7 +120,6 @@ public class CodeMaker {
             }
         }
         // Return the Code
-        System.out.println("response code string: " + responseCodeString);
         return new PegSequence(responseCodeString.toString());
     }
 

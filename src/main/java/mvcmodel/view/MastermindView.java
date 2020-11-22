@@ -410,7 +410,6 @@ public class MastermindView {
             fbBox.setHgap(8);
             fbBox.setVgap(8);
             int count = 0;
-            System.out.println(theModel.getNumPegs());
             for (int j = 0; j < theModel.getNumPegs(); j++) {
                 if(j % 2 == 0) {
                     fbBox.add(feedbacks.get(i).get(j), count,0);
@@ -593,7 +592,6 @@ public class MastermindView {
         circleToChange.getStyleClass().remove(prevClassName);
         if (className == null) {
             circleToChange.setId("blank-circle");
-            System.out.println("circle's styleClass after delete: " + circleToChange.getStyleClass().toString());
         }
         // Change to the user guess
         else {
@@ -636,7 +634,7 @@ public class MastermindView {
         // show the current indicator icon and hide the previous icon
         ImageView prevTrig = getLineIndicators().get(rowNumber);
         prevTrig.setVisible(false);
-        if (rowNumber < 11) {
+        if (rowNumber < (theModel.getMaxGuess()-1)) {
             ImageView currTrig = getLineIndicators().get(rowNumber + 1);
             currTrig.setVisible(true);
         }

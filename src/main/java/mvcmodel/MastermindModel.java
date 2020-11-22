@@ -42,23 +42,59 @@ public class MastermindModel {
 
     private String mode;
 
-    public int getNumPegs() {
-        return numPegs;
-    }
-
     private int numPegs;
 
     private boolean sound;
 
-    public boolean getSound() {
-        return sound;
+
+    /**
+     * Variable to represent the feedback for the user response
+     */
+    private int lastRowChecked = -1;
+
+    /**
+     * Number representing the current guess;
+     */
+    private static int currGuess = 0;
+
+    /**
+     * Number representing the max number of guesses guess;
+     */
+    public int MAX_GUESS = 12;
+
+    private Media buttonMedia;
+    private MediaPlayer buttonPlayer;
+
+    /**
+     * Variable to represent user guess
+     */
+    private static PegSequence userGuess;
+
+    /**
+     * Constructor for the model to initialize the variable player and the codeMaker
+     */
+    public MastermindModel(){
+
+        player = new Player();
+
+        // load button sound clip
+        buttonMedia = new Media(getClass().getResource("/assets/click.wav").toExternalForm());
+        buttonPlayer = new MediaPlayer(buttonMedia);
     }
 
-    public void setSound(boolean sound) {
-        this.sound = sound;
+    /**
+     * Method to restart the game and
+     */
+    public void restartGame(){
+        currGuess = 0;
+        codeMaker.generateCode();
+        userGuess = null;
+        lastRowChecked = -1;
     }
 
-
+    public void startGame() {
+        codeMaker = new CodeMaker();
+    }
 
 
     public void setMode(String mode) {
@@ -81,43 +117,31 @@ public class MastermindModel {
 
     }
 
-    /**
-     * Variable to represent user guess
-     */
-    private static PegSequence userGuess;
-
-    public int getLastRowChecked() {
-        return lastRowChecked;
+    public void setSound(boolean sound) {
+        this.sound = sound;
     }
 
     /**
-     * Variable to represent the feedback for the user response
+     * Set the player name in the model
+     * @param pName - the Name of the player
      */
-    private int lastRowChecked = -1;
+    public void setPlayerName(String pName) {
+        player.setPlayerName(pName);
+    }
+
+    public void setCustomMode(double numGuesses, double numPegs) {
+        MAX_GUESS = (int) numGuesses;
+        this.numPegs = (int) numPegs;
+        PegSequence.setSequenceLength(this.numPegs);
+    }
 
     /**
-     * Number representing the current guess;
+     * Set user code to be the one the user entered to receive the feedback
      */
-    private static int currGuess = 0;
-
-    /**
-     * Number representing the max number of guesses guess;
-     */
-    public int MAX_GUESS = 12;
-
-    private Media buttonMedia;
-    private MediaPlayer buttonPlayer;
-
-    /**
-     * Constructor for the model to initialize the variable player and the codeMaker
-     */
-    public MastermindModel(){
-
-        player = new Player();
-
-        // load button sound clip
-        buttonMedia = new Media(getClass().getResource("/assets/click.wav").toExternalForm());
-        buttonPlayer = new MediaPlayer(buttonMedia);
+    public PegSequence setUserCode(PegSequence userInputCode){
+        currGuess ++;
+        lastRowChecked ++;
+        return codeMaker.compare(userInputCode);
     }
 
     /**
@@ -132,42 +156,6 @@ public class MastermindModel {
         return MAX_GUESS;
     }
 
-    /**
-     * Set the player name in the model
-     * @param pName - the Name of the player
-     */
-    public void setPlayerName(String pName) {
-        player.setPlayerName(pName);
-    }
-
-    /**
-     * Method to restart the game and
-     */
-    public void restartGame(){
-        currGuess = 0;
-        codeMaker.generateCode();
-        userGuess = null;
-        lastRowChecked = -1;
-    }
-
-    public void setCustomMode(double numGuesses, double numPegs) {
-        MAX_GUESS = (int) numGuesses;
-        this.numPegs = (int) numPegs;
-        PegSequence.setSequenceLength(this.numPegs);
-    }
-
-    public void startGame() {
-        codeMaker = new CodeMaker();
-    }
-
-    /**
-     * Set user code to be the one the user entered to receive the feedback
-     */
-    public PegSequence setUserCode(PegSequence userInputCode){
-        currGuess ++;
-        lastRowChecked ++;
-        return codeMaker.compare(userInputCode);
-    }
 
     /**
      * Getter for userGuess
@@ -195,5 +183,17 @@ public class MastermindModel {
 
     public MediaPlayer getButtonPlayer() {
         return buttonPlayer;
+    }
+
+    public int getNumPegs() {
+        return numPegs;
+    }
+
+    public boolean getSound() {
+        return sound;
+    }
+
+    public int getLastRowChecked() {
+        return lastRowChecked;
     }
 }
