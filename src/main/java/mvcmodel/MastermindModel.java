@@ -100,15 +100,15 @@ public class MastermindModel {
     public void setMode(String mode) {
         this.mode = mode;
         switch(mode) {
-            case("Beginner"):
+            case("EasyMind"):
                 MAX_GUESS = 12;
                 this.numPegs = 4;
                 break;
-            case("Intermediate"):
+            case("MediumMind"):
                 MAX_GUESS = 10;
                 this.numPegs = 5;
                 break;
-            case("Master"):
+            case("MasterMind"):
                 MAX_GUESS = 8;
                 this.numPegs = 6;
                 break;
