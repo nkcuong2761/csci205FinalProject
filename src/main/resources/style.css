@@ -54,6 +54,7 @@ WHITE(DEFAULT) THEME
     -fx-text-fill: black;
     -fx-min-height: 40px;
     -fx-min-width: 340px;
+    -fx-max-width: 800px;
 }
 
 #blackBtn {
@@ -69,7 +70,7 @@ WHITE(DEFAULT) THEME
 #backBtn {
     -fx-background-color: transparent;
     -fx-min-height: 27px;
-    -fx-min-width: 27px;
+    -fx-max-width: 27px;
     -fx-effect: none;
     -fx-background-image: url("assets/left-arrow.png");
     -fx-background-size: 27px 27px;
@@ -82,6 +83,7 @@ WHITE(DEFAULT) THEME
     -fx-background-image: url("assets/theme.png");
     -fx-background-size: 22px 22px;
     -fx-min-width: 36px;
+    -fx-max-width: 36px;
     -fx-min-height: 36px;
     -fx-background-radius: 12px;
     -fx-background-repeat: no-repeat;

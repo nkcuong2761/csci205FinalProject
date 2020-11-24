@@ -206,7 +206,7 @@ public class MastermindView {
     private void initRightPane() {
         rightPane = new BorderPane();
         rightPane.setMinHeight(620);
-        rightPane.setPadding(new Insets(10, 0, 0, 0));
+//        rightPane.setPadding(new Insets(10, 0, 0, 0));
 
         // The topPane that hold the name label, turns left label, trayBox, deleteBtn, checkBtn and hintBtn
         FlowPane topPane = new FlowPane(Orientation.VERTICAL);
@@ -330,6 +330,7 @@ public class MastermindView {
         // The overall container that hold both the themeBtn and the expanded themeTray
         StackPane themeContainer = new StackPane();
         themeContainer.setMinSize(340,37);
+        themeContainer.setMaxWidth(800);
         themeContainer.setAlignment(Pos.CENTER_RIGHT);
         // theme tray (the bigger tray that contain the theme options and the button)
         themeTray = new FlowPane();
