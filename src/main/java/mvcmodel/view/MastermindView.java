@@ -1,4 +1,22 @@
 package mvcmodel.view;
+/* *****************************************
+ * CSCI205 - Software Engineering and Design
+ * Fall 2020
+ * Instructor: Prof. Brian King
+ *
+ * Name: Lily, Anurag, Minh, Cuong
+ * Section: 01
+ * Date: 11/5/20
+ * Time: 5:51 PM
+ *
+ * Project: csci205FinalProject
+ * Package: mvcmodel.view
+ * Class: mvcmodel.view.MastermindView
+ *
+ * Description: Class for the main game view
+ *
+ * *****************************************
+ */
 
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -26,9 +44,10 @@ import java.util.ArrayList;
 
 
 /**
- * Method to store the view(interface) of the Mastermind board
+ * Class to store the view(interface) of the Mastermind board
  */
 public class MastermindView {
+
     /** The model of the game */
     private MastermindModel theModel;
 
@@ -41,56 +60,60 @@ public class MastermindView {
     /** The left pane of the game */
     private BorderPane rightPane;
 
-    /**
-     * a bunch of buttons
-     */
+    /** delete guesses btn **/
     private Button deleteBtn;
+
+    /** Check guess btn **/
     private Button checkBtn;
+
+    /** Get hint btn **/
     private Button hintBtn;
+
+    /** See rules btn **/
     private Button rulesBtn;
+
+    /** reset the game btn **/
     private Button resetBtn;
+
+    /** Quit game btn **/
     private Button quitBtn;
 
-    /**
-     * Pegs on the right tray
-     */
+    /** Peg options **/
     private ArrayList<Circle> pegsTray;
 
-    /**
-     * Array for storing a list of input rows
-     */
+    /** Array for storing a list of input rows */
     private ArrayList<TilePane> rows;
 
-    /**
-     * Array for storing the guesses
-     */
+    /** Array for storing the guesses */
     private ArrayList<ArrayList<Circle>> guesses;
 
-    /**
-     * Array for storing the feedbacks of each guess
-     */
+    /** Array for storing the feedbacks of each guess */
     private ArrayList<ArrayList<Circle>> feedbacks;
-    /**
-     * Text to represent name of the player
-     */
+
+    /** Text to represent name of the player */
     private Text nameText;
-    /**
-     * Text to represent the number of turns left
-     */
+
+    /** Text to represent the number of turns left */
     private Text turnText;
 
     /** Tooltips for questionCircle(left) */
     private ArrayList<Button> questionIconList;
+
     /** Line Indicator */
     private ArrayList<ImageView> lineIndicators;
+
     /** Questions Icons(right) */
     private Button questionCircleBig;
+
     /** Button to go back to the previous screen*/
     private Button backBtn;
+
     /** Theme icon */
     private Button themeBtn;
+
     /** Theme option circle array */
     private ArrayList<Circle> themeOption;
+
     /** Theme tray that contains the theme list */
     private FlowPane themeTray;
 
@@ -102,20 +125,20 @@ public class MastermindView {
 
     /** Tooltip for questionCircle(right) */
     private Tooltip tooltipRight;
-    private VBox midPane;
-    private Media media;
-    private MediaPlayer mediaPlayer;
-    private Media errorMedia = new Media(getClass().getResource("/assets/error.wav").toExternalForm());
-    private MediaPlayer errorMediaPlayer = new MediaPlayer(errorMedia);
 
-    /**
-     * Final String array
-     */
+    /** Middle box on the right to display rules, hints, winning, and losing messages */
+    private VBox midPane;
+
+    /** Media object to store winning or losing audio **/
+    private Media media;
+
+    /** Media player to get winning or losing audio from memory **/
+    private MediaPlayer mediaPlayer;
+
+    /** Final String array */
     private static final String[] STYLE_CLASS_STRING = new String[]{"first-peg", "second-peg", "third-peg", "fourth-peg", "fifth-peg", "sixth-peg"};
 
-    public static String[] getStyleClassString() {
-        return STYLE_CLASS_STRING;
-    }
+
     /**
      * The constructor for the main view
      * @param theModel - the model of the game
@@ -156,7 +179,6 @@ public class MastermindView {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
         }
-//        midPane.getChildren().remove(midPane.getChildren().size() - 1);
         midPane.getChildren().remove(midPane.getChildren().size() - 1);
 
     }
@@ -201,7 +223,7 @@ public class MastermindView {
     }
 
     /**
-     * Method for creating the right pane (for buttons and stuffs)
+     * Method for creating the right pane (for buttons and display boxes)
      */
     private void initRightPane() {
         rightPane = new BorderPane();
@@ -238,7 +260,6 @@ public class MastermindView {
         rightPane.setBottom(botPane);
     }
 
-
     /**
      * Method to initialize the peg tray
      * @return trayBox - HBox containing the peg tray
@@ -260,7 +281,6 @@ public class MastermindView {
 
         questionCircleBig = new Button();
         questionCircleBig.setId("iconQuestion");
-
         questionCircleBig.setTooltip(tooltipRight);
 
         trayBox.getChildren().addAll(pegsTray);
@@ -404,6 +424,7 @@ public class MastermindView {
                 icon.setVisible(false);
             lineIndicators.add(icon);
             indicatorBox.getChildren().add(lineIndicators.get(i));
+
             // Initialize the peg sequence: input pegs and feedback pegs
             initPegSequence(i);
             // Feedback pegs group box
@@ -411,7 +432,6 @@ public class MastermindView {
             fbBox.setHgap(8);
             fbBox.setVgap(8);
             int count = 0;
-            System.out.println(theModel.getNumPegs());
             for (int j = 0; j < theModel.getNumPegs(); j++) {
                 if(j % 2 == 0) {
                     fbBox.add(feedbacks.get(i).get(j), count,0);
@@ -472,79 +492,6 @@ public class MastermindView {
         }
     }
 
-    public ArrayList<Circle> getPegsTray() {
-        return pegsTray;
-    }
-
-    /**
-     * Getter for the root
-     *
-     * @return HBox object
-     */
-    public HBox getRoot() {
-        return root;
-    }
-
-    public ArrayList<TilePane> getRows() {
-        return rows;
-    }
-
-    public ArrayList<ArrayList<Circle>> getGuesses() {
-        return guesses;
-    }
-
-    public ArrayList<ArrayList<Circle>> getFeedbacks() {
-        return feedbacks;
-    }
-
-    public Button getDeleteBtn() {
-        return deleteBtn;
-    }
-
-    public Button getCheckBtn() {
-        return checkBtn;
-    }
-
-    public Button getHintBtn() {
-        return hintBtn;
-    }
-
-    public Button getRulesBtn() {
-        return rulesBtn;
-    }
-
-    public Button getResetBtn() {
-        return resetBtn;
-    }
-
-    public Button getQuitBtn() {
-        return quitBtn;
-    }
-
-    public ArrayList<Button> getQuestionIconList() {
-        return questionIconList;
-    }
-
-    public ArrayList<ImageView> getLineIndicators() {
-        return lineIndicators;
-    }
-
-    public Button getThemeBtn() {
-        return themeBtn;
-    }
-
-    public ArrayList<Circle> getThemeOption() {
-        return themeOption;
-    }
-
-    public FlowPane getThemeTray() {
-        return themeTray;
-    }
-
-    public void updateName(String playerName) {
-        nameText.setText(playerName);
-    }
-
     /**
      * Method to update the string displaying the number of turns left
      */
@@ -594,7 +541,6 @@ public class MastermindView {
         circleToChange.getStyleClass().remove(prevClassName);
         if (className == null) {
             circleToChange.setId("blank-circle");
-            System.out.println("circle's styleClass after delete: " + circleToChange.getStyleClass().toString());
         }
         // Change to the user guess
         else {
@@ -637,7 +583,7 @@ public class MastermindView {
         // show the current indicator icon and hide the previous icon
         ImageView prevTrig = getLineIndicators().get(rowNumber);
         prevTrig.setVisible(false);
-        if (rowNumber < 11) {
+        if (rowNumber < (theModel.getMaxGuess()-1)) {
             ImageView currTrig = getLineIndicators().get(rowNumber + 1);
             currTrig.setVisible(true);
         }
@@ -673,11 +619,7 @@ public class MastermindView {
 
             midPane.getChildren().add(imageView);
 
-            if (theModel.getSound()) {
-                media = new Media(getClass().getResource("/assets/crowdCheer.wav").toExternalForm());
-                mediaPlayer = new MediaPlayer(media);
-                mediaPlayer.setAutoPlay(true);
-            }
+            playWinningSound();
 
         } else {
             updateOutputLabel("You lost! Better luck next time");
@@ -724,20 +666,173 @@ public class MastermindView {
 
             midPane.getChildren().addAll(imageView, resultPane);
 
-            if (theModel.getSound()) {
-                media = new Media(getClass().getResource("/assets/womp-womp.mp3").toExternalForm());
-                mediaPlayer = new MediaPlayer(media);
-                mediaPlayer.setAutoPlay(true);
-            }
+            playLosingSound();
         }
-//        updateOutputString("You can:\n    Hit Restart the game to play a new one\n    Change mode to multiplayer option\n    Exit the game!");
     }
 
+    /** Method to play winning sound if soundOn mode **/
+    private void playLosingSound() {
+        if (theModel.getSound()) {
+            media = new Media(getClass().getResource("/assets/womp-womp.mp3").toExternalForm());
+            mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.setAutoPlay(true);
+        }
+    }
 
+    /** Method to play losing sound if soundOn mode **/
+    private void playWinningSound() {
+        if (theModel.getSound()) {
+            media = new Media(getClass().getResource("/assets/crowdCheer.wav").toExternalForm());
+            mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.setAutoPlay(true);
+        }
+    }
+
+    /**
+     * Method to get the pegs tray on the right
+     * @return - ArrayList with the possible pegs
+     */
+    public ArrayList<Circle> getPegsTray() {
+        return pegsTray;
+    }
+
+    /**
+     * Getter for the root
+     * @return HBox object
+     */
+    public HBox getRoot() {
+        return root;
+    }
+
+    /**
+     * Getter for rows
+     * @return - ArrayList of TilePanes
+     */
+    public ArrayList<TilePane> getRows() {
+        return rows;
+    }
+
+    /** Getter for guesses
+     *
+     * @return - ArrayList of ArrayList of Circles
+     */
+    public ArrayList<ArrayList<Circle>> getGuesses() {
+        return guesses;
+    }
+
+    /** Getter for Feedback
+     *
+     * @return - ArrayList of ArrayList of Circles
+     */
+    public ArrayList<ArrayList<Circle>> getFeedbacks() {
+        return feedbacks;
+    }
+
+    /** Getter for Delete btn
+     *
+     * @return - Delete btn
+     */
+    public Button getDeleteBtn() {
+        return deleteBtn;
+    }
+
+    /** Getter for check btn
+     *
+     * @return - check btn
+     */
+    public Button getCheckBtn() {
+        return checkBtn;
+    }
+
+    /** Getter for Hint btn
+     *
+     * @return - hint btn
+     */
+    public Button getHintBtn() {
+        return hintBtn;
+    }
+
+    /** Getter for Rules btn
+     *
+     * @return - rules btn
+     */
+    public Button getRulesBtn() {
+        return rulesBtn;
+    }
+
+    /** Getter for reset btn
+     *
+     * @return - reset btn
+     */
+    public Button getResetBtn() {
+        return resetBtn;
+    }
+
+    /** Getter for quit btn
+     *
+     * @return - quit btn
+     */
+    public Button getQuitBtn() {
+        return quitBtn;
+    }
+
+    /** Getter for Question icons
+     *
+     * @return - ArrayList of Buttons
+     */
+    public ArrayList<Button> getQuestionIconList() {
+        return questionIconList;
+    }
+
+    /** Getter for line indicator
+     *
+     * @return - ArrayList of ImageView
+     */
+    public ArrayList<ImageView> getLineIndicators() {
+        return lineIndicators;
+    }
+
+    /** Getter for Theme btn
+     *
+     * @return - Theme btn
+     */
+    public Button getThemeBtn() {
+        return themeBtn;
+    }
+
+    /** Getter for Theme options
+     *
+     * @return - ArrayList of cirlces
+     */
+    public ArrayList<Circle> getThemeOption() {
+        return themeOption;
+    }
+
+    /** Getter for Theme Flow Pane
+     *
+     * @return - FlowPane
+     */
+    public FlowPane getThemeTray() {
+        return themeTray;
+    }
+
+    /** Getter for Style Class
+     *
+     * @return - String []
+     */
+    public static String[] getStyleClassString() { return STYLE_CLASS_STRING; }
+
+    /** Getter for MediaPlayer
+     *
+     * @return - MediaPLayer
+     */
     public MediaPlayer getMediaPlayer() {
         return mediaPlayer;
     }
-
+    /** Getter for back btn
+     *
+     * @return - back btn
+     */
     public Button getBackBtn() {
         return backBtn;
     }

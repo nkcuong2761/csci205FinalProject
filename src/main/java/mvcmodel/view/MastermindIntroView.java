@@ -1,15 +1,17 @@
-package mvcmodel.view;/* *****************************************
+package mvcmodel.view;
+
+/* *****************************************
  * CSCI205 - Software Engineering and Design
  * Fall 2020
  * Instructor: Prof. Brian King
  *
- * Name: Lily Parker
+ * Name: Lily, Anurag, Minh, Cuong
  * Section: 01
  * Date: 11/5/20
  * Time: 5:08 PM
  *
  * Project: csci205FinalProject
- * Package: PACKAGE_NAME
+ * Package: mvcmodel.view
  * Class: mvcmodel.view.MastermindIntroView
  *
  * Description: View for the introductory scene

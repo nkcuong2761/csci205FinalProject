@@ -18,8 +18,6 @@
  */
 
 package mvcmodel;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -58,8 +56,6 @@ public class IntroController {
      * The mode view of the game
      */
     private MastermindModeView modeView;
-
-
 
 
 
