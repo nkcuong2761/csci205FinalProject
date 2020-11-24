@@ -3,7 +3,10 @@
  * Fall 2020
  * Instructor: Prof. Brian King
  *
- * Name: Lily Parker
+ * Name: Cuong Nguyen
+            Lily Parker
+            Minh Anh Phan
+            Anurag Vadiya
  * Section: 01
  * Date: 11/12/20
  * Time: 9:14 PM
@@ -27,8 +30,6 @@ import mvcmodel.model.MastermindModel;
 import mvcmodel.view.MastermindIntroView;
 import mvcmodel.view.MastermindModeView;
 import mvcmodel.view.MastermindView;
-
-
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class IntroController {

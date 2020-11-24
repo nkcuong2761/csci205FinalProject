@@ -1,9 +1,13 @@
-package mvcmodel.controllers;/* *****************************************
+package mvcmodel.controllers;
+/* *****************************************
  * CSCI205 - Software Engineering and Design
  * Fall 2020
  * Instructor: Prof. Brian King
  *
- * Name: Lily Parker
+ * Name: Cuong Nguyen
+            Lily Parker
+            Minh Anh Phan
+            Anurag Vadiya
  * Section: 01
  * Date: 11/9/20
  * Time: 9:10 AM
@@ -16,7 +20,6 @@ package mvcmodel.controllers;/* *****************************************
  *
  * *****************************************
  */
-
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -35,6 +38,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Class for main mastermind controller
+ */
 public class MastermindController {
     /**
      * The model of the game

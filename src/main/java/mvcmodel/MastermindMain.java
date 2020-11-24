@@ -3,7 +3,10 @@ package mvcmodel;/* *****************************************
  * Fall 2020
  * Instructor: Prof. Brian King
  *
- * Name: Lily, Anurag, Minh, Cuong
+ * Name: Cuong Nguyen
+            Lily Parker
+            Minh Anh Phan
+            Anurag Vadiya
  * Section: 8:50 AM
  * Date: 11/1/2020
  * Time: 9:37 AM

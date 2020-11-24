@@ -1,4 +1,5 @@
-package mvcmodel.model;/* *****************************************
+package mvcmodel.model;
+/* *****************************************
 * CSCI205 - Software Engineering and Design
 * Fall 2020
 * Instructor: Prof. Brian King
@@ -28,6 +29,9 @@ import objects.CodeMaker;
 import objects.PegSequence;
 import objects.Player;
 
+/**
+ * Class to handle the backend logic of the game
+ */
 public class MastermindModel {
 
     /**
@@ -40,12 +44,20 @@ public class MastermindModel {
      */
     private static Player player;
 
+    /**
+     * Which mode is the user playing
+     */
     private String mode;
 
+    /**
+     * Number of pegs the user is playing with
+     */
     private int numPegs;
 
+    /**
+     * Sound on or off
+     */
     private boolean sound;
-
 
     /**
      * Variable to represent the feedback for the user response
@@ -62,7 +74,14 @@ public class MastermindModel {
      */
     public int MAX_GUESS = 12;
 
+    /**
+     * Media object to keep click sound
+     */
     private Media buttonMedia;
+
+    /**
+     * MeldiaPlayer object for click sound
+     */
     private MediaPlayer buttonPlayer;
 
     /**
@@ -92,11 +111,17 @@ public class MastermindModel {
         lastRowChecked = -1;
     }
 
+    /**
+     * Method to start the game
+     */
     public void startGame() {
         codeMaker = new CodeMaker();
     }
 
-
+    /**
+     * Method to set the mode of the game
+     * @param mode - string mode
+     */
     public void setMode(String mode) {
         this.mode = mode;
         switch(mode) {
@@ -129,6 +154,11 @@ public class MastermindModel {
         player.setPlayerName(pName);
     }
 
+    /**
+     * Method to set the custom mode designed by the user
+     * @param numGuesses - user define dnumber of guesses
+     * @param numPegs - user defined number of pegs
+     */
     public void setCustomMode(double numGuesses, double numPegs) {
         MAX_GUESS = (int) numGuesses;
         this.numPegs = (int) numPegs;
@@ -152,10 +182,13 @@ public class MastermindModel {
         return player;
     }
 
+    /**
+     * Getter for maximum guesses allowed
+     * @return - int number of maximum guesses
+     */
     public int getMaxGuess() {
         return MAX_GUESS;
     }
-
 
     /**
      * Getter for userGuess
@@ -181,18 +214,34 @@ public class MastermindModel {
         return codeMaker;
     }
 
+    /**
+     * Getter for button click sound player
+     * @return - MediaPlayer of button click sound
+     */
     public MediaPlayer getButtonPlayer() {
         return buttonPlayer;
     }
 
+    /**
+     * Getter for number of pegs on the board
+     * @return - int number of pegs
+     */
     public int getNumPegs() {
         return numPegs;
     }
 
+    /**
+     * Getter for whether sound is on or off
+     * @return - boolean (true if sound is on, false otherwise)
+     */
     public boolean getSound() {
         return sound;
     }
 
+    /**
+     * Getter for which is the last row checked
+     * @return - int last row checked
+     */
     public int getLastRowChecked() {
         return lastRowChecked;
     }
