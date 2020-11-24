@@ -1,4 +1,4 @@
-package mvcmodel;/* *****************************************
+package mvcmodel.controllers;/* *****************************************
  * CSCI205 - Software Engineering and Design
  * Fall 2020
  * Instructor: Prof. Brian King
@@ -10,7 +10,7 @@ package mvcmodel;/* *****************************************
  *
  * Project: csci205FinalProject
  * Package: PACKAGE_NAME
- * Class: mvcmodel.MastermindController
+ * Class: mvcmodel.controllers.MastermindController
  *
  * Description: The controller in the MVC logic for the Mastermind game. Handling the logic between the model and the view.
  *
@@ -25,6 +25,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import mvcmodel.model.MastermindModel;
 import mvcmodel.view.MastermindView;
 import objects.Peg;
 import objects.PegSequence;

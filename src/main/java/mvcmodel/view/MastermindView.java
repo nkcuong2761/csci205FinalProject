@@ -35,7 +35,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import mvcmodel.MastermindModel;
+import mvcmodel.model.MastermindModel;
 import objects.Peg;
 import objects.PegSequence;
 

@@ -1,4 +1,4 @@
-package mvcmodel;/* *****************************************
+package mvcmodel.model;/* *****************************************
 * CSCI205 - Software Engineering and Design
 * Fall 2020
 * Instructor: Prof. Brian King
@@ -15,7 +15,7 @@ package mvcmodel;/* *****************************************
 *
 * Project: csci205FinalProject
 * Package: Object
-* Class: mvcmodel.MastermindModel
+* Class: mvcmodel.model.MastermindModel
 *
 * Description: Mastermind Final Project for CSCI 205
 *

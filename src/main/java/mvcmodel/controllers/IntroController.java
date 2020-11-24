@@ -17,12 +17,13 @@
  * *****************************************
  */
 
-package mvcmodel;
+package mvcmodel.controllers;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import mvcmodel.model.MastermindModel;
 import mvcmodel.view.MastermindIntroView;
 import mvcmodel.view.MastermindModeView;
 import mvcmodel.view.MastermindView;

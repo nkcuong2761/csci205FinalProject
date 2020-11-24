@@ -20,6 +20,8 @@ package mvcmodel;/* *****************************************
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import mvcmodel.controllers.IntroController;
+import mvcmodel.model.MastermindModel;
 import mvcmodel.view.MastermindIntroView;
 import mvcmodel.view.MastermindModeView;
 import mvcmodel.view.MastermindView;
