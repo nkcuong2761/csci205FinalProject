@@ -27,6 +27,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import mvcmodel.model.MastermindModel;
 import mvcmodel.view.MastermindView;
+import objects.CodeMaker;
 import objects.Peg;
 import objects.PegSequence;
 
@@ -60,8 +61,6 @@ public class MastermindController {
      */
     private boolean finished;
 
-    private boolean isSoundOnOrOff;
-
     /** count for the number of time that hint button has been clicked */
     private int countHint;
 
@@ -69,6 +68,7 @@ public class MastermindController {
      * The constructor for the controller of the game. Handling the logic between the view and the model
      * @param theModel - The main model of the game
      * @param theView - The class for theView
+     * @param modeScene - the stage scene
      */
     public MastermindController(MastermindModel theModel, Scene modeScene, MastermindView theView) {
         // Initialize the main variable
@@ -130,7 +130,6 @@ public class MastermindController {
     private void handleCheckAnswerBtn() {
         theView.getCheckBtn().setOnAction(event -> {
             click();
-            // TODO SAFE ERROR CHECKING: Nothing happens when clicking on the pegs after game finished
             if (finished) {
                 return;
             }
@@ -139,7 +138,7 @@ public class MastermindController {
 
             // do not allow user to use check button if entered guess is incomplete
             // NOTE THIS ONE DOES NOT CONSIDER THE LAST ROW SUBMISSION: ROW = 11; COLUMN = -1
-            if ((getColumn(getRow()) != 1 || (getColumn(getRow()) == 1 && getRow() == 0)) && !(getColumn(getRow()) == -1 && getRow() == (theModel.getMaxGuess()-1))){
+            if (hasUserEnteredFullGuess()){
                 theView.updateOutputString("Finish entering your guess first!");
             }
             else {
@@ -148,8 +147,8 @@ public class MastermindController {
                 rowsChecked.add(getRow() - 1);
 
                 // if you are hitting check answer after the row has already been checked
-                if ((getRow() == theModel.getLastRowChecked() + 1) && (getRow() != (theModel.getMaxGuess()-1))){
-                    theView.updateOutputString(String.format("Row %d has already been checked", theModel.getLastRowChecked() + 1));
+                if (isUserTryingToCheckGuessAgain()){
+                    theView.updateOutputString(String.format("Row %d is not entirely filled!", theModel.getLastRowChecked() + 1));
                     return;
                 }
 
@@ -159,8 +158,8 @@ public class MastermindController {
                 for (Circle circle: theView.getGuesses().get(theModel.getCurrGuess())){
                     int num = 0;
                     // Get the index based on the class name
-                    for (int i = 0; i < theView.getStyleClassString().length; i++) {
-                        if (circle.getStyleClass().toString().equals(theView.getStyleClassString()[i])) {
+                    for (int i = 0; i < MastermindView.getStyleClassString().length; i++) {
+                        if (circle.getStyleClass().toString().equals(MastermindView.getStyleClassString()[i])) {
                             num = i + 1;
                             break;
                         }
@@ -196,17 +195,39 @@ public class MastermindController {
                 System.out.println("Current guess number is: " + theModel.getCurrGuess());
             }
 
-            // Finished when all the rows are filled
-            if (theModel.getCurrGuess() == theModel.getMaxGuess() && !finished) {
-                try {
-                    theView.displayEndGame(false);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                finished = true;
-                return;
-            }
+            checkFinished();
         });
+    }
+
+    /**
+     * Logic for making sure user is not checking already submitted guess
+     * @return - true if user trying to check guess again, false otherwise
+     */
+    private boolean isUserTryingToCheckGuessAgain() {
+        return (getRow() == theModel.getLastRowChecked() + 1) && (getRow() != (theModel.getMaxGuess()-1));
+    }
+
+    /**
+     * Method to check if the user has finished entering the complete guess
+     * @return - true if complete guess entered, false otherwise
+     */
+    private boolean hasUserEnteredFullGuess() {
+        return (getColumn(getRow()) != 1 || (getColumn(getRow()) == 1 && getRow() == 0)) && !(getColumn(getRow()) == -1 && getRow() == (theModel.getMaxGuess() - 1));
+    }
+
+    /**
+     * Handle logic when game is over
+     */
+    private void checkFinished() {
+        // Finished when all the rows are filled
+        if (theModel.getCurrGuess() == theModel.getMaxGuess() && !finished) {
+            try {
+                theView.displayEndGame(false);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            finished = true;
+        }
     }
 
     /**
@@ -220,10 +241,8 @@ public class MastermindController {
         });
     }
 
-
     /**
      * Method to get the row that the user is currently on
-     *
      * @return integer of the row that the user is currently on
      */
     private int getRow() {
@@ -240,9 +259,7 @@ public class MastermindController {
     }
 
     /**
-     * Method to get the index of the column of the first open circle on the input row
-     * !REMEMBER! Each row now has 7 columns (with the line indicators on the 1st column)
-     *
+     * Method to get the index of the column of the first open circle on the input row*
      * @param row - integer of the row that is input
      * @return -index of the open circle
      */
@@ -298,43 +315,46 @@ public class MastermindController {
     private void handleDelete() {
         theView.getDeleteBtn().setOnAction(event -> {
             click();
-            // Ensure the button does nothing when the game is finished
-            if (finished) {
-                return;
+            if (!finished) {
+                // Empty output string
+                theView.updateOutputString("");
+                theView.updateOutputLabel("");
+                int rowNumber = getRow();
+                int columnNumber = getColumn(rowNumber);
+                columnNumber -= 1;
+                // Handling edge cases
+                handleEdgeCases(rowNumber, columnNumber);
+                theView.updateGuess(rowNumber, columnNumber, null);
             }
-            // Empty output string
-            theView.updateOutputString("");
-            theView.updateOutputLabel("");
-            int rowNumber = getRow();
-            int columnNumber = getColumn(rowNumber);
-            columnNumber -= 1;
-            // Handling edge cases
-            if (columnNumber <= 0) {
-                columnNumber = 1;
-                // Deleting at the beginning of the game
-                if (rowNumber == 0 && rowsChecked.size() == 0) {
-                    theView.updateOutputString("Haven't entered anything to be deleted");
-                }
-                // Deleting a submitted answer
-                else if (rowsChecked.size() != 0 && rowsChecked.get(rowsChecked.size() - 1) == rowNumber - 1 && theModel.getCurrGuess()!=theModel.getMaxGuess()-1) {
-                    theView.updateOutputString("Cannot delete an already submitted answer :P");
-                }
-                // Deleting the last peg of a filled row that has not yet been checked
-                else if (rowsChecked.size() == theModel.getCurrGuess() && theModel.getCurrGuess() != theModel.getMaxGuess()-1) {
-                    theView.updateGuess(rowNumber - 1, theModel.getNumPegs(), null);
-                    return;
-                }
-                // Deleting a filled row if it is the last row
-                else if (theModel.getCurrGuess() == theModel.getMaxGuess()-1) {
-                    theView.updateGuess(rowNumber, theModel.getNumPegs(), null);
-                    return;
-                }
-            }
-            theView.updateGuess(rowNumber, columnNumber, null);
-
         });
     }
 
+    /**
+     * Handle all possible errors that the user can create while playing the game
+     * @param rowNumber - current row the user is on
+     * @param columnNumber - current col the user is on
+     */
+    private void handleEdgeCases(int rowNumber, int columnNumber) {
+        if (columnNumber <= 0) {
+            columnNumber = 1;
+            // Deleting at the beginning of the game
+            if (rowNumber == 0 && rowsChecked.size() == 0) {
+                theView.updateOutputString("Haven't entered anything to be deleted");
+            }
+            // Deleting a submitted answer
+            else if (rowsChecked.size() != 0 && rowsChecked.get(rowsChecked.size() - 1) == rowNumber - 1 && theModel.getCurrGuess()!=theModel.getMaxGuess()-1) {
+                theView.updateOutputString("Cannot delete an already submitted answer :P");
+            }
+            // Deleting the last peg of a filled row that has not yet been checked
+            else if (rowsChecked.size() == theModel.getCurrGuess() && theModel.getCurrGuess() != theModel.getMaxGuess()-1) {
+                theView.updateGuess(rowNumber - 1, theModel.getNumPegs(), null);
+            }
+            // Deleting a filled row if it is the last row
+            else if (theModel.getCurrGuess() == theModel.getMaxGuess()-1) {
+                theView.updateGuess(rowNumber, theModel.getNumPegs(), null);
+            }
+        }
+    }
 
     /**
      * Method to handle the reset button
@@ -368,19 +388,15 @@ public class MastermindController {
                 return;
             }
             // show the rules in the output string
-            theView.updateOutputString("" +
-                    "The idea of the game is for one player (the\n" +
-                    "code-breaker) to guess the secret code chosen\n" +
-                    "by the other player (the code-maker). The code\n" +
-                    "is a sequence of 4 colored pegs chosen from six\n" +
-                    "colors available. The code-breaker makes a serie\n" +
-                    "of pattern guesses - after each guess the\n" +
-                    "code-maker gives feedback in the form of 2 numbers,\n" +
-                    "the number of pegs that are of the right color and\n" +
-                    "in the correct position, and the number of pegs that\n" +
-                    "are of the correct color but not in the correct\n" +
-                    "position - these numbers are represented by small\n" +
-                    "black and grey pegs.");
+            theView.updateOutputString("The rules of this game are simple: \n" +
+                    "  The computer has set a secret code for you. \n " +
+                    "  Now you have to guess it! \n " +
+                    "  Each code is made out of the color pegs shown at the top. \n " +
+                    "  Click on them and the delete button to create your guess. \n " +
+                    "  Once you are ready, hit submit and find out how you did! \n " +
+                    "  Number of guesses available to you are shown at the top. \n " +
+                    "  Feedback for each answer is also shown.");
+
         });
     }
 
@@ -399,7 +415,7 @@ public class MastermindController {
             }
             Random rand = new Random();
             int i = rand.nextInt(PegSequence.getSequenceLength());
-            String colorPos = theModel.getCodeMaker().getSecretCode().getSequence().get(i).getValueofPeg();
+            String colorPos = CodeMaker.getSecretCode().getSequence().get(i).getValueofPeg();
             String output = null;
             switch (colorPos) {
                 case "1":
@@ -444,7 +460,7 @@ public class MastermindController {
 	            	output = "Omg what else do you want? A spiritual cheer?";
 	            	break;
 	            case 9:
-	            	output = "Are you really that dumb?";
+	            	output = "OK BUDDY! You need to think for a bit.";
 	            	break;
 	            default:
 	            	output = "YOU ARE ON YOUR OWN NOW MY GUY/SISTER";
@@ -461,7 +477,7 @@ public class MastermindController {
         // Set the handler for the button to open/close the tray
         theView.getThemeBtn().setOnMouseClicked(event -> {
             click();
-             Boolean trayVisibility = theView.getThemeTray().isVisible();
+             boolean trayVisibility = theView.getThemeTray().isVisible();
              theView.getThemeTray().setVisible(!trayVisibility);
         });
         // Set the handler for the theme circles being clicked
@@ -477,6 +493,10 @@ public class MastermindController {
             });
         }
     }
+
+    /**
+     * Play the button click audio if soundOnOff mode is set to On
+     */
     private void click() {
         theModel.getButtonPlayer().stop();
         if (theModel.getSound()) {
