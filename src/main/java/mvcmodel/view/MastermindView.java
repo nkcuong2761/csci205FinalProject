@@ -831,6 +831,7 @@ public class MastermindView {
     public MediaPlayer getMediaPlayer() {
         return mediaPlayer;
     }
+
     /** Getter for back btn
      *
      * @return - back btn

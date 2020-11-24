@@ -1,4 +1,5 @@
-package objects;/* *****************************************
+package objects;
+/* *****************************************
 * CSCI205 - Software Engineering and Design
 * Fall 2020
 * Instructor: Prof. Brian King
@@ -22,6 +23,9 @@ package objects;/* *****************************************
 * ****************************************
 */
 
+/**
+ * Class to represent a player
+ */
 public class Player {
 
     /**
