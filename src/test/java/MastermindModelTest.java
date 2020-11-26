@@ -1,4 +1,4 @@
-import mvcmodel.MastermindModel;
+import mvcmodel.model.MastermindModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

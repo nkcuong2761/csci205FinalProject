@@ -3,7 +3,10 @@
  * Fall 2020
  * Instructor: Prof. Brian King
  *
- * Name: Lily Parker
+ * Name: Cuong Nguyen
+            Lily Parker
+            Minh Anh Phan
+            Anurag Vadiya
  * Section: 01
  * Date: 11/12/20
  * Time: 9:14 PM
@@ -12,24 +15,26 @@
  * Package: mvcmodel
  * Class: Controller
  *
- * Description:
+ * Description: Controller class for the first two scenes of the game
  *
  * *****************************************
  */
 
-package mvcmodel;
+package mvcmodel.controllers;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import mvcmodel.model.MastermindModel;
 import mvcmodel.view.MastermindIntroView;
 import mvcmodel.view.MastermindModeView;
 import mvcmodel.view.MastermindView;
-
-
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Class for the controller of the two introductory scenes
+ */
 public class IntroController {
 
     /**
@@ -58,22 +63,37 @@ public class IntroController {
     private MastermindModeView modeView;
 
 
-
+    /**
+     * Constructor for the introductory scenes controller
+     *
+     * @param modeView - MastermindModeView of the view of the mode selection
+     * @param introView - MastermindIntroView of the view of the introductory scene
+     * @param theModel - MastermindModel of the model of the game
+     * @throws InterruptedException
+     */
     public IntroController(MastermindModeView modeView, MastermindIntroView introView, MastermindModel theModel) throws InterruptedException {
         this.modeView = modeView;
         this.introView = introView;
         this.theModel = theModel;
 
-        setUpScenes();
+        // set up the
+        setUpModeScene();
+
+        // get the player's name from the first scene
         handleGetName();
+
+        // handle the buttons for the mode/difficulty level
         handleModeButtons();
-        handleSubmitBtn();
+
         // handle sound
-        handleSoundBtn(modeView);
+        handleSoundBtn();
 
     }
 
-    private void handleSoundBtn(MastermindModeView modeView) {
+    /**
+     * Method to handle the sound on/off button
+     */
+    private void handleSoundBtn() {
         AtomicInteger count = new AtomicInteger();
         modeView.getSoundOnOff().setOnAction(event -> {
             if (count.get() %2 == 0){
@@ -84,33 +104,16 @@ public class IntroController {
             else {
                 modeView.getSoundOnOff().setText("Click to turn sound on");
                 theModel.setSound(false);
-
             }
             count.getAndIncrement();
         });
     }
 
-    private void handleSubmitBtn() {
-        modeView.getSubmit().setOnAction((ActionEvent event) -> {
-            click();
-            theModel.setCustomMode(modeView.getGuessesSlider().getValue(), modeView.getPegsSlider().getValue());
-            Stage modeStage = (Stage) modeView.getEasyBtn().getScene().getWindow();
-            MastermindView theView = new MastermindView(theModel);
-            gameScene = new Scene(theView.getRoot());
-            gameScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
-            modeStage.setScene(gameScene);
-            modeStage.sizeToScene();
-            theModel.startGame();
-            MastermindController theController = new MastermindController(theModel, modeScene, theView);
-        });
-    }
-
 
     /**
-     * Method to set up the scences for transition to different modes and the main games
+     * Method to set up the scene for the mode display
      */
-    private void setUpScenes() {
-        // Scene to choose single/ multiplayer
+    private void setUpModeScene() {
         modeScene = new Scene(modeView.getRoot());
         modeScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
 
@@ -118,7 +121,7 @@ public class IntroController {
 
 
     /**
-     * Method to update the player name to display on the game
+     * Method to update the player name
      */
     private void handleGetName() {
         introView.getPlayBtn().setOnAction((ActionEvent event) -> {
@@ -144,18 +147,16 @@ public class IntroController {
 
             }
         });
-
         introView.getNameInput().setOnAction(introView.getPlayBtn().getOnAction());
     }
 
     /**
-     * Method to handle the mode transition to single player/ multiplayer option
+     * Method to handle the various mode choices and custom mode difficulty
      */
-    private void handleModeButtons() throws InterruptedException {
+    private void handleModeButtons() {
         modeView.getEasyBtn().setOnAction((ActionEvent event) -> {
             click();
             theModel.setMode(((Button)event.getSource()).getText());
-            System.out.println("- Mode has been set -");
             Stage modeStage = (Stage) modeView.getEasyBtn().getScene().getWindow();
             MastermindView theView = new MastermindView(theModel);
             gameScene = new Scene(theView.getRoot());
@@ -167,12 +168,16 @@ public class IntroController {
 
         });
 
+        // do the same for all of the other mode buttons (including submit custom mode)
         modeView.getMediumBtn().setOnAction((modeView.getEasyBtn().getOnAction()));
         modeView.getMasterBtn().setOnAction((modeView.getEasyBtn().getOnAction()));
-
+        modeView.getSubmit().setOnAction((modeView.getEasyBtn().getOnAction()));
     }
 
 
+    /**
+     * Method to handle the click sound
+     */
     private void click() {
         theModel.getButtonPlayer().stop();
         if (theModel.getSound()){

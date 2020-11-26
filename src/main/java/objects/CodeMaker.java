@@ -1,4 +1,5 @@
-package objects;/* *****************************************
+package objects;
+/* *****************************************
 * CSCI205 - Software Engineering and Design
 * Fall 2020
 * Instructor: Prof. Brian King
@@ -24,7 +25,11 @@ package objects;/* *****************************************
 
 import java.util.Random;
 
+/**
+ * Class for the code maker object
+ */
 public class CodeMaker {
+
     /**
      * Variable to represent the secret code
      */
@@ -49,7 +54,6 @@ public class CodeMaker {
      * Variable to do the comparison: char array of the user input code
      */
     private static char[] userInputChar;
-
 
     /**
      * Public constructor to generate secret code

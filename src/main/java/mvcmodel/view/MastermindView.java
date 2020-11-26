@@ -4,7 +4,10 @@ package mvcmodel.view;
  * Fall 2020
  * Instructor: Prof. Brian King
  *
- * Name: Lily, Anurag, Minh, Cuong
+ * Name: Cuong Nguyen
+            Lily Parker
+            Minh Anh Phan
+            Anurag Vadiya
  * Section: 01
  * Date: 11/5/20
  * Time: 5:51 PM
@@ -36,7 +39,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import mvcmodel.MastermindModel;
+import mvcmodel.model.MastermindModel;
 import objects.Peg;
 import objects.PegSequence;
 
@@ -833,6 +836,7 @@ public class MastermindView {
     public MediaPlayer getMediaPlayer() {
         return mediaPlayer;
     }
+
     /** Getter for back btn
      *
      * @return - back btn

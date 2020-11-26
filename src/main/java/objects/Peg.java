@@ -1,5 +1,8 @@
 package objects;
 
+/**
+ * Enum to store individual pegs that make up the code
+ */
 public enum Peg {
     // colors to represent the codes
     THE_FIRST_PEG("1"),

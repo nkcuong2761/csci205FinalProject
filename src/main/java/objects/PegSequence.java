@@ -1,9 +1,13 @@
-package objects;/* *****************************************
+package objects;
+/* *****************************************
  * CSCI205 - Software Engineering and Design
  * Fall 2020
  * Instructor: Prof. Brian King
  *
- * Name: Anurag Vaidya
+ * Name: Cuong Nguyen
+            Lily Parker
+            Minh Anh Phan
+            Anurag Vadiya
  * Section: 8:50 AM
  * Date: 11/8/2020
  * Time: 9:40 AM
@@ -20,6 +24,9 @@ package objects;/* *****************************************
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Represent peg sequences (code and response)
+ */
 public class PegSequence {
 
     /**
@@ -68,6 +75,11 @@ public class PegSequence {
         sequence.add(p);
     }
 
+    /**
+     * Override equals method
+     * @param o - object comparing to
+     * @return - true if equals, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -97,10 +109,17 @@ public class PegSequence {
         return SEQUENCE_LENGTH;
     }
 
+    /**
+     * Setter for sequence length
+     * @param length - int length of sequences
+     */
     public static void setSequenceLength(int length) {
         SEQUENCE_LENGTH = length;
     }
 
+    /**
+     * create for winning sequence
+     */
     public static void setUpWinningSequence() {
         String star = "*";
         WINNING_SEQUENCE = star.repeat(SEQUENCE_LENGTH);
