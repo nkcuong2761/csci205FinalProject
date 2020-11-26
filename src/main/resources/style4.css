@@ -36,9 +36,6 @@ PINK THEME
     -fx-font-size: 20px;
     -fx-text-fill: #604A36;
     -fx-font-smoothing-type: lcd;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.24), 3, -4, 0, 3);
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 8, -6, 0, 3);
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 14, -8, 2, 5);
 }
 
 #pane-with-shadow, #peg-pane {
@@ -46,22 +43,23 @@ PINK THEME
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
     -fx-background-position: center;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.24), 3, -4, 0, 3);
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 8, -6, 0, 3);
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 14, -8, 2, 5);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.48), 3, -4, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.32), 8, -6, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 14, -8, 2, 5);
 }
 
 .button, #blackBtn, #checkBtn {
     -fx-background-image: url("assets/woodbg.jpg");
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
+    -fx-background-size: cover;
     -fx-text-fill: #604A36;
     -fx-min-width: 340px;
     -fx-min-height: 40px;
     -fx-background-radius: 8px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.24), 3, -4, 0, 3);
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 8, -6, 0, 3);
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 14, -8, 2, 5);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.48), 3, -4, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.32), 8, -6, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 14, -8, 2, 5);
 }
 
 #themeBtn {
@@ -125,9 +123,8 @@ PINK THEME
 }
 
 #blank-circle {
-    -fx-fill: #000000;
-    -fx-opacity: 5%;
-    -fx-effect: innershadow(gaussian, rgba(6, 38, 68, 0.06), 6, -8, -3, 2);
+    -fx-fill: rgba(0, 0, 0, 0.05);
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 1), 2, -3, -6, 5);
 }
 
 #peg-circle, #black-peg, #white-peg {
@@ -147,6 +144,9 @@ PINK THEME
 .first-peg {
     -fx-fill: url("assets/wood1.png");
     -fx-background-repeat: no-repeat;
+    -fx-fill-height: 100%;
+    -fx-fill-width: 100%;
+    -fx-background-size: cover;
     -fx-blend-mode: color-burn;
 }
 
@@ -157,25 +157,25 @@ PINK THEME
 }
 
 .third-peg {
-    -fx-background-image: url("assets/wood3.jpg");
+    -fx-fill: url("assets/wood3.jpg");
     -fx-background-repeat: no-repeat;
     -fx-blend-mode: color-burn;
 }
 
 .fourth-peg {
-    -fx-background-image: url("assets/wood4.jpg");
+    -fx-fill: url("assets/wood4.jpg");
     -fx-background-repeat: no-repeat;
     -fx-blend-mode: color-burn;
 }
 
 .fifth-peg {
-    -fx-background-image: url("assets/wood5.png");
+    -fx-fill: url("assets/wood5.png");
     -fx-background-repeat: no-repeat;
     -fx-blend-mode: color-burn;
 }
 
 .sixth-peg {
-    -fx-background-image: url("assets/wood6.jpg");
+    -fx-fill: url("assets/wood6.jpg");
     -fx-background-repeat: no-repeat;
     -fx-blend-mode: color-burn;
 }
