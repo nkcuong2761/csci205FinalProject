@@ -32,6 +32,7 @@ import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -364,6 +365,9 @@ public class MastermindView {
         themeOption.add(new Circle(10, Color.WHITE));
         themeOption.add(new Circle(10, Color.web("00B4D8")));
         themeOption.add(new Circle(10, Color.web("D58097")));
+        Circle themeWood = new Circle(10, Color.web("604A36"));
+        themeWood.setFill(new ImagePattern(new Image("assets/woodbg.jpg")));
+        themeOption.add(themeWood);
         themeList.getChildren().addAll(themeOption);
         themeTray.getChildren().add(themeList);
         themeTray.setVisible(false);

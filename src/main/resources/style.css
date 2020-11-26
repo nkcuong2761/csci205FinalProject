@@ -79,7 +79,7 @@ WHITE(DEFAULT) THEME
 }
 
 #themeBtn {
-    -fx-background-color: #1D1D1D;
+    -fx-background-color: black;
     -fx-background-image: url("assets/theme.png");
     -fx-background-size: 22px 22px;
     -fx-min-width: 36px;
@@ -91,7 +91,7 @@ WHITE(DEFAULT) THEME
 }
 
 #themeTray {
-    -fx-background-color: #1D1D1D;
+    -fx-background-color: black;
     -fx-background-radius: 12px;
     -fx-padding: 3px 8px 3px 8px;
     -fx-min-height: 37px;

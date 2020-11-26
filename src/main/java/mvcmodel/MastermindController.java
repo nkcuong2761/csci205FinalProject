@@ -467,12 +467,14 @@ public class MastermindController {
         for (Circle c : theView.getThemeOption()) {
             c.setOnMouseClicked(event -> {
                 int i = 1;
-                if (c.getFill().equals(Color.web("00B4D8")))
+                if (c.getFill().equals(Color.WHITE))
+                    theView.getRoot().getStylesheets().setAll(getClass().getResource("/style.css").toExternalForm());
+                else if (c.getFill().equals(Color.web("00B4D8")))
                     theView.getRoot().getStylesheets().setAll(getClass().getResource("/style3.css").toExternalForm());
                 else if (c.getFill().equals(Color.web("D58097")))
                     theView.getRoot().getStylesheets().setAll(getClass().getResource("/style2.css").toExternalForm());
                 else
-                    theView.getRoot().getStylesheets().setAll(getClass().getResource("/style.css").toExternalForm());
+                    theView.getRoot().getStylesheets().setAll(getClass().getResource("/style4.css").toExternalForm());
             });
         }
     }

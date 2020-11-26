@@ -49,8 +49,7 @@ PINK THEME
     -fx-background-color: #CAF0F8;
     -fx-text-fill: black;
     -fx-blend-mode: soft-light;
-    -fx-min-height: 40px;
-    -fx-min-width: 340px;
+    -fx-min-size: 340px 40px;
     -fx-background-radius: 8px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.24), 3, -4, 0, 3);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 8, -6, 0, 3);
@@ -71,8 +70,7 @@ PINK THEME
     -fx-background-color: #0B3039;
     -fx-background-image: url("assets/theme.png");
     -fx-background-size: 22px 22px;
-    -fx-min-width: 36px;
-    -fx-min-height: 36px;
+    -fx-min-size: 36px 36px;
     -fx-background-radius: 12px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
@@ -88,8 +86,7 @@ PINK THEME
 
 #iconQuestion {
     -fx-background-color: transparent;
-    -fx-min-height: 27px;
-    -fx-min-width: 27px;
+    -fx-min-size: 27px 27px;
     -fx-effect: none;
     -fx-background-image: url("assets/QuestionCircle.png");
     -fx-background-size: 27px 27px;
@@ -99,8 +96,7 @@ PINK THEME
 
 #iconQuestionSmall {
     -fx-background-color: transparent;
-    -fx-min-height: 20px;
-    -fx-min-width: 20px;
+    -fx-min-size: 20px 20px;
     -fx-effect: none;
     -fx-background-image: url("assets/QuestionCircleSmall.png");
     -fx-background-size: 20px 20px;
@@ -110,8 +106,7 @@ PINK THEME
 
 #iconHolder, #indicatorHolder {
     -fx-background-color: transparent;
-    -fx-max-height: 20px;
-    -fx-max-width: 20px;
+    -fx-max-size: 20px 20px;
 }
 
 .tooltip {
