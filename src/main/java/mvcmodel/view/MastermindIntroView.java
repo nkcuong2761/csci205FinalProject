@@ -70,10 +70,12 @@ public class MastermindIntroView {
      */
     private void setUpLabels() {
         Label gameTitle = new Label("MASTERMIND");
+        gameTitle.setTextFill(Color.NAVY);
         gameTitle.setId("title");
         root.getChildren().add(gameTitle);
         root.setAlignment(Pos.CENTER);
-        Label nameLabel = new Label("Enter Your Name:");
+        Label nameLabel = new Label("Enter Your Name");
+        nameLabel.setTextFill(Color.NAVY);
         root.getChildren().add(nameLabel);
     }
 
