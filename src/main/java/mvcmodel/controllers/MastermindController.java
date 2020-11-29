@@ -396,19 +396,18 @@ public class MastermindController {
         theView.getRulesBtn().setOnMouseClicked(event -> {
             click();
             // Check for finished case and do not output anything
-            if (finished){
-                return;
-            }
-            // show the rules in the output string
-            theView.updateOutputString("The rules of this game are simple: \n" +
-                    "  The computer has set a secret code for you. \n " +
-                    "  Now you have to guess it! \n " +
-                    "  Each code is made out of the color pegs shown at the top. \n " +
-                    "  Click on them and the delete button to create your guess. \n " +
-                    "  Once you are ready, hit submit and find out how you did! \n " +
-                    "  Number of guesses available to you are shown at the top. \n " +
-                    "  Feedback for each answer is also shown.");
+            if (!finished){
+                // show the rules in the output string
+                theView.updateOutputString("The rules of this game are simple: \n" +
+                        "  The computer has set a secret code for you. \n " +
+                        "  Now you have to guess it! \n " +
+                        "  Each code is made out of the color pegs shown at the top. \n " +
+                        "  Click on them and the delete button to create your guess. \n " +
+                        "  Once you are ready, hit submit and find out how you did! \n " +
+                        "  Number of guesses available to you are shown at the top. \n " +
+                        "  Feedback for each answer is also shown.");
 
+            }
         });
     }
 
