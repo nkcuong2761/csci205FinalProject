@@ -222,6 +222,16 @@ public class MastermindView {
         // Set the first line indicator to be visible
         ImageView newTrig = getLineIndicators().get(0);
         newTrig.setVisible(true);
+
+        updateMidPane();
+
+    }
+
+    /**
+     * Update the MidPane for restart
+     */
+    private void updateMidPane() {
+        // remove things from midpane for restart
         if (midPane.getChildren().size() == 3) {
             midPane.getChildren().remove(midPane.getChildren().size() - 1);
         }
@@ -229,7 +239,6 @@ public class MastermindView {
             midPane.getChildren().remove(midPane.getChildren().size() - 1);
             midPane.getChildren().remove(midPane.getChildren().size() - 1);
         }
-
     }
 
     /**
