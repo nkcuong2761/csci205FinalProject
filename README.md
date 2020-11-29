@@ -18,7 +18,7 @@ Semester: Fall 2020
 - Anurag Vaidya (Dev)
 
 ## Project Information 
-In this final project for CSCI 205 at Bucknell University, we created a GUI-based version of the popular game Mastermind. 
+In this final project for CSCI 205 at Bucknell University, we created a GUI-based version of the popular game Mastermind, a puzzle. 
 In the original version of this game, the codeMaker sets a secret code consisting of four colored pegs. The codeBreaker has
 to guess the code in 12 turns, with the codeMaker giving feedback on the answer after each try. 
 
@@ -27,6 +27,9 @@ the number of pegs in the secret code increase whereas the available number of g
 mode in which the user can select the number of pegs in the secret code and number of guesses. Additionally, we created a 
 sound on/off mode for the user to choose from. Finally, we integrated GIFs to animate the wining/ losing messages and 
 added three themes: original, zen, pink, and wooden. 
+
+Since the team was made by combining two sub-teams that originally worked on a console-based version of the Mastermind game, the first task was to combine the design choices and decide on a final class design of the game. The first sprint was used for this purpose. The second and third sprints were used to create a basic functioning prototype of the game. The fourth sprint was used to create additional features, like the sound, themes, and different modes. The week of Thanksgiving break was used to fix the bugs in the program by allowing our friends and family to play the game. We also received feedback from them on how we can improve our design, which is important for any software development project. We used the last couple of days to fix the bugs, refactor our code, and create our final UML diagrams.
+
 
 ## Package Structure 
 src/main/java: Holds all of the files used to run the game 
