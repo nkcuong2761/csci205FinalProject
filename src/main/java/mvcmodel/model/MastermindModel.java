@@ -106,7 +106,6 @@ public class MastermindModel {
      */
     public void restartGame(){
         currGuess = 0;
-        codeMaker.generateCode();
         userGuess = null;
         lastRowChecked = -1;
     }

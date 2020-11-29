@@ -154,7 +154,7 @@ public class MastermindController {
 
                 // if you are hitting check answer after the row has already been checked
                 if (isUserTryingToCheckGuessAgain()){
-                    theView.updateOutputString(String.format("Row %d is not entirely filled!", theModel.getLastRowChecked() + 1));
+                    theView.updateOutputString(String.format("Row %d is not entirely filled!", theModel.getLastRowChecked() + 2));
                     return;
                 }
 
@@ -218,7 +218,7 @@ public class MastermindController {
      * @return - true if complete guess entered, false otherwise
      */
     private boolean hasUserEnteredFullGuess() {
-        return (getColumn(getRow()) != 1 || (getColumn(getRow()) == 1 && getRow() == 0)) && !(getColumn(getRow()) == -1 && getRow() == (theModel.getMaxGuess() - 1));
+        return (getColumn(getRow()) != 1 || (getColumn(getRow()) == 1 && getRow() == 0)) && !(getColumn(getRow()) == -1 && getRow() == (theModel.getMaxGuess()-1));
     }
 
     /**
@@ -358,10 +358,12 @@ public class MastermindController {
             // Deleting the last peg of a filled row that has not yet been checked
             else if (rowsChecked.size() == theModel.getCurrGuess() && theModel.getCurrGuess() != theModel.getMaxGuess()-1) {
                 theView.updateGuess(rowNumber - 1, theModel.getNumPegs(), null);
+                return 0;
             }
             // Deleting a filled row if it is the last row
             else if (theModel.getCurrGuess() == theModel.getMaxGuess()-1) {
                 theView.updateGuess(rowNumber, theModel.getNumPegs(), null);
+                return 0;
             }
         }
         return 1;
