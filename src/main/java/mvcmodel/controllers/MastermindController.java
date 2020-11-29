@@ -140,7 +140,7 @@ public class MastermindController {
                 return;
             }
             // Empty the current string there
-            theView.updateOutputString("");
+//            theView.updateOutputString("");
 
             // do not allow user to use check button if entered guess is incomplete
             // NOTE THIS ONE DOES NOT CONSIDER THE LAST ROW SUBMISSION: ROW = 11; COLUMN = -1
@@ -326,11 +326,11 @@ public class MastermindController {
                 theView.updateOutputString("");
                 theView.updateOutputLabel("");
                 int rowNumber = getRow();
-                int columnNumber = getColumn(rowNumber);
-                columnNumber -= 1;
+                int columnNumber = getColumn(rowNumber) - 1;
                 // Handling edge cases
-                handleEdgeCases(rowNumber, columnNumber);
-                theView.updateGuess(rowNumber, columnNumber, null);
+                int e = handleEdgeCases(rowNumber, columnNumber);
+                if (e == 1)// Do not delete if there's nothing to be deleted (if do will create ClassCastException)
+                    theView.updateGuess(rowNumber, columnNumber, null);
             }
         });
     }
@@ -339,17 +339,21 @@ public class MastermindController {
      * Handle all possible errors that the user can create while playing the game
      * @param rowNumber - current row the user is on
      * @param columnNumber - current col the user is on
+     *
+     * @return int - the indicator which tells the program if a delete action can be performed
      */
-    private void handleEdgeCases(int rowNumber, int columnNumber) {
+    private int handleEdgeCases(int rowNumber, int columnNumber) {
         if (columnNumber <= 0) {
-            columnNumber = 1;
+//            columnNumber = 1;
             // Deleting at the beginning of the game
             if (rowNumber == 0 && rowsChecked.size() == 0) {
                 theView.updateOutputString("Haven't entered anything to be deleted");
+                return 0;
             }
             // Deleting a submitted answer
             else if (rowsChecked.size() != 0 && rowsChecked.get(rowsChecked.size() - 1) == rowNumber - 1 && theModel.getCurrGuess()!=theModel.getMaxGuess()-1) {
                 theView.updateOutputString("Cannot delete an already submitted answer :P");
+                return 0;
             }
             // Deleting the last peg of a filled row that has not yet been checked
             else if (rowsChecked.size() == theModel.getCurrGuess() && theModel.getCurrGuess() != theModel.getMaxGuess()-1) {
@@ -360,6 +364,7 @@ public class MastermindController {
                 theView.updateGuess(rowNumber, theModel.getNumPegs(), null);
             }
         }
+        return 1;
     }
 
     /**
@@ -368,6 +373,7 @@ public class MastermindController {
     private void handleResetButton() {
         theView.getResetBtn().setOnMouseClicked(event -> {
             click();
+            System.out.println("Restarted the game");
             // Empty the current string there
             theView.updateOutputString("");
             theView.updateOutputLabel("");
@@ -407,20 +413,18 @@ public class MastermindController {
     }
 
     /**
-     * Method to handle the hint button
+     * Method to handle the hint button: Tell the user about one peg that is in the secret code
      */
     private void handleHintButton() {
-        // TODO update this for the changing amount of options for colors of pegs
-
         theView.getHintBtn().setOnMouseClicked(event -> {
             click();
             countHint += 1;
-            // tell the user about one peg that is in the secret code
-            if (finished){
+            if (finished) {
                 return;
             }
             Random rand = new Random();
             int i = rand.nextInt(PegSequence.getSequenceLength());
+            // Get the position of the one peg that is in the secret code
             String colorPos = CodeMaker.getSecretCode().getSequence().get(i).getValueofPeg();
             String output = null;
             switch (colorPos) {

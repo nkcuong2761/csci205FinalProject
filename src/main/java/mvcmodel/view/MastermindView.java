@@ -530,7 +530,6 @@ public class MastermindView {
      */
     public void updateOutputLabel(String string) {
         outputLabel.setText(string);
-        outputLabel.setTextFill(Color.web("EF476F"));
     }
 
     /**
@@ -844,6 +843,5 @@ public class MastermindView {
     public Button getBackBtn() {
         return backBtn;
     }
-
 
 }

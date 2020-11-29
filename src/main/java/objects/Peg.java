@@ -4,7 +4,7 @@ package objects;
  * Enum to store individual pegs that make up the code
  */
 public enum Peg {
-    // colors to represent the codes
+    // values to represent the pegs
     THE_FIRST_PEG("1"),
     THE_SECOND_PEG("2"),
     THE_THIRD_PEG("3"),
