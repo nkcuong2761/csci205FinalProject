@@ -144,7 +144,7 @@ public class MastermindController {
 
             // do not allow user to use check button if entered guess is incomplete
             // NOTE THIS ONE DOES NOT CONSIDER THE LAST ROW SUBMISSION: ROW = 11; COLUMN = -1
-            if (hasUserEnteredFullGuess()){
+            if (hasUserEnteredFullGuess() && (theModel.getLastRowChecked() + 2 != theModel.getMaxGuess())){
                 theView.updateOutputString("Finish entering your guess first!");
             }
             else {
@@ -218,7 +218,7 @@ public class MastermindController {
      * @return - true if complete guess entered, false otherwise
      */
     private boolean hasUserEnteredFullGuess() {
-        return (getColumn(getRow()) != 1 || (getColumn(getRow()) == 1 && getRow() == 0)) && !(getColumn(getRow()) == -1 && getRow() == (theModel.getMaxGuess()-1));
+        return (getColumn(getRow()) != 1 || (getColumn(getRow()) == 1 && getRow() == 0)) && !(getColumn(getRow()) == -1 && getRow() == (theModel.getMaxGuess()));
     }
 
     /**
