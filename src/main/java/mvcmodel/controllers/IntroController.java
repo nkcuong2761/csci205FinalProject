@@ -85,6 +85,9 @@ public class IntroController {
         // handle the buttons for the mode/difficulty level
         handleModeButtons();
 
+        // handle the button for the custom difficulty level
+        handleSubmitButton();
+
         // handle sound
         handleSoundBtn();
 
@@ -165,13 +168,30 @@ public class IntroController {
             modeStage.sizeToScene();
             theModel.startGame();
             MastermindController theController = new MastermindController(theModel, modeScene, theView);
-
         });
 
-        // do the same for all of the other mode buttons (including submit custom mode)
+        // do the same for all of the other mode buttons
         modeView.getMediumBtn().setOnAction((modeView.getEasyBtn().getOnAction()));
         modeView.getMasterBtn().setOnAction((modeView.getEasyBtn().getOnAction()));
-        modeView.getSubmit().setOnAction((modeView.getEasyBtn().getOnAction()));
+    }
+
+    /**
+     * Method to handle the custom mode difficulty
+     */
+    private void handleSubmitButton() {
+        modeView.getSubmit().setOnAction((ActionEvent event) -> {
+            click();
+            theModel.setCustomMode(modeView.getGuessesSlider().getValue(), modeView.getPegsSlider().getValue());
+            Stage modeStage = (Stage) modeView.getEasyBtn().getScene().getWindow();
+            MastermindView theView = new MastermindView(theModel);
+            gameScene = new Scene(theView.getRoot());
+            gameScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+            modeStage.setScene(gameScene);
+            modeStage.sizeToScene();
+            theModel.startGame();
+            MastermindController theController = new MastermindController(theModel, modeScene, theView);
+        });
+
     }
 
 
