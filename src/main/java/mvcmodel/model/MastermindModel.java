@@ -102,7 +102,7 @@ public class MastermindModel {
     }
 
     /**
-     * Method to restart the game and
+     * Method to restart the game
      */
     public void restartGame(){
         currGuess = 0;
