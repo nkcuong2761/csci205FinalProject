@@ -344,7 +344,7 @@ public class MastermindController {
      */
     private int handleEdgeCases(int rowNumber, int columnNumber) {
         if (columnNumber <= 0) {
-//            columnNumber = 1;
+            columnNumber = 1;
             // Deleting at the beginning of the game
             if (rowNumber == 0 && rowsChecked.size() == 0) {
                 theView.updateOutputString("Haven't entered anything to be deleted");
