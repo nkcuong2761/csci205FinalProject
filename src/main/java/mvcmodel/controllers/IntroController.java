@@ -201,7 +201,7 @@ public class IntroController {
     private void click() {
         theModel.getButtonPlayer().stop();
         if (theModel.getSound()){
-            System.out.println("Going to play sound");
+            //(DEBUG) System.out.println("Going to play sound");
             theModel.getButtonPlayer().play();
         }
     }

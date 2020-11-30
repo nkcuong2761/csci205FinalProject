@@ -198,7 +198,7 @@ public class MastermindController {
                     theView.updateRow(getRow() - 1, comparisonResult);
                 }
                 theView.updateTurnLeftString();
-                System.out.println("Current guess number is: " + theModel.getCurrGuess());
+                //(DEBUG) System.out.println("Current guess number is: " + theModel.getCurrGuess());
             }
 
             checkFinished();
@@ -513,7 +513,7 @@ public class MastermindController {
     private void click() {
         theModel.getButtonPlayer().stop();
         if (theModel.getSound()) {
-            System.out.println("Going to play sound");
+            //(DEBUG) System.out.println("Going to play sound");
             theModel.getButtonPlayer().play();
         }
     }
