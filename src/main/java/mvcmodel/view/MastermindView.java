@@ -183,9 +183,6 @@ public class MastermindView {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
         }
-        if (midPane.getChildren().size() != 0) {
-            midPane.getChildren().remove(midPane.getChildren().size() - 1);
-        }
 
     }
 
@@ -225,8 +222,21 @@ public class MastermindView {
         // Set the first line indicator to be visible
         ImageView newTrig = getLineIndicators().get(0);
         newTrig.setVisible(true);
-        // Only remove when there are children
-        if (midPane.getChildren().size() != 0) {
+
+        updateMidPane();
+
+    }
+
+    /**
+     * Update the MidPane for restart
+     */
+    private void updateMidPane() {
+        // remove things from midpane for restart
+        if (midPane.getChildren().size() == 3) {
+            midPane.getChildren().remove(midPane.getChildren().size() - 1);
+        }
+        else if (midPane.getChildren().size() == 4){
+            midPane.getChildren().remove(midPane.getChildren().size() - 1);
             midPane.getChildren().remove(midPane.getChildren().size() - 1);
         }
     }
